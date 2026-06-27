@@ -6,3 +6,9 @@ export type ApiError = {
     details: unknown;
   };
 };
+
+export type ApiCollection<T> = {
+  type: string;
+  count: number;
+  items: T[];
+};
