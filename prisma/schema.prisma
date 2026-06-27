@@ -11,3 +11,83 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Color {
+  id          Int           @id @default(autoincrement())
+  code        String
+  themeColors Theme_Color[]
+}
+
+model Theme {
+  id          Int           @id @default(autoincrement())
+  name        String
+  themeColors Theme_Color[]
+  users       User[]
+}
+
+model Theme_Color {
+  theme_id Int
+  color_id Int
+
+  theme Theme @relation(fields: [theme_id], references: [id])
+  color Color @relation(fields: [color_id], references: [id])
+
+  @@id([theme_id, color_id])
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  theme_id Int
+
+  theme Theme @relation(fields: [theme_id], references: [id])
+}
+
+model Plate {
+  id     Int    @id @default(autoincrement())
+  number Int
+  food   Food[]
+}
+
+model Preptime {
+  id   Int    @id @default(autoincrement())
+  time String
+  food Food[]
+}
+
+model Ingredient {
+  id              Int               @id @default(autoincrement())
+  name            String
+  foodIngredients Food_Ingredient[]
+}
+
+model Food {
+  id          Int    @id @default(autoincrement())
+  name        String
+  image       String
+  plate_id    Int
+  preptime_id Int
+
+  plate           Plate             @relation(fields: [plate_id], references: [id])
+  preptime        Preptime          @relation(fields: [preptime_id], references: [id])
+  foodIngredients Food_Ingredient[]
+  calendars       Calendar[]
+}
+
+model Food_Ingredient {
+  food_id       Int
+  ingredient_id Int
+
+  food       Food       @relation(fields: [food_id], references: [id])
+  ingredient Ingredient @relation(fields: [ingredient_id], references: [id])
+
+  @@id([food_id, ingredient_id])
+}
+
+model Calendar {
+  id      Int      @id @default(autoincrement())
+  date    DateTime
+  food_id Int
+
+  food Food @relation(fields: [food_id], references: [id])
+}
