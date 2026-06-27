@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const id = Number(getRouterParam(event, "id"));
 
     // get color from database by id
-    const color = await prisma.color.findUnique({
+    const color: Color | null = await prisma.color.findUnique({
       where: {
         id: id,
       },

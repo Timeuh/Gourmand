@@ -2,7 +2,7 @@
 export default defineEventHandler(async () => {
   try {
     // get colors from database
-    const colors = await prisma.color.findMany();
+    const colors: Color[] = await prisma.color.findMany();
 
     // return the colors collection
     return sendCollectionResponse<Color>(colors);

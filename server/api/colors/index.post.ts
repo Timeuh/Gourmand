@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     const validatedBody = await colorCreateValidator.validate(body);
 
     // create a new color in the database
-    const newColor = await prisma.color.create({
+    const newColor: Color = await prisma.color.create({
       data: {
         code: validatedBody.code,
       },
