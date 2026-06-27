@@ -14,13 +14,13 @@ datasource db {
 
 model Color {
   id          Int           @id @default(autoincrement())
-  code        String
+  code        String        @unique
   themeColors Theme_Color[]
 }
 
 model Theme {
   id          Int           @id @default(autoincrement())
-  name        String
+  name        String        @unique
   themeColors Theme_Color[]
   users       User[]
 }
@@ -45,25 +45,25 @@ model User {
 
 model Plate {
   id     Int    @id @default(autoincrement())
-  number Int
+  number Int    @unique
   food   Food[]
 }
 
 model Preptime {
   id   Int    @id @default(autoincrement())
-  time String
+  time String @unique
   food Food[]
 }
 
 model Ingredient {
   id              Int               @id @default(autoincrement())
-  name            String
+  name            String            @unique
   foodIngredients Food_Ingredient[]
 }
 
 model Food {
   id          Int    @id @default(autoincrement())
-  name        String
+  name        String @unique
   image       String
   plate_id    Int
   preptime_id Int
