@@ -23,4 +23,6 @@ logs
 .env.*
 !.env.example
 
+# Prisma
 /app/generated/prisma
+/prisma/migrations
