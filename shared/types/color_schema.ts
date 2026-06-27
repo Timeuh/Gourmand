@@ -17,10 +17,6 @@ const COLOR_UPDATE_SCHEMA = vine.object({
   code: vine.string().regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/),
 });
 
-const COLOR_DELETE_SCHEMA = vine.object({
-  id: vine.number(),
-});
-
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
@@ -30,8 +26,6 @@ export type ColorCreation = Infer<typeof COLOR_CREATE_SCHEMA>;
 
 export type ColorUpdate = Infer<typeof COLOR_UPDATE_SCHEMA>;
 
-export type ColorDeletion = Infer<typeof COLOR_DELETE_SCHEMA>;
-
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
@@ -40,5 +34,3 @@ export const colorValidator = vine.create(COLOR_SCHEMA);
 export const colorCreateValidator = vine.create(COLOR_CREATE_SCHEMA);
 
 export const colorUpdateValidator = vine.create(COLOR_UPDATE_SCHEMA);
-
-export const colorDeleteValidator = vine.create(COLOR_DELETE_SCHEMA);
