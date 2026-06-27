@@ -4,6 +4,7 @@ import { Prisma } from "../../app/generated/prisma/client";
 interface PrismaDriverErrorMeta {
   modelName?: string;
   field_name?: string;
+  constraint?: string;
   driverAdapterError?: {
     cause?: {
       constraint?: {
@@ -38,7 +39,7 @@ const sendErrorResponse = (error: unknown): Response => {
       apiError.error.details = {
         field:
           meta.driverAdapterError?.cause?.constraint?.fields?.[0] || "unknown",
-        message: `A record for the ${error.meta!.modelName} table with this value already exists`,
+        message: `A record for the ${meta.modelName} table with this value already exists`,
       };
     }
 
@@ -50,7 +51,7 @@ const sendErrorResponse = (error: unknown): Response => {
         field: meta.field_name,
         message: `Can not create a record for the ${
           meta.modelName
-        } table because the record referenced by the foreign key ${error.meta!.constraint} does not exist`,
+        } table because the record referenced by the foreign key ${meta.constraint} does not exist`,
       };
     }
 
