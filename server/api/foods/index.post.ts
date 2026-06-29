@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
         image: validatedBody.image,
         plate_id: validatedBody.plate_id,
         preptime_id: validatedBody.preptime_id,
+        user_id: validatedBody.user_id,
       },
     });
 

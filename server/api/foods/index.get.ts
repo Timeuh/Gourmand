@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
         ? {
             plate: true,
             preptime: true,
+            user: true,
             foodIngredients: {
               include: {
                 food_id: false,
