@@ -2,7 +2,7 @@
 export default defineEventHandler(async (event) => {
   try {
     // get id from the request parameters
-    const id = Number(getRouterParam(event, "id"));
+    const themeId = Number(getRouterParam(event, "id"));
 
     // read the request body and validate its data
     const body = await readBody<ThemeUpdate>(event);
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     // update theme data
     const updatedTheme: Theme = await prisma.theme.update({
       where: {
-        id: id,
+        id: themeId,
       },
       data: validatedBody,
     });

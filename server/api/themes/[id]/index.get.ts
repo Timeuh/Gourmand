@@ -1,32 +1,32 @@
-// get color by id endpoint
+// get theme by id endpoint
 export default defineEventHandler(async (event) => {
   try {
     // get id from the request parameters
-    const id = Number(getRouterParam(event, "id"));
+    const themeId = Number(getRouterParam(event, "id"));
 
-    // get color from database by id
-    const color: Color | null = await prisma.color.findUnique({
+    // get theme from database by id
+    const theme: Theme | null = await prisma.theme.findUnique({
       where: {
-        id: id,
+        id: themeId,
       },
     });
 
-    // if color is not found, return an error
-    if (!color) {
+    // if theme is not found, return an error
+    if (!theme) {
       return sendJsonResponse<ApiError>(
         {
           error: {
             code: HTTP_NOT_FOUND,
             message: MSG_NOT_FOUND,
-            details: `Color with id ${id} not found`,
+            details: `Theme with id ${themeId} not found`,
           },
         },
         HTTP_NOT_FOUND,
       );
     }
 
-    // return the color
-    return sendJsonResponse<Color>(color, HTTP_OK);
+    // return the theme
+    return sendJsonResponse<Theme>(theme, HTTP_OK);
   } catch (error) {
     // handle any errors that occur during the process
     return sendErrorResponse(error);

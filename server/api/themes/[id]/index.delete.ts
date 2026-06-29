@@ -2,12 +2,12 @@
 export default defineEventHandler(async (event) => {
   try {
     // get id from the request parameters
-    const id = Number(getRouterParam(event, "id"));
+    const themeId = Number(getRouterParam(event, "id"));
 
     // delete theme
     const deletedTheme: Theme = await prisma.theme.delete({
       where: {
-        id: id,
+        id: themeId,
       },
     });
 

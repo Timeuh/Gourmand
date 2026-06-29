@@ -2,7 +2,7 @@
 export default defineEventHandler(async (event) => {
   try {
     // get id from the request parameters
-    const id = Number(getRouterParam(event, "id"));
+    const colorId = Number(getRouterParam(event, "id"));
 
     // read the request body and validate its data
     const body = await readBody<ColorUpdate>(event);
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     // update color data
     const updatedColor: Color = await prisma.color.update({
       where: {
-        id: id,
+        id: colorId,
       },
       data: validatedBody,
     });
