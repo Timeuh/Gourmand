@@ -31,6 +31,32 @@ const FOOD_INGREDIENT_LINK_SCHEMA = vine.object({
   ingredient_id: vine.number(),
 });
 
+const FULL_FOOD_SCHEMA = vine.object({
+  id: vine.number(),
+  name: vine.string(),
+  image: vine.string(),
+  plate_id: vine.number(),
+  preptime_id: vine.number(),
+  plate: vine.object({
+    id: vine.number(),
+    number: vine.number(),
+  }),
+  preptime: vine.object({
+    id: vine.number(),
+    time: vine
+      .string()
+      .regex(/^(?:[1-9][0-9]?h(?:[0-5][0-9])?|(?:[0-9]|[1-9][0-9])min)$/),
+  }),
+  foodIngredients: vine.array(
+    vine.object({
+      ingredient: vine.object({
+        id: vine.number(),
+        name: vine.string(),
+      }),
+    }),
+  ),
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
@@ -41,6 +67,8 @@ export type FoodCreation = Infer<typeof FOOD_CREATE_SCHEMA>;
 export type FoodUpdate = Infer<typeof FOOD_UPDATE_SCHEMA>;
 
 export type FoodIngredientLink = Infer<typeof FOOD_INGREDIENT_LINK_SCHEMA>;
+
+export type FullFood = Infer<typeof FULL_FOOD_SCHEMA>;
 
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
@@ -54,3 +82,5 @@ export const foodUpdateValidator = vine.create(FOOD_UPDATE_SCHEMA);
 export const foodIngredientLinkValidator = vine.create(
   FOOD_INGREDIENT_LINK_SCHEMA,
 );
+
+export const fullFoodValidator = vine.create(FULL_FOOD_SCHEMA);
