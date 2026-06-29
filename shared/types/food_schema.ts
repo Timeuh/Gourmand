@@ -26,6 +26,11 @@ const FOOD_UPDATE_SCHEMA = vine.object({
   preptime_id: vine.number(),
 });
 
+const FOOD_INGREDIENT_LINK_SCHEMA = vine.object({
+  food_id: vine.number(),
+  ingredient_id: vine.number(),
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
@@ -35,6 +40,8 @@ export type FoodCreation = Infer<typeof FOOD_CREATE_SCHEMA>;
 
 export type FoodUpdate = Infer<typeof FOOD_UPDATE_SCHEMA>;
 
+export type FoodIngredientLink = Infer<typeof FOOD_INGREDIENT_LINK_SCHEMA>;
+
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
@@ -43,3 +50,7 @@ export const foodValidator = vine.create(FOOD_SCHEMA);
 export const foodCreateValidator = vine.create(FOOD_CREATE_SCHEMA);
 
 export const foodUpdateValidator = vine.create(FOOD_UPDATE_SCHEMA);
+
+export const foodIngredientLinkValidator = vine.create(
+  FOOD_INGREDIENT_LINK_SCHEMA,
+);
