@@ -17,6 +17,11 @@ const THEME_UPDATE_SCHEMA = vine.object({
   name: vine.string(),
 });
 
+const THEME_COLOR_LINK_SCHEMA = vine.object({
+  theme_id: vine.number(),
+  color_id: vine.number(),
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
@@ -26,6 +31,8 @@ export type ThemeCreation = Infer<typeof THEME_CREATE_SCHEMA>;
 
 export type ThemeUpdate = Infer<typeof THEME_UPDATE_SCHEMA>;
 
+export type ThemeColorLink = Infer<typeof THEME_COLOR_LINK_SCHEMA>;
+
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
@@ -34,3 +41,5 @@ export const themeValidator = vine.create(THEME_SCHEMA);
 export const themeCreateValidator = vine.create(THEME_CREATE_SCHEMA);
 
 export const themeUpdateValidator = vine.create(THEME_UPDATE_SCHEMA);
+
+export const themeColorLinkValidator = vine.create(THEME_COLOR_LINK_SCHEMA);
