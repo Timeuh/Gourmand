@@ -40,7 +40,8 @@ model User {
   email    String @unique
   theme_id Int
 
-  theme Theme @relation(fields: [theme_id], references: [id])
+  theme Theme  @relation(fields: [theme_id], references: [id])
+  food  Food[]
 }
 
 model Plate {
@@ -67,9 +68,11 @@ model Food {
   image       String
   plate_id    Int
   preptime_id Int
+  user_id     Int
 
   plate           Plate             @relation(fields: [plate_id], references: [id])
   preptime        Preptime          @relation(fields: [preptime_id], references: [id])
+  user            User              @relation(fields: [user_id], references: [id])
   foodIngredients Food_Ingredient[]
   calendars       Calendar[]
 }
