@@ -5,7 +5,11 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/api/themes/1
+  url: http://localhost:3000/api/themes/1?fullContent=true
+  params:
+    - name: fullContent
+      value: "true"
+      type: query
   auth: inherit
 
 settings:
