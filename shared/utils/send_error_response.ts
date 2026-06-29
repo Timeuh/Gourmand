@@ -3,12 +3,11 @@ import { Prisma } from "../../app/generated/prisma/client";
 // create interface for type inference of prisma error meta field
 interface PrismaDriverErrorMeta {
   modelName?: string;
-  field_name?: string;
-  constraint?: string;
   driverAdapterError?: {
     cause?: {
       constraint?: {
         fields?: string[];
+        index?: string;
       };
     };
   };
@@ -48,10 +47,10 @@ const sendErrorResponse = (error: unknown): Response => {
       apiError.error.message = MSG_FOREIGN_KEY_ERROR;
       apiError.error.details = {
         table: meta.modelName,
-        field: meta.field_name,
+        field: meta.driverAdapterError?.cause?.constraint?.index,
         message: `Can not create a record for the ${
           meta.modelName
-        } table because the record referenced by the foreign key ${meta.constraint} does not exist`,
+        } table because the record referenced by the foreign key ${meta.driverAdapterError?.cause?.constraint?.index} does not exist`,
       };
     }
 
