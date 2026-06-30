@@ -64,7 +64,7 @@ model Ingredient {
 
 model Food {
   id          Int    @id @default(autoincrement())
-  name        String @unique
+  name        String
   image       String
   plate_id    Int
   preptime_id Int
@@ -75,6 +75,8 @@ model Food {
   user            User              @relation(fields: [user_id], references: [id])
   foodIngredients Food_Ingredient[]
   calendars       Calendar[]
+
+  @@unique([name, user_id])
 }
 
 model Food_Ingredient {
