@@ -12,3 +12,8 @@ export type ApiCollection<T> = {
   count: number;
   items: T[];
 };
+
+export type ImageUploadResponse = {
+  filename: string;
+  url: string;
+};
