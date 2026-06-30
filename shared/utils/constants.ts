@@ -46,3 +46,6 @@ export const MSG_INVALID_IMAGE = "Invalid image name";
 // meal limit exceeded
 export const MSG_MEAL_LIMIT_EXCEEDED =
   "Meal limit exceeded for this user today";
+
+// bad request
+export const MSG_BAD_REQUEST = "Bad request";
