@@ -3,9 +3,16 @@ export default defineEventHandler(async (event) => {
   try {
     // get fullContent param from the request parameters
     const fullContent = getQuery(event).fullContent === "true";
+    // get calendars from a specific user
+    const userId = Number(getQuery(event).userId);
 
     // get foods from database
     const foods: Food[] | FullFood[] = await prisma.food.findMany({
+      where: userId
+        ? {
+            user_id: userId,
+          }
+        : undefined,
       include: fullContent
         ? {
             plate: true,
