@@ -9,11 +9,13 @@ export default defineEventHandler(async (event) => {
     // get calendars from database
     const calendars: Calendar[] | FullCalendar[] =
       await prisma.calendar.findMany({
-        where: {
-          food: {
-            user_id: userId,
-          },
-        },
+        where: userId
+          ? {
+              food: {
+                user_id: userId,
+              },
+            }
+          : undefined,
         include: fullContent
           ? {
               food: true,
