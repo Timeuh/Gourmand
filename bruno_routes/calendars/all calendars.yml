@@ -5,10 +5,13 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/api/calendars?fullContent=true
+  url: http://localhost:3000/api/calendars?fullContent=true&userId=1
   params:
     - name: fullContent
       value: "true"
+      type: query
+    - name: userId
+      value: "1"
       type: query
   auth: inherit
 
