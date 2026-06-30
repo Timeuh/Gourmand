@@ -1,15 +1,22 @@
 // get calendar by id endpoint
 export default defineEventHandler(async (event) => {
   try {
-    // get id from the request parameters
+    // get id and fullContent param from the request parameters
     const calendarId = Number(getRouterParam(event, "id"));
+    const fullContent = getQuery(event).fullContent === "true";
 
     // get calendar from database by id
-    const calendar: Calendar | null = await prisma.calendar.findUnique({
-      where: {
-        id: calendarId,
-      },
-    });
+    const calendar: Calendar | FullCalendar | null =
+      await prisma.calendar.findUnique({
+        where: {
+          id: calendarId,
+        },
+        include: fullContent
+          ? {
+              food: true,
+            }
+          : undefined,
+      });
 
     // if calendar is not found, return an error
     if (!calendar) {
@@ -26,7 +33,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // return the calendar
-    return sendJsonResponse<Calendar>(calendar, HTTP_OK);
+    return sendJsonResponse<Calendar | FullCalendar>(calendar, HTTP_OK);
   } catch (error) {
     // handle any errors that occur during the process
     return sendErrorResponse(error);
