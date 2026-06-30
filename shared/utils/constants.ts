@@ -42,3 +42,7 @@ export const MSG_FOREIGN_KEY_ERROR = "Foreign key error";
 
 // invalid image name
 export const MSG_INVALID_IMAGE = "Invalid image name";
+
+// meal limit exceeded
+export const MSG_MEAL_LIMIT_EXCEEDED =
+  "Meal limit exceeded for this user today";
