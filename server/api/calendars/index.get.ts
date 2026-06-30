@@ -3,10 +3,17 @@ export default defineEventHandler(async (event) => {
   try {
     // get fullContent param from the request parameters
     const fullContent = getQuery(event).fullContent === "true";
+    // get calendars from a specific user
+    const userId = Number(getQuery(event).userId);
 
     // get calendars from database
     const calendars: Calendar[] | FullCalendar[] =
       await prisma.calendar.findMany({
+        where: {
+          food: {
+            user_id: userId,
+          },
+        },
         include: fullContent
           ? {
               food: true,
