@@ -90,7 +90,13 @@ export default defineEventHandler(async (event) => {
     const url = `/uploads/foods/${filename}`;
 
     // return the public url of the uploaded image
-    return sendJsonResponse(url, HTTP_CREATED);
+    return sendJsonResponse<ImageUploadResponse>(
+      {
+        filename,
+        url,
+      },
+      HTTP_CREATED,
+    );
   } catch (error) {
     // handle any errors that occur during the process
     return sendErrorResponse(error);
