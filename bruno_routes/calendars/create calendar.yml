@@ -1,0 +1,23 @@
+info:
+  name: create calendar
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/api/calendars
+  body:
+    type: json
+    data: |-
+      {
+        "date": "2026-06-28T12:00:00Z",
+        "food_id": 1,
+        "user_id": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

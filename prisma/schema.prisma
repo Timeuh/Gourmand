@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Color {
+  id          Int           @id @default(autoincrement())
+  code        String        @unique
+  themeColors Theme_Color[]
+}
+
+model Theme {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  themeColors Theme_Color[]
+  users       User[]
+}
+
+model Theme_Color {
+  theme_id Int
+  color_id Int
+
+  theme Theme @relation(fields: [theme_id], references: [id])
+  color Color @relation(fields: [color_id], references: [id])
+
+  @@id([theme_id, color_id])
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  theme_id Int
+
+  theme Theme  @relation(fields: [theme_id], references: [id])
+  food  Food[]
+}
+
+model Plate {
+  id     Int    @id @default(autoincrement())
+  number Int    @unique
+  food   Food[]
+}
+
+model Preptime {
+  id   Int    @id @default(autoincrement())
+  time String @unique
+  food Food[]
+}
+
+model Ingredient {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  foodIngredients Food_Ingredient[]
+}
+
+model Food {
+  id          Int    @id @default(autoincrement())
+  name        String
+  image       String
+  plate_id    Int
+  preptime_id Int
+  user_id     Int
+
+  plate           Plate             @relation(fields: [plate_id], references: [id])
+  preptime        Preptime          @relation(fields: [preptime_id], references: [id])
+  user            User              @relation(fields: [user_id], references: [id])
+  foodIngredients Food_Ingredient[]
+  calendars       Calendar[]
+
+  @@unique([name, user_id])
+}
+
+model Food_Ingredient {
+  food_id       Int
+  ingredient_id Int
+
+  food       Food       @relation(fields: [food_id], references: [id])
+  ingredient Ingredient @relation(fields: [ingredient_id], references: [id])
+
+  @@id([food_id, ingredient_id])
+}
+
+model Calendar {
+  id      Int      @id @default(autoincrement())
+  date    DateTime
+  food_id Int
+
+  food Food @relation(fields: [food_id], references: [id])
+}

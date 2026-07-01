@@ -1,0 +1,25 @@
+info:
+  name: update food
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/foods/1
+  body:
+    type: json
+    data: |-
+      {
+        "name": "lasagnas",
+        "image": "lasagnas.jpg",
+        "plate_id": 1,
+        "preptime_id": 1,
+        "user_id": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

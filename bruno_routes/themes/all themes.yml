@@ -1,0 +1,19 @@
+info:
+  name: all themes
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/api/themes?fullContent=true
+  params:
+    - name: fullContent
+      value: "true"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
