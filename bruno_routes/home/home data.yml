@@ -1,0 +1,19 @@
+info:
+  name: home data
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/api/home?userId=1
+  params:
+    - name: userId
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
