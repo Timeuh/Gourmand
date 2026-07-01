@@ -4,13 +4,28 @@ export default defineEventHandler(async (event) => {
     // get fullContent param from the request parameters
     const fullContent = getQuery(event).fullContent === "true";
     // get calendars from a specific user
-    const userId = Number(getQuery(event).userId);
+    const userId = getQuery(event).userId;
+
+    // if userId is specified but invalid, return a bad request error
+    if (userId !== undefined && isNaN(Number(userId))) {
+      return sendJsonResponse<ApiError>(
+        {
+          error: {
+            code: HTTP_BAD_REQUEST,
+            message: MSG_BAD_REQUEST,
+            details:
+              "Invalid userId parameter. Please provide a valid number for the userId query parameter.",
+          },
+        },
+        HTTP_BAD_REQUEST,
+      );
+    }
 
     // get foods from database
     const foods: Food[] | FullFood[] = await prisma.food.findMany({
       where: userId
         ? {
-            user_id: userId,
+            user_id: Number(userId),
           }
         : undefined,
       include: fullContent
