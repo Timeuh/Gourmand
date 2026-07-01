@@ -79,6 +79,16 @@ export type FoodIngredientLink = Infer<typeof FOOD_INGREDIENT_LINK_SCHEMA>;
 
 export type FullFood = Infer<typeof FULL_FOOD_SCHEMA>;
 
+export type OldestFood = {
+  food: Food | undefined;
+  lastEaten: Date | null;
+};
+
+export type MostEatenFood = {
+  food: Food | undefined;
+  count: number;
+};
+
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
