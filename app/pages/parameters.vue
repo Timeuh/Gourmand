@@ -7,12 +7,11 @@ const { user, loggedIn, clear } = useUserSession();
 </script>
 
 <template>
-  <div class="p-8">
+  <div class="p-8 w-full h-screen bg-background-500">
     <h1>Paramètres</h1>
 
     <div v-if="loggedIn">
       <p>Bienvenue, {{ user?.name }} !</p>
-      <pre>{{ user }}</pre>
       <button @click="clear" class="bg-red-500 text-white px-4 py-2 rounded">
         Se déconnecter
       </button>
