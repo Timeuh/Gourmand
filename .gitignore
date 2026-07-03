@@ -29,3 +29,6 @@ logs
 
 # user images
 /public/uploads
+
+# secret data
+/ignore
