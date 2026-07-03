@@ -7,7 +7,7 @@ const { loggedIn } = useUserSession();
 
 <template>
   <div
-    class="xl:hidden bottom-0 fixed flex flex-row justify-between items-center bg-background-900 shadow-[0_0_4px_0] shadow-secondary-900/25 p-4 w-full h-22 text-secondary-900"
+    class="xl:hidden bottom-0 z-10 fixed flex flex-row justify-between items-center bg-background-900 shadow-[0_0_4px_0] shadow-secondary-900/25 p-4 w-full h-22 text-secondary-900"
   >
     <NuxtLink
       :to="loggedIn ? '/' : undefined"
