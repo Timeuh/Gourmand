@@ -2,11 +2,12 @@
 // get current route path
 const route = useRoute();
 
+// get user session to display the correct links based on the logged in state
 const { loggedIn } = useUserSession();
 </script>
 
 <template>
-  <div
+  <nav
     class="xl:hidden bottom-0 z-10 fixed flex flex-row justify-between items-center bg-background-900 shadow-[0_0_4px_0] shadow-secondary-900/25 p-4 w-full h-22 text-secondary-900"
   >
     <NuxtLink
@@ -62,5 +63,5 @@ const { loggedIn } = useUserSession();
         <h3>Paramètres</h3>
       </div>
     </NuxtLink>
-  </div>
+  </nav>
 </template>
