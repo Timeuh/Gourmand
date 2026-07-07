@@ -13,8 +13,11 @@ const { user } = useUserSession();
 </script>
 
 <template>
-  <div class="bg-background-500 px-6 py-8 w-full h-screen">
-    <section id="first-row" class="space-y-6">
+  <div class="bg-background-500 xl:p-12 px-6 py-8 w-full h-screen">
+    <section
+      id="first-row"
+      class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
+    >
       <div>
         <h1 class="font-bold text-secondary-900 text-xl">
           Bonjour {{ user?.name }} 👋
@@ -23,7 +26,9 @@ const { user } = useUserSession();
           {{ formatDate(new Date()) }}
         </h2>
       </div>
-      <div class="flex flex-row justify-between items-center space-x-4 w-full">
+      <div
+        class="flex flex-row justify-between items-center space-x-4 w-full xl:w-1/3"
+      >
         <ButtonLog />
         <ButtonAdd />
       </div>
