@@ -10,10 +10,17 @@ definePageMeta({
 
 // get the user session
 const { user } = useUserSession();
+
+// fetch home data
+const { data } = useFetch<HomeData>("/api/home", {
+  query: {
+    userId: user.value?.id,
+  },
+});
 </script>
 
 <template>
-  <div class="bg-background-500 xl:p-12 px-6 py-8 w-full h-screen">
+  <div class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 w-full h-screen">
     <section
       id="first-row"
       class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
@@ -32,6 +39,13 @@ const { user } = useUserSession();
         <ButtonLog />
         <ButtonAdd />
       </div>
+    </section>
+    <section id="second-row" class="space-y-6">
+      <MonthVariety
+        :this-month="data?.foodsOfCurrentMonth"
+        :last-month="data?.foodsOfPreviousMonth"
+      />
+      <FavoriteFoods :foods="data?.favoriteFoods" />
     </section>
   </div>
 </template>
