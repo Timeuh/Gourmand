@@ -40,7 +40,10 @@ const { data } = useFetch<HomeData>("/api/home", {
         <ButtonAdd />
       </div>
     </section>
-    <section id="second-row" class="space-y-6">
+    <section
+      id="second-row"
+      class="xl:flex flex-row justify-between items-center xl:space-x-20 space-y-6 xl:space-y-0 xl:h-[15vh]"
+    >
       <MonthVariety
         :this-month="data?.foodsOfCurrentMonth"
         :last-month="data?.foodsOfPreviousMonth"

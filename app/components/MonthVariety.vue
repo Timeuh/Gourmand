@@ -22,7 +22,7 @@ const difference = computed(() =>
 
 <template>
   <div
-    class="flex flex-row justify-between items-center space-x-6 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl text-secondary-900"
+    class="flex flex-row justify-between items-center space-x-6 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl xl:w-2/3 xl:h-full text-secondary-900"
   >
     <div class="space-y-4 w-4/5">
       <h2 class="font-bold text-lg">🫜 Variété ce mois</h2>
@@ -41,17 +41,21 @@ const difference = computed(() =>
         </h4>
       </div>
     </div>
-    <div class="flex flex-col justify-center items-center space-y-2 w-1/5">
+    <div
+      class="flex xl:flex-row flex-col justify-center items-center xl:space-x-12 space-y-2 xl:space-y-0 w-1/5 xl:w-2/5"
+    >
       <div class="flex flex-col justify-center items-center">
-        <h2 class="font-bold text-primary-900 text-2xl">{{ percentage }} %</h2>
-        <h3 class="text-secondary-500 text-sm text-center">
+        <h2 class="font-bold text-primary-900 text-2xl xl:text-4xl">
+          {{ percentage }} %
+        </h2>
+        <h3 class="text-secondary-500 text-sm xl:text-xl text-center">
           objectif de <span class="text-primary-900">15</span>
         </h3>
       </div>
       <div
-        class="flex flex-col justify-center bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-full size-11"
+        class="flex flex-col justify-center bg-primary-100 shadow-[0_1px_2px_0] shadow-primary-900/50 rounded-full size-11 xl:size-20"
       >
-        <h2 class="text-2xl text-center">🏆</h2>
+        <h2 class="text-2xl xl:text-4xl text-center">🏆</h2>
       </div>
     </div>
   </div>

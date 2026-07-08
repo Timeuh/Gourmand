@@ -15,10 +15,12 @@ const foodsToDisplay: ComputedRef<Food[]> = computed(() => {
 
 <template>
   <div
-    class="flex flex-col space-y-2 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl text-secondary-900"
+    class="flex flex-col space-y-2 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl xl:w-1/3 xl:h-full text-secondary-900"
   >
     <h2 class="font-bold text-lg">❤️ Plats préférés</h2>
-    <div class="flex flex-row justify-between items-center w-full">
+    <div
+      class="flex flex-row justify-between xl:justify-start items-center xl:space-x-6 w-full"
+    >
       <div v-for="food in foodsToDisplay">
         <NuxtImg
           :src="food.image"
