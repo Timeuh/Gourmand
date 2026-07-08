@@ -34,4 +34,15 @@ const defaultFoods: Food[] = [
   },
 ];
 
+/**
+ * Mapper to get more complete food objects
+ *
+ * @param {T} mapper : The mapper to create more complete food
+ *
+ * @returns {T[]} the array of modified food
+ */
+export function mapDefaultFoods<T>(mapper: (food: Food) => T): T[] {
+  return defaultFoods.map(mapper);
+}
+
 export default defaultFoods;
