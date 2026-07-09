@@ -143,7 +143,7 @@ export default defineEventHandler(async (event) => {
     // format result to include food details and last eaten date
     const oldestFoods: OldestFood[] = groupedOldestFoods.map((g) => ({
       food: oldestFoodsDetails.find((f) => f.id === g.food_id),
-      lastEaten: g._max.date,
+      lastEaten: g._max.date?.toISOString(),
     }));
 
     // get the most eaten foods of this month
