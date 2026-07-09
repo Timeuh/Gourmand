@@ -1,5 +1,4 @@
-import type { FullCalendar } from "~~/shared/types/calendar_schema";
-import type { MostEatenFood } from "~~/shared/types/food_schema";
+import type { MostEatenFood, ThisWeekFood } from "~~/shared/types/food_schema";
 
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
@@ -93,8 +92,9 @@ export default defineEventHandler(async (event) => {
       take: 4,
     });
 
-    // get foods eaten this week
-    const foodsOfThisWeek: FullCalendar[] = await prisma.calendar.findMany({
+    // get different foods eaten this week with their number of times
+    const groupedFoodsOfThisWeek = await prisma.calendar.groupBy({
+      by: ["food_id"],
       where: {
         food: {
           user_id: userId,
@@ -104,12 +104,33 @@ export default defineEventHandler(async (event) => {
           lt: today,
         },
       },
-      include: {
-        food: true,
+      _count: {
+        food_id: true,
       },
       orderBy: {
-        date: "asc",
+        _count: {
+          food_id: "desc",
+        },
       },
+    });
+
+    // get the foods eaten this week
+    const foodsOfThisWeekDetails: Food[] = await prisma.food.findMany({
+      where: {
+        id: {
+          in: groupedFoodsOfThisWeek.map((g) => g.food_id),
+        },
+      },
+    });
+
+    // format result to include food details and count
+    const foodsOfThisWeek: ThisWeekFood[] = groupedFoodsOfThisWeek.map((g) => {
+      const food = foodsOfThisWeekDetails.find((f) => f.id === g.food_id);
+
+      return {
+        food,
+        count: g._count.food_id,
+      };
     });
 
     // get the 4 oldest eaten foods ids and date

@@ -1,22 +1,20 @@
 <script setup lang="ts">
 // define props types
 interface Props {
-  foods: FullCalendar[] | undefined;
+  foods: ThisWeekFood[] | undefined;
 }
 
 // register props
 const props = defineProps<Props>();
 
 // return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<FullCalendar[]> = computed(() => {
+const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
   return props.foods && props.foods.length > 0
     ? props.foods
-    : mapDefaultFoods<FullCalendar>((food: Food) => {
+    : mapDefaultFoods<ThisWeekFood>((food: Food) => {
         return {
           food,
-          date: new Date(),
-          id: food.id,
-          food_id: food.id,
+          count: 1,
         };
       });
 });
@@ -51,7 +49,7 @@ const foodsToDisplay: ComputedRef<FullCalendar[]> = computed(() => {
             <h3 class="font-bold text-xs text-balance">
               {{ food.food?.name }}
             </h3>
-            <h4 class="text-primary-900 text-xs">2 fois</h4>
+            <h4 class="text-primary-900 text-xs">{{ food.count }} fois</h4>
           </div>
           <button
             class="flex flex-col justify-center items-center bg-primary-900 rounded-full min-w-1/4 size-9"
