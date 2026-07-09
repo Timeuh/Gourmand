@@ -26,7 +26,11 @@ export default defineEventHandler(async (event) => {
 
     // get current date and calculate the start of the previous month, current month, and next month
     const today = new Date();
-    const lastWeekStart = new Date(today.getDate() - 7);
+    const lastWeekStart = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7,
+    );
     const previousMonthStart = new Date(
       today.getFullYear(),
       today.getMonth() - 1,
