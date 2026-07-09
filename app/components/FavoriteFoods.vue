@@ -25,7 +25,7 @@ const foodsToDisplay: ComputedRef<Food[]> = computed(() => {
         <NuxtImg
           :src="food.image"
           :alt="food.name"
-          class="shadow-[0_1px_4px_0] shadow-secondary-900/50 rounded-full size-18"
+          class="shadow-[0_1px_4px_0] shadow-secondary-900/50 rounded-full size-18 object-cover"
         />
       </div>
     </div>
