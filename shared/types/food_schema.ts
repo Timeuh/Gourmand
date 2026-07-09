@@ -89,6 +89,11 @@ export type MostEatenFood = {
   count: number;
 };
 
+export type ThisWeekFood = {
+  food: Food | undefined;
+  count: number;
+};
+
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
