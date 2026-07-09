@@ -3,7 +3,7 @@ const defaultFoods: Food[] = [
   {
     image: "/assets/default_food.png",
     id: 1,
-    name: "default_food_1",
+    name: "default food 1",
     plate_id: 1,
     preptime_id: 1,
     user_id: 1,
@@ -11,7 +11,7 @@ const defaultFoods: Food[] = [
   {
     image: "/assets/default_food.png",
     id: 2,
-    name: "default_food_2",
+    name: "default food 2",
     plate_id: 2,
     preptime_id: 2,
     user_id: 2,
@@ -19,7 +19,7 @@ const defaultFoods: Food[] = [
   {
     image: "/assets/default_food.png",
     id: 3,
-    name: "default_food_3",
+    name: "default food 3",
     plate_id: 3,
     preptime_id: 3,
     user_id: 3,
@@ -27,7 +27,7 @@ const defaultFoods: Food[] = [
   {
     image: "/assets/default_food.png",
     id: 4,
-    name: "default_food_4",
+    name: "default food 4",
     plate_id: 4,
     preptime_id: 4,
     user_id: 4,
