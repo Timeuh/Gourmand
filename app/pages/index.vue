@@ -20,7 +20,9 @@ const { data } = useFetch<HomeData>("/api/home", {
 </script>
 
 <template>
-  <div class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 w-full h-screen">
+  <div
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 pb-[12vh] w-full min-h-screen"
+  >
     <section
       id="first-row"
       class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
@@ -49,6 +51,13 @@ const { data } = useFetch<HomeData>("/api/home", {
         :last-month="data?.foodsOfPreviousMonth"
       />
       <FavoriteFoods :foods="data?.favoriteFoods" />
+    </section>
+    <section id="third-row" class="space-y-6">
+      <div class="space-y-6">
+        <FoodSuggestions :foods="data?.oldestFoods" />
+        <FoodThisWeek :foods="data?.foodsOfThisWeek" />
+      </div>
+      <MonthMostEaten :foods="data?.mostEatenFoods" />
     </section>
   </div>
 </template>
