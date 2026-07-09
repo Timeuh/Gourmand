@@ -14,7 +14,7 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
     : mapDefaultFoods<OldestFood>((food: Food) => {
         return {
           food,
-          lastEaten: new Date(),
+          lastEaten: new Date().toISOString(),
         };
       });
 });
@@ -39,15 +39,15 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
         <NuxtImg
           :src="food.food?.image"
           :alt="food.food?.name"
-          class="w-full h-full"
+          class="w-full h-full min-h-[20vh] object-cover"
         />
         <div
           class="bottom-0 absolute flex flex-row justify-between items-center bg-linear-to-t from-black via-60% via-black/80 to-black/20 backdrop-blur-xs p-2 w-full"
         >
-          <div>
+          <div class="space-y-1">
             <h3 class="text-background-900 text-sm">{{ food.food?.name }}</h3>
             <h4 class="text-secondary-100 text-xs">
-              {{ daysFromToday(food.lastEaten) }}
+              {{ daysFromToday(new Date(food.lastEaten || "")) }}
             </h4>
           </div>
           <button
