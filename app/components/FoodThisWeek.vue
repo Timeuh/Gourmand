@@ -21,7 +21,7 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-2 w-full">
+  <div class="xl:hidden space-y-2 w-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">🗓️ Cette semaine</h2>
       <NuxtLink
