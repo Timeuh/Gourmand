@@ -4,33 +4,33 @@ import type { Infer } from "@vinejs/vine/types";
 /* -------------------------------------------------------------------------- */
 /*                                  Schemas                                   */
 /* -------------------------------------------------------------------------- */
-const PLATE_SCHEMA = vine.object({
+const CATEGORY_SCHEMA = vine.object({
   id: vine.number(),
-  number: vine.number(),
+  name: vine.string(),
 });
 
-const PLATE_CREATE_SCHEMA = vine.object({
-  number: vine.number(),
+const CATEGORY_CREATE_SCHEMA = vine.object({
+  name: vine.string(),
 });
 
-const PLATE_UPDATE_SCHEMA = vine.object({
-  number: vine.number(),
+const CATEGORY_UPDATE_SCHEMA = vine.object({
+  name: vine.string(),
 });
 
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
-export type Plate = Infer<typeof PLATE_SCHEMA>;
+export type Category = Infer<typeof CATEGORY_SCHEMA>;
 
-export type PlateCreation = Infer<typeof PLATE_CREATE_SCHEMA>;
+export type CategoryCreation = Infer<typeof CATEGORY_CREATE_SCHEMA>;
 
-export type PlateUpdate = Infer<typeof PLATE_UPDATE_SCHEMA>;
+export type CategoryUpdate = Infer<typeof CATEGORY_UPDATE_SCHEMA>;
 
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
-export const plateValidator = vine.create(PLATE_SCHEMA);
+export const categoryValidator = vine.create(CATEGORY_SCHEMA);
 
-export const plateCreateValidator = vine.create(PLATE_CREATE_SCHEMA);
+export const categoryCreateValidator = vine.create(CATEGORY_CREATE_SCHEMA);
 
-export const plateUpdateValidator = vine.create(PLATE_UPDATE_SCHEMA);
+export const categoryUpdateValidator = vine.create(CATEGORY_UPDATE_SCHEMA);
