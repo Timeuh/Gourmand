@@ -7,14 +7,26 @@ import type { Infer } from "@vinejs/vine/types";
 const INGREDIENT_SCHEMA = vine.object({
   id: vine.number(),
   name: vine.string(),
+  category_id: vine.number(),
 });
 
 const INGREDIENT_CREATE_SCHEMA = vine.object({
   name: vine.string(),
+  category_id: vine.number(),
 });
 
 const INGREDIENT_UPDATE_SCHEMA = vine.object({
   name: vine.string(),
+  category_id: vine.number(),
+});
+
+const FULL_INGREDIENT_SCHEMA = vine.object({
+  name: vine.string(),
+  category_id: vine.number(),
+  category: vine.object({
+    id: vine.number(),
+    name: vine.string(),
+  }),
 });
 
 /* -------------------------------------------------------------------------- */
@@ -26,6 +38,8 @@ export type IngredientCreation = Infer<typeof INGREDIENT_CREATE_SCHEMA>;
 
 export type IngredientUpdate = Infer<typeof INGREDIENT_UPDATE_SCHEMA>;
 
+export type FullIngredient = Infer<typeof FULL_INGREDIENT_SCHEMA>;
+
 /* -------------------------------------------------------------------------- */
 /*                                 Validators                                 */
 /* -------------------------------------------------------------------------- */
@@ -34,3 +48,5 @@ export const ingredientValidator = vine.create(INGREDIENT_SCHEMA);
 export const ingredientCreateValidator = vine.create(INGREDIENT_CREATE_SCHEMA);
 
 export const ingredientUpdateValidator = vine.create(INGREDIENT_UPDATE_SCHEMA);
+
+export const fullIngredientValidator = vine.create(FULL_INGREDIENT_SCHEMA);
