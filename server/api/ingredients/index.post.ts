@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     const newIngredient: Ingredient = await prisma.ingredient.create({
       data: {
         name: validatedBody.name,
+        category_id: validatedBody.category_id,
       },
     });
 
