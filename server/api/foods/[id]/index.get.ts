@@ -12,14 +12,17 @@ export default defineEventHandler(async (event) => {
       },
       include: fullContent
         ? {
-            plate: true,
             preptime: true,
             user: true,
             foodIngredients: {
               include: {
                 food_id: false,
                 ingredient_id: false,
-                ingredient: true,
+                ingredient: {
+                  include: {
+                    category: true,
+                  },
+                },
               },
             },
           }
