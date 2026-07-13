@@ -10,7 +10,8 @@ http:
     type: json
     data: |-
       {
-        "name": "salt"
+        "name": "Test",
+        "category_id": 1
       }
   auth: inherit
 
