@@ -1,16 +1,16 @@
 info:
-  name: update plate
+  name: update category
   type: http
   seq: 3
 
 http:
   method: PUT
-  url: http://localhost:3000/api/plates/1
+  url: http://localhost:3000/api/categories/6
   body:
     type: json
     data: |-
       {
-        "number": 1
+        "name": "Default"
       }
   auth: inherit
 
