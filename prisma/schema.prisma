@@ -44,12 +44,6 @@ model User {
   food  Food[]
 }
 
-model Plate {
-  id     Int    @id @default(autoincrement())
-  number Int    @unique
-  food   Food[]
-}
-
 model Preptime {
   id   Int    @id @default(autoincrement())
   time String @unique
@@ -57,20 +51,28 @@ model Preptime {
 }
 
 model Ingredient {
-  id              Int               @id @default(autoincrement())
-  name            String            @unique
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  category_id Int
+
+  category        Category          @relation(fields: [category_id], references: [id])
   foodIngredients Food_Ingredient[]
+}
+
+model Category {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  ingredients Ingredient[]
 }
 
 model Food {
   id          Int    @id @default(autoincrement())
   name        String
   image       String
-  plate_id    Int
+  plates      Int
   preptime_id Int
   user_id     Int
 
-  plate           Plate             @relation(fields: [plate_id], references: [id])
   preptime        Preptime          @relation(fields: [preptime_id], references: [id])
   user            User              @relation(fields: [user_id], references: [id])
   foodIngredients Food_Ingredient[]
