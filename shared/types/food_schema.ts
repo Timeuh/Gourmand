@@ -8,7 +8,7 @@ const FOOD_SCHEMA = vine.object({
   id: vine.number(),
   name: vine.string(),
   image: vine.string(),
-  plate_id: vine.number(),
+  plates: vine.number(),
   preptime_id: vine.number(),
   user_id: vine.number(),
 });
@@ -16,7 +16,7 @@ const FOOD_SCHEMA = vine.object({
 const FOOD_CREATE_SCHEMA = vine.object({
   name: vine.string(),
   image: vine.string(),
-  plate_id: vine.number(),
+  plates: vine.number(),
   preptime_id: vine.number(),
   user_id: vine.number(),
 });
@@ -24,7 +24,7 @@ const FOOD_CREATE_SCHEMA = vine.object({
 const FOOD_UPDATE_SCHEMA = vine.object({
   name: vine.string(),
   image: vine.string(),
-  plate_id: vine.number(),
+  plates: vine.number(),
   preptime_id: vine.number(),
   user_id: vine.number(),
 });
@@ -38,13 +38,9 @@ const FULL_FOOD_SCHEMA = vine.object({
   id: vine.number(),
   name: vine.string(),
   image: vine.string(),
-  plate_id: vine.number(),
+  plates: vine.number(),
   preptime_id: vine.number(),
   user_id: vine.number(),
-  plate: vine.object({
-    id: vine.number(),
-    number: vine.number(),
-  }),
   preptime: vine.object({
     id: vine.number(),
     time: vine
@@ -61,6 +57,11 @@ const FULL_FOOD_SCHEMA = vine.object({
       ingredient: vine.object({
         id: vine.number(),
         name: vine.string(),
+        category_id: vine.number(),
+        category: vine.object({
+          id: vine.number(),
+          name: vine.string(),
+        }),
       }),
     }),
   ),
