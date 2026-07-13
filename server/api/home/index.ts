@@ -1,5 +1,4 @@
-import type { FullCalendar } from "~~/shared/types/calendar_schema";
-import type { MostEatenFood } from "~~/shared/types/food_schema";
+import type { MostEatenFood, ThisWeekFood } from "~~/shared/types/food_schema";
 
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
@@ -27,7 +26,11 @@ export default defineEventHandler(async (event) => {
 
     // get current date and calculate the start of the previous month, current month, and next month
     const today = new Date();
-    const lastWeekStart = new Date(today.getDate() - 7);
+    const lastWeekStart = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7,
+    );
     const previousMonthStart = new Date(
       today.getFullYear(),
       today.getMonth() - 1,
@@ -93,8 +96,9 @@ export default defineEventHandler(async (event) => {
       take: 4,
     });
 
-    // get foods eaten this week
-    const foodsOfThisWeek: FullCalendar[] = await prisma.calendar.findMany({
+    // get different foods eaten this week with their number of times
+    const groupedFoodsOfThisWeek = await prisma.calendar.groupBy({
+      by: ["food_id"],
       where: {
         food: {
           user_id: userId,
@@ -104,12 +108,33 @@ export default defineEventHandler(async (event) => {
           lt: today,
         },
       },
-      include: {
-        food: true,
+      _count: {
+        food_id: true,
       },
       orderBy: {
-        date: "asc",
+        _count: {
+          food_id: "desc",
+        },
       },
+    });
+
+    // get the foods eaten this week
+    const foodsOfThisWeekDetails: Food[] = await prisma.food.findMany({
+      where: {
+        id: {
+          in: groupedFoodsOfThisWeek.map((g) => g.food_id),
+        },
+      },
+    });
+
+    // format result to include food details and count
+    const foodsOfThisWeek: ThisWeekFood[] = groupedFoodsOfThisWeek.map((g) => {
+      const food = foodsOfThisWeekDetails.find((f) => f.id === g.food_id);
+
+      return {
+        food,
+        count: g._count.food_id,
+      };
     });
 
     // get the 4 oldest eaten foods ids and date
@@ -143,7 +168,7 @@ export default defineEventHandler(async (event) => {
     // format result to include food details and last eaten date
     const oldestFoods: OldestFood[] = groupedOldestFoods.map((g) => ({
       food: oldestFoodsDetails.find((f) => f.id === g.food_id),
-      lastEaten: g._max.date,
+      lastEaten: g._max.date?.toISOString(),
     }));
 
     // get the most eaten foods of this month

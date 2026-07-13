@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary-900: var(--primary-900);
+  --color-primary-500: var(--primary-500);
+  --color-primary-100: var(--primary-100);
+  --color-secondary-900: var(--secondary-900);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-100: var(--secondary-100);
+  --color-background-900: var(--background-900);
+  --color-background-500: var(--background-500);
+}
+
+:root {
+  --primary-900: #b20007;
+  --primary-500: #ff7779;
+  --primary-100: #eed4db;
+  --secondary-900: #355070;
+  --secondary-500: #627387;
+  --secondary-100: #b9bcbf;
+  --background-900: #f2f8ff;
+  --background-500: #e2e6eb;
+}
