@@ -20,6 +20,9 @@ export const HTTP_SCHEMA_ERROR = 422;
 // any server error
 export const HTTP_SERVER_ERROR = 500;
 
+// auth error
+export const HTTP_UNAUTHORIZED = 401;
+
 /* -------------------------------------------------------------------------- */
 /*                           Error Response messages                          */
 /* -------------------------------------------------------------------------- */
@@ -49,3 +52,6 @@ export const MSG_MEAL_LIMIT_EXCEEDED =
 
 // bad request
 export const MSG_BAD_REQUEST = "Bad request";
+
+// unauthorized request
+export const MSG_UNAUTHORIZED = "Unauthorized request";
