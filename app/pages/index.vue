@@ -12,11 +12,7 @@ definePageMeta({
 const { user } = useUserSession();
 
 // fetch home data
-const { data } = useFetch<HomeData>("/api/home", {
-  query: {
-    userId: user.value?.id,
-  },
-});
+const { data } = useFetch<HomeData>("/api/home");
 </script>
 
 <template>
