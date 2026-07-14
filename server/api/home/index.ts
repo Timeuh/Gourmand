@@ -6,11 +6,14 @@ export default defineEventHandler(async (event) => {
     // get calendars from a specific user
     const userId = Number(getQuery(event).userId);
 
+    // get user from session
+    const { user } = await getUserSession(event);
+
     // check if userId is defined and valid
     const userIdDefined = userId !== undefined && !isNaN(userId);
 
-    // if userId is not defined or invalid, return a bad request error
-    if (!userIdDefined) {
+    // if userId is not defined or invalid and there's no user in session, return a bad request error
+    if (!userIdDefined && !user) {
       return sendJsonResponse<ApiError>(
         {
           error: {
@@ -23,6 +26,9 @@ export default defineEventHandler(async (event) => {
         HTTP_BAD_REQUEST,
       );
     }
+
+    // user either the id of the user in session or the provided user id
+    const idToCheck = user?.id || Number(userId);
 
     // get current date and calculate the start of the previous month, current month, and next month
     const today = new Date();
@@ -52,7 +58,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: previousMonthStart,
@@ -66,7 +72,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: currentMonthStart,
@@ -86,7 +92,7 @@ export default defineEventHandler(async (event) => {
     // get 4 favorite foods
     const favoriteFoods: Food[] = await prisma.food.findMany({
       where: {
-        user_id: userId,
+        user_id: idToCheck,
       },
       orderBy: {
         calendars: {
@@ -101,7 +107,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: lastWeekStart,
@@ -142,7 +148,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
       },
       _max: {
