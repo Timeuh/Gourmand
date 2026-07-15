@@ -18,6 +18,7 @@ export default defineOAuthGoogleEventHandler({
             theme_id: existingUser.theme_id,
             name: user.given_name || user.name,
             picture: user.picture,
+            month_objective: existingUser.month_objective,
           },
         });
 
@@ -40,6 +41,7 @@ export default defineOAuthGoogleEventHandler({
           theme_id: newUser.theme_id,
           name: user.given_name || user.name,
           picture: user.picture,
+          month_objective: newUser.month_objective,
         },
       });
 
