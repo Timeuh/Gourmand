@@ -8,6 +8,7 @@ const USER_SCHEMA = vine.object({
   id: vine.number(),
   email: vine.string().email(),
   theme_id: vine.number(),
+  month_objective: vine.number(),
 });
 
 const USER_CREATE_SCHEMA = vine.object({
@@ -18,6 +19,7 @@ const USER_CREATE_SCHEMA = vine.object({
 const USER_UPDATE_SCHEMA = vine.object({
   email: vine.string().email(),
   theme_id: vine.number(),
+  month_objective: vine.number(),
 });
 
 /* -------------------------------------------------------------------------- */
