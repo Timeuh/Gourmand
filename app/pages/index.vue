@@ -45,6 +45,7 @@ const { data } = useFetch<HomeData>("/api/home");
       <MonthVariety
         :this-month="data?.foodsOfCurrentMonth"
         :last-month="data?.foodsOfPreviousMonth"
+        :objective="user?.month_objective"
       />
       <FavoriteFoods :foods="data?.favoriteFoods" />
     </section>
