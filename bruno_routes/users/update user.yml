@@ -14,7 +14,8 @@ http:
     data: |-
       {
         "email": "john.doe@mail.com",
-        "theme_id": 1
+        "theme_id": 1,
+        "month_objective": 15
       }
   auth: inherit
 
