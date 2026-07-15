@@ -3,12 +3,14 @@
 interface Props {
   thisMonth: number | undefined;
   lastMonth: number | undefined;
+  objective: number | undefined;
 }
 
 // register props
 const props = withDefaults(defineProps<Props>(), {
   thisMonth: 0,
   lastMonth: 0,
+  objective: 15,
 });
 
 // calculate percentage of objective
@@ -37,7 +39,8 @@ const difference = computed(() =>
             {{ percentage }} %
           </h2>
           <h3 class="text-secondary-500 text-sm xl:text-xl">
-            objectif de <span class="text-primary-900">15</span>
+            objectif de
+            <span class="text-primary-900">{{ props.objective }}</span>
           </h3>
         </div>
       </div>
