@@ -36,9 +36,10 @@ model Theme_Color {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  theme_id Int
+  id              Int    @id @default(autoincrement())
+  email           String @unique
+  theme_id        Int
+  month_objective Int    @default(15)
 
   theme Theme  @relation(fields: [theme_id], references: [id])
   food  Food[]
