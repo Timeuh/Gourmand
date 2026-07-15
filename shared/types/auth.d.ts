@@ -5,6 +5,7 @@ declare module "#auth-utils" {
     theme_id: number;
     name: string;
     picture: string;
+    month_objective: number;
   }
 }
 
