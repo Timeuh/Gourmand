@@ -96,9 +96,7 @@ const barStops: ProgressBarStop[] = [
       <div
         class="flex flex-row xl:flex-col justify-between items-center w-full xl:w-2/6 xl:text-lg"
       >
-        <h3 class="font-bold text-primary-900 text-2xl xl:text-3xl">
-          {{ percentage }}%
-        </h3>
+        <h3 class="font-bold text-primary-900 text-2xl">{{ percentage }}%</h3>
         <h4>
           objectif de
           <span class="text-primary-900">{{ props.objective }}</span>

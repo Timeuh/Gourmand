@@ -40,7 +40,7 @@ const { data } = useFetch<HomeData>("/api/home");
     </section>
     <section
       id="second-row"
-      class="xl:flex flex-row justify-between items-center space-y-6 xl:space-y-0 w-full xl:h-fit"
+      class="xl:flex flex-row justify-between items-center space-y-6 xl:space-y-0 w-full xl:h-1/6"
     >
       <MonthVariety
         :this-month="data?.foodsOfCurrentMonth"
