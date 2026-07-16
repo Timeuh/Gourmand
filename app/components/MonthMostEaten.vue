@@ -26,18 +26,18 @@ function calculatePercentage(count: number) {
 </script>
 
 <template>
-  <div class="space-y-2 w-full xl:w-2/6">
+  <div class="space-y-2 w-full xl:w-2/6 h-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">
         📊 Les plus mangés ce mois
       </h2>
     </div>
     <div
-      class="flex flex-col justify-center items-center space-y-3 xl:space-y-0 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl xl:h-[90%]"
+      class="flex flex-col items-center space-y-3 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl h-full"
     >
       <div
         v-for="food in foodsToDisplay"
-        class="flex flex-row justify-between items-center w-full xl:h-1/6"
+        class="flex flex-row justify-between items-center w-full"
       >
         <NuxtImg
           :src="food.food?.image"
