@@ -22,7 +22,7 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
 
 <template>
   <div class="space-y-2 w-full xl:h-1/2">
-    <div class="flex flex-row justify-between items-center w-full xl:h-[10%]">
+    <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">
         💡 Suggestions de repas
       </h2>
