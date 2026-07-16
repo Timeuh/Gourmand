@@ -51,10 +51,10 @@ const { data } = useFetch<HomeData>("/api/home");
     </section>
     <section
       id="third-row"
-      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[55%]"
+      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[45%]"
     >
       <div
-        class="xl:flex flex-col xl:justify-between space-y-6 xl:space-y-0 xl:w-3/5 h-full"
+        class="xl:flex flex-col xl:justify-between space-y-6 xl:w-3/5 h-full"
       >
         <FoodSuggestions :foods="data?.oldestFoods" />
         <FoodThisWeek :foods="data?.foodsOfThisWeek" />
