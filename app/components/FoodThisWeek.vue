@@ -32,7 +32,7 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="pb-2 w-full overflow-x-auto">
+    <div class="pb-2 w-full overflow-x-scroll">
       <div class="flex flex-row items-center space-x-4 w-max">
         <Card v-for="food in foodsToDisplay" :card-food="food" class="w-44" />
       </div>
