@@ -17,7 +17,7 @@ const { data } = useFetch<HomeData>("/api/home");
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6"
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden"
   >
     <section
       id="first-row"
@@ -51,13 +51,14 @@ const { data } = useFetch<HomeData>("/api/home");
     </section>
     <section
       id="third-row"
-      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[45%]"
+      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[50%]"
     >
       <div
         class="xl:flex flex-col xl:justify-between space-y-6 xl:w-3/5 h-full"
       >
         <FoodSuggestions :foods="data?.oldestFoods" />
         <FoodThisWeek :foods="data?.foodsOfThisWeek" />
+        <WeekCarousel :foods="data?.foodsOfThisWeek" />
       </div>
       <MonthMostEaten :foods="data?.mostEatenFoods" />
     </section>
