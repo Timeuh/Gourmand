@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    class="relative shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-xl h-[20vh] overflow-hidden"
+    class="relative shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-xl overflow-hidden"
     :class="props.class"
   >
     <NuxtImg
