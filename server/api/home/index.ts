@@ -1,16 +1,17 @@
-import type { MostEatenFood, ThisWeekFood } from "~~/shared/types/food_schema";
-
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
   try {
     // get calendars from a specific user
     const userId = Number(getQuery(event).userId);
 
+    // get user from session
+    const { user } = await getUserSession(event);
+
     // check if userId is defined and valid
     const userIdDefined = userId !== undefined && !isNaN(userId);
 
-    // if userId is not defined or invalid, return a bad request error
-    if (!userIdDefined) {
+    // if userId is not defined or invalid and there's no user in session, return a bad request error
+    if (!userIdDefined && !user) {
       return sendJsonResponse<ApiError>(
         {
           error: {
@@ -23,6 +24,9 @@ export default defineEventHandler(async (event) => {
         HTTP_BAD_REQUEST,
       );
     }
+
+    // user either the id of the user in session or the provided user id
+    const idToCheck = user?.id || Number(userId);
 
     // get current date and calculate the start of the previous month, current month, and next month
     const today = new Date();
@@ -52,7 +56,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: previousMonthStart,
@@ -66,7 +70,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: currentMonthStart,
@@ -86,7 +90,7 @@ export default defineEventHandler(async (event) => {
     // get 4 favorite foods
     const favoriteFoods: Food[] = await prisma.food.findMany({
       where: {
-        user_id: userId,
+        user_id: idToCheck,
       },
       orderBy: {
         calendars: {
@@ -96,45 +100,49 @@ export default defineEventHandler(async (event) => {
       take: 4,
     });
 
-    // get different foods eaten this week with their number of times
-    const groupedFoodsOfThisWeek = await prisma.calendar.groupBy({
-      by: ["food_id"],
+    // get foods eaten this week
+    const foodsOfThisWeek: FullCalendar[] = await prisma.calendar.findMany({
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
         date: {
           gte: lastWeekStart,
           lt: today,
         },
       },
-      _count: {
-        food_id: true,
+      include: {
+        food: true,
       },
       orderBy: {
-        _count: {
-          food_id: "desc",
-        },
+        date: "desc",
       },
     });
 
-    // get the foods eaten this week
-    const foodsOfThisWeekDetails: Food[] = await prisma.food.findMany({
-      where: {
-        id: {
-          in: groupedFoodsOfThisWeek.map((g) => g.food_id),
+    // group this week's foods to get times eaten
+    const groupedFoodsOfThisWeek: ThisWeekFood[] = Object.values(
+      foodsOfThisWeek.reduce(
+        (acc, entry) => {
+          const id = entry.food.id;
+
+          if (!acc[id]) {
+            acc[id] = {
+              food: entry.food,
+              count: 0,
+            };
+          }
+
+          acc[id].count++;
+
+          return acc;
         },
-      },
-    });
+        {} as Record<number, ThisWeekFood>,
+      ),
+    );
 
-    // format result to include food details and count
-    const foodsOfThisWeek: ThisWeekFood[] = groupedFoodsOfThisWeek.map((g) => {
-      const food = foodsOfThisWeekDetails.find((f) => f.id === g.food_id);
-
-      return {
-        food,
-        count: g._count.food_id,
-      };
+    // sort the grouped foods by descendant count
+    groupedFoodsOfThisWeek.sort((a, b) => {
+      return b.count - a.count;
     });
 
     // get the 4 oldest eaten foods ids and date
@@ -142,7 +150,7 @@ export default defineEventHandler(async (event) => {
       by: ["food_id"],
       where: {
         food: {
-          user_id: userId,
+          user_id: idToCheck,
         },
       },
       _max: {
@@ -171,17 +179,20 @@ export default defineEventHandler(async (event) => {
       lastEaten: g._max.date?.toISOString(),
     }));
 
+    // limit to 6 foods
+    const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
+
     // get the most eaten foods of this month
     const mostEatenFoodsDetails: Food[] = await prisma.food.findMany({
       where: {
         id: {
-          in: foodsOfCurrentMonth.map((g) => g.food_id),
+          in: mostEatenFoodsLimit.map((g) => g.food_id),
         },
       },
     });
 
     // format result to include food details and count
-    const mostEatenFoods: MostEatenFood[] = foodsOfCurrentMonth.map((g) => {
+    const mostEatenFoods: MostEatenFood[] = mostEatenFoodsLimit.map((g) => {
       const food = mostEatenFoodsDetails.find((f) => f.id === g.food_id);
 
       return {
@@ -195,6 +206,7 @@ export default defineEventHandler(async (event) => {
       foodsOfPreviousMonth: foodsOfPreviousMonth.length,
       foodsOfCurrentMonth: foodsOfCurrentMonth.length,
       favoriteFoods,
+      groupedFoodsOfThisWeek,
       foodsOfThisWeek,
       oldestFoods,
       mostEatenFoods,

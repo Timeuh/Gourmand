@@ -5,12 +5,16 @@ info:
 
 http:
   method: PUT
-  url: http://localhost:3000/api/ingredients/1
+  url: http://localhost:3000/api/ingredients/141
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
   body:
     type: json
     data: |-
       {
-        "name": "salt"
+        "name": "Test",
+        "category_id": 1
       }
   auth: inherit
 

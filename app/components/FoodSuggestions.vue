@@ -22,7 +22,7 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
 
 <template>
   <div class="space-y-2 w-full xl:h-1/2">
-    <div class="flex flex-row justify-between items-center w-full xl:h-[10%]">
+    <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">
         💡 Suggestions de repas
       </h2>
@@ -31,34 +31,8 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 xl:h-[90%]">
-      <div
-        v-for="food in foodsToDisplay"
-        class="relative shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-xl min-h-[20vh] xl:max-h-[10vh] overflow-hidden"
-      >
-        <NuxtImg
-          :src="food.food?.image"
-          :alt="food.food?.name"
-          class="w-full h-full object-cover"
-        />
-        <div
-          class="bottom-0 absolute flex flex-row justify-between items-center bg-linear-to-t from-black via-60% via-black/80 to-black/20 backdrop-blur-xs p-2 w-full"
-        >
-          <div class="space-y-1 w-full">
-            <h3 class="max-w-[95%] text-background-900 text-sm text-balance">
-              {{ food.food?.name }}
-            </h3>
-            <h4 class="text-secondary-100 text-xs">
-              {{ daysFromToday(new Date(food.lastEaten || "")) }}
-            </h4>
-          </div>
-          <button
-            class="flex flex-col justify-center items-center bg-background-900 rounded-xl min-w-1/5 size-7"
-          >
-            <IconPlus class="size-6 text-primary-900" />
-          </button>
-        </div>
-      </div>
+    <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 w-full h-full">
+      <Card v-for="food in foodsToDisplay" :card-food="food" class="h-44" />
     </div>
   </div>
 </template>

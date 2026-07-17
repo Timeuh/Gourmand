@@ -12,16 +12,12 @@ definePageMeta({
 const { user } = useUserSession();
 
 // fetch home data
-const { data } = useFetch<HomeData>("/api/home", {
-  query: {
-    userId: user.value?.id,
-  },
-});
+const { data } = useFetch<HomeData>("/api/home");
 </script>
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6"
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden"
   >
     <section
       id="first-row"
@@ -44,23 +40,25 @@ const { data } = useFetch<HomeData>("/api/home", {
     </section>
     <section
       id="second-row"
-      class="xl:flex flex-row justify-between items-center space-y-6 xl:space-y-0 w-full xl:h-fit"
+      class="xl:flex flex-row justify-between items-center space-y-6 xl:space-y-0 w-full xl:h-1/6"
     >
       <MonthVariety
         :this-month="data?.foodsOfCurrentMonth"
         :last-month="data?.foodsOfPreviousMonth"
+        :objective="user?.month_objective"
       />
       <FavoriteFoods :foods="data?.favoriteFoods" />
     </section>
     <section
       id="third-row"
-      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[55%]"
+      class="xl:flex flex-row justify-between space-y-6 w-full xl:h-[50%]"
     >
       <div
-        class="xl:flex flex-col xl:justify-between space-y-6 xl:space-y-0 xl:w-3/5 h-full"
+        class="xl:flex flex-col xl:justify-between space-y-6 xl:w-3/5 h-full"
       >
         <FoodSuggestions :foods="data?.oldestFoods" />
-        <FoodThisWeek :foods="data?.foodsOfThisWeek" />
+        <FoodThisWeek :foods="data?.groupedFoodsOfThisWeek" />
+        <WeekCarousel :foods="data?.groupedFoodsOfThisWeek" />
       </div>
       <MonthMostEaten :foods="data?.mostEatenFoods" />
     </section>

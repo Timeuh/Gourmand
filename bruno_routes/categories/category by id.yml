@@ -1,11 +1,14 @@
 info:
-  name: plate by id
+  name: category by id
   type: http
   seq: 4
 
 http:
   method: GET
-  url: http://localhost:3000/api/plates/1
+  url: http://localhost:3000/api/categories/1
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
   auth: inherit
 
 settings:

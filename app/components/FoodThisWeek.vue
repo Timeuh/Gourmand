@@ -32,31 +32,13 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="flex flex-row items-center space-x-4 overflow-scroll">
-      <div
-        v-for="food in foodsToDisplay"
-        class="shadow-[0_2px_2px_0] shadow-secondary-900/50 rounded-xl min-w-[40vw]"
-      >
-        <NuxtImg
-          :src="food.food?.image"
-          :alt="food.food?.name"
-          class="rounded-t-xl w-full h-[20vh] object-cover"
+    <div class="pb-2 w-full overflow-x-scroll">
+      <div class="flex flex-row items-center space-x-4 w-max">
+        <Card
+          v-for="food in foodsToDisplay"
+          :card-food="food"
+          class="size-44"
         />
-        <div
-          class="flex flex-row justify-between items-center bg-background-900 p-2 px-3 rounded-b-lg w-full min-h-[8vh]"
-        >
-          <div class="space-y-1 max-w-3/4">
-            <h3 class="font-bold text-xs text-balance">
-              {{ food.food?.name }}
-            </h3>
-            <h4 class="text-primary-900 text-xs">{{ food.count }} fois</h4>
-          </div>
-          <button
-            class="flex flex-col justify-center items-center bg-primary-900 rounded-full min-w-1/4 size-9"
-          >
-            <IconPlus class="size-6 text-background-900" />
-          </button>
-        </div>
       </div>
     </div>
   </div>

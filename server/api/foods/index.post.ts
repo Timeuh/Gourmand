@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       data: {
         name: validatedBody.name,
         image: validatedBody.image,
-        plate_id: validatedBody.plate_id,
+        plates: validatedBody.plates,
         preptime_id: validatedBody.preptime_id,
         user_id: validatedBody.user_id,
       },

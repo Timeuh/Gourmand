@@ -6,6 +6,14 @@ info:
 http:
   method: GET
   url: http://localhost:3000/api/ingredients/1
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
+  params:
+    - name: fullContent
+      value: "true"
+      type: query
+      disabled: true
   auth: inherit
 
 settings:

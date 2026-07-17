@@ -6,8 +6,11 @@ export default defineEventHandler(async (event) => {
     // get calendars from a specific user
     const userId = getQuery(event).userId;
 
+    // get user from session
+    const { user } = await getUserSession(event);
+
     // if userId is specified but invalid, return a bad request error
-    if (userId !== undefined && isNaN(Number(userId))) {
+    if (!user && userId !== undefined && isNaN(Number(userId))) {
       return sendJsonResponse<ApiError>(
         {
           error: {
@@ -21,23 +24,29 @@ export default defineEventHandler(async (event) => {
       );
     }
 
+    // user either the id of the user in session or the provided user id
+    const idToCheck = user?.id || Number(userId);
+
     // get foods from database
     const foods: Food[] | FullFood[] = await prisma.food.findMany({
-      where: userId
+      where: idToCheck
         ? {
-            user_id: Number(userId),
+            user_id: idToCheck,
           }
         : undefined,
       include: fullContent
         ? {
-            plate: true,
             preptime: true,
             user: true,
             foodIngredients: {
               include: {
                 food_id: false,
                 ingredient_id: false,
-                ingredient: true,
+                ingredient: {
+                  include: {
+                    category: true,
+                  },
+                },
               },
             },
           }

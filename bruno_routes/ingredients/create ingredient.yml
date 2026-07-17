@@ -6,11 +6,15 @@ info:
 http:
   method: POST
   url: http://localhost:3000/api/ingredients
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
   body:
     type: json
     data: |-
       {
-        "name": "salt"
+        "name": "Test",
+        "category_id": 1
       }
   auth: inherit
 

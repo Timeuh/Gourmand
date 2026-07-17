@@ -1,0 +1,4 @@
+name: Gourmand
+variables:
+  - secret: true
+    name: NUXT_API_KEY

@@ -6,6 +6,9 @@ info:
 http:
   method: GET
   url: http://localhost:3000/api/foods/1?fullContent=true
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
   params:
     - name: fullContent
       value: "true"

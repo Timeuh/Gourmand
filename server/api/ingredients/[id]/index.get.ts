@@ -1,15 +1,24 @@
 // get ingredient by id endpoint
 export default defineEventHandler(async (event) => {
   try {
+    // get fullContent param from the request parameters
+    const fullContent = getQuery(event).fullContent === "true";
+
     // get id from the request parameters
     const ingredientId = Number(getRouterParam(event, "id"));
 
     // get ingredient from database by id
-    const ingredient: Ingredient | null = await prisma.ingredient.findUnique({
-      where: {
-        id: ingredientId,
-      },
-    });
+    const ingredient: Ingredient | FullIngredient | null =
+      await prisma.ingredient.findUnique({
+        where: {
+          id: ingredientId,
+        },
+        include: fullContent
+          ? {
+              category: true,
+            }
+          : undefined,
+      });
 
     // if ingredient is not found, return an error
     if (!ingredient) {
@@ -26,7 +35,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // return the ingredient
-    return sendJsonResponse<Ingredient>(ingredient, HTTP_OK);
+    return sendJsonResponse<Ingredient | FullIngredient>(ingredient, HTTP_OK);
   } catch (error) {
     // handle any errors that occur during the process
     return sendErrorResponse(error);

@@ -6,12 +6,16 @@ info:
 http:
   method: PUT
   url: http://localhost:3000/api/users/1
+  headers:
+    - name: Authorization
+      value: Bearer {{NUXT_API_KEY}}
   body:
     type: json
     data: |-
       {
         "email": "john.doe@mail.com",
-        "theme_id": 1
+        "theme_id": 1,
+        "month_objective": 15
       }
   auth: inherit
 
