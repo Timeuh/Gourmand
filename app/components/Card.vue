@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
         <h3 class="text-background-900 text-sm text-balance">
           {{ props.cardFood.food?.name }}
         </h3>
-        <h4 class="text-secondary-100 text-xs">
+        <h4 class="font-bold text-secondary-100 text-xs">
           {{ daysFromToday(new Date(props.cardFood.lastEaten || "")) }}
         </h4>
       </div>
@@ -59,7 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
         <h3 class="text-sm text-balance">
           {{ props.cardFood.food?.name }}
         </h3>
-        <h4 class="text-primary-900 text-xs">
+        <h4 class="font-bold text-primary-900 text-xs">
           {{ props.cardFood.count }} fois
         </h4>
       </div>
