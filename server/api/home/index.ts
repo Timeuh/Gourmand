@@ -140,6 +140,11 @@ export default defineEventHandler(async (event) => {
       ),
     );
 
+    // sort the grouped foods by descendant count
+    groupedFoodsOfThisWeek.sort((a, b) => {
+      return b.count - a.count;
+    });
+
     // get the 4 oldest eaten foods ids and date
     const groupedOldestFoods = await prisma.calendar.groupBy({
       by: ["food_id"],
