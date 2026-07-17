@@ -34,7 +34,11 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
     </div>
     <div class="pb-2 w-full overflow-x-scroll">
       <div class="flex flex-row items-center space-x-4 w-max">
-        <Card v-for="food in foodsToDisplay" :card-food="food" class="w-44" />
+        <Card
+          v-for="food in foodsToDisplay"
+          :card-food="food"
+          class="size-44"
+        />
       </div>
     </div>
   </div>
