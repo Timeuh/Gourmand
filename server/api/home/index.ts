@@ -177,17 +177,20 @@ export default defineEventHandler(async (event) => {
       lastEaten: g._max.date?.toISOString(),
     }));
 
+    // limit to 6 foods
+    const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
+
     // get the most eaten foods of this month
     const mostEatenFoodsDetails: Food[] = await prisma.food.findMany({
       where: {
         id: {
-          in: foodsOfCurrentMonth.map((g) => g.food_id),
+          in: mostEatenFoodsLimit.map((g) => g.food_id),
         },
       },
     });
 
     // format result to include food details and count
-    const mostEatenFoods: MostEatenFood[] = foodsOfCurrentMonth.map((g) => {
+    const mostEatenFoods: MostEatenFood[] = mostEatenFoodsLimit.map((g) => {
       const food = mostEatenFoodsDetails.find((f) => f.id === g.food_id);
 
       return {
