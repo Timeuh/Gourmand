@@ -1,5 +1,3 @@
-import type { MostEatenFood, ThisWeekFood } from "~~/shared/types/food_schema";
-
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
   try {
@@ -102,9 +100,8 @@ export default defineEventHandler(async (event) => {
       take: 4,
     });
 
-    // get different foods eaten this week with their number of times
-    const groupedFoodsOfThisWeek = await prisma.calendar.groupBy({
-      by: ["food_id"],
+    // get foods eaten this week
+    const foodsOfThisWeek: FullCalendar[] = await prisma.calendar.findMany({
       where: {
         food: {
           user_id: idToCheck,
@@ -114,34 +111,34 @@ export default defineEventHandler(async (event) => {
           lt: today,
         },
       },
-      _count: {
-        food_id: true,
+      include: {
+        food: true,
       },
       orderBy: {
-        _count: {
-          food_id: "desc",
-        },
+        date: "desc",
       },
     });
 
-    // get the foods eaten this week
-    const foodsOfThisWeekDetails: Food[] = await prisma.food.findMany({
-      where: {
-        id: {
-          in: groupedFoodsOfThisWeek.map((g) => g.food_id),
+    // group this week's foods to get times eaten
+    const groupedFoodsOfThisWeek: ThisWeekFood[] = Object.values(
+      foodsOfThisWeek.reduce(
+        (acc, entry) => {
+          const id = entry.food.id;
+
+          if (!acc[id]) {
+            acc[id] = {
+              food: entry.food,
+              count: 0,
+            };
+          }
+
+          acc[id].count++;
+
+          return acc;
         },
-      },
-    });
-
-    // format result to include food details and count
-    const foodsOfThisWeek: ThisWeekFood[] = groupedFoodsOfThisWeek.map((g) => {
-      const food = foodsOfThisWeekDetails.find((f) => f.id === g.food_id);
-
-      return {
-        food,
-        count: g._count.food_id,
-      };
-    });
+        {} as Record<number, ThisWeekFood>,
+      ),
+    );
 
     // get the 4 oldest eaten foods ids and date
     const groupedOldestFoods = await prisma.calendar.groupBy({
@@ -204,6 +201,7 @@ export default defineEventHandler(async (event) => {
       foodsOfPreviousMonth: foodsOfPreviousMonth.length,
       foodsOfCurrentMonth: foodsOfCurrentMonth.length,
       favoriteFoods,
+      groupedFoodsOfThisWeek,
       foodsOfThisWeek,
       oldestFoods,
       mostEatenFoods,
