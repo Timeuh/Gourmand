@@ -37,7 +37,7 @@ const FULL_CALENDAR_SCHEMA = vine.object({
     id: vine.number(),
     name: vine.string(),
     image: vine.string(),
-    plate_id: vine.number(),
+    plates: vine.number(),
     preptime_id: vine.number(),
     user_id: vine.number(),
   }),
