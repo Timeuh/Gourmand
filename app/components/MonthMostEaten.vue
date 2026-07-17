@@ -33,7 +33,7 @@ function calculatePercentage(count: number) {
       </h2>
     </div>
     <div
-      class="flex flex-col items-center space-y-3 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl h-full"
+      class="flex flex-col items-center space-y-3 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl h-max"
     >
       <div
         v-for="food in foodsToDisplay"

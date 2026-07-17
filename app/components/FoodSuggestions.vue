@@ -31,8 +31,8 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 xl:h-[90%]">
-      <Card v-for="food in foodsToDisplay" :card-food="food" class="" />
+    <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 w-full h-full">
+      <Card v-for="food in foodsToDisplay" :card-food="food" class="h-44" />
     </div>
   </div>
 </template>
