@@ -25,7 +25,8 @@ export type HomeData = {
   foodsOfPreviousMonth: number;
   foodsOfCurrentMonth: number;
   favoriteFoods: Food[];
-  foodsOfThisWeek: ThisWeekFood[];
+  groupedFoodsOfThisWeek: ThisWeekFood[];
+  foodsOfThisWeek: FullCalendar[];
   oldestFoods: OldestFood[];
   mostEatenFoods: MostEatenFood[];
 };
