@@ -1,3 +1,6 @@
+import type { GroupedCalendar } from "~~/shared/types/api";
+import type { FullCalendar } from "~~/shared/types/calendar_schema";
+
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
   try {
@@ -119,6 +122,27 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // group foods of the week by day
+    const foodsByDay: GroupedCalendar[] = Object.values(
+      foodsOfThisWeek.reduce(
+        (acc, calendar) => {
+          const key = calendar.date.toISOString().split("T")[0] || "";
+
+          if (!acc[key]) {
+            acc[key] = {
+              date: calendar.date,
+              foods: [],
+            };
+          }
+
+          acc[key].foods.push(calendar);
+
+          return acc;
+        },
+        {} as Record<string, GroupedCalendar>,
+      ),
+    );
+
     // group this week's foods to get times eaten
     const groupedFoodsOfThisWeek: ThisWeekFood[] = Object.values(
       foodsOfThisWeek.reduce(
@@ -207,7 +231,7 @@ export default defineEventHandler(async (event) => {
       foodsOfCurrentMonth: foodsOfCurrentMonth.length,
       favoriteFoods,
       groupedFoodsOfThisWeek,
-      foodsOfThisWeek,
+      foodsOfThisWeek: foodsByDay,
       oldestFoods,
       mostEatenFoods,
     };
