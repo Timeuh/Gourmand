@@ -18,10 +18,32 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
         };
       });
 });
+
+// carousel page size
+const cardsPerPage = 4;
+
+// start with page 1 of course
+const currentPage = ref<number>(1);
+
+// calculate max page
+const maxPage = Math.ceil(foodsToDisplay.value.length / cardsPerPage);
+
+// display next page
+const next = async () => {
+  currentPage.value++;
+};
+
+// display previous page
+const prev = async () => {
+  currentPage.value--;
+};
+
+// card width and spacing for carousel animation
+const cardWidth = 208 + 24;
 </script>
 
 <template>
-  <div class="xl:hidden space-y-2 w-full">
+  <div class="hidden xl:block space-y-2 w-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">🗓️ Cette semaine</h2>
       <NuxtLink
@@ -32,14 +54,37 @@ const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="pb-2 w-full overflow-x-scroll">
-      <div class="flex flex-row items-center space-x-4 w-max">
-        <Card
-          v-for="food in foodsToDisplay"
-          :card-food="food"
-          class="size-44"
-        />
+    <div class="relative w-full">
+      <button
+        v-if="maxPage > 1 && currentPage > 1"
+        @click="prev"
+        class="top-1/2 -left-5 z-10 absolute bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-full -translate-y-1/2 cursor-pointer"
+      >
+        <IconChevronLeft class="size-5" />
+      </button>
+      <div class="w-full overflow-hidden">
+        <div
+          ref="carouselRef"
+          class="flex flex-row justify-between space-x-6 py-1 w-full transition-transform duration-700 ease-out"
+          :style="{
+            transform: `translateX(-${(currentPage - 1) * cardsPerPage * cardWidth}px)`,
+          }"
+        >
+          <Card
+            v-for="food in foodsToDisplay"
+            :key="food.food?.id"
+            :card-food="food"
+            class="w-52 h-48 shrink-0"
+          />
+        </div>
       </div>
+      <button
+        v-if="maxPage > 1 && currentPage < maxPage"
+        @click="next"
+        class="top-1/2 -right-5 z-10 absolute bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-full -translate-y-1/2 cursor-pointer"
+      >
+        <IconChevronRight class="size-5" />
+      </button>
     </div>
   </div>
 </template>

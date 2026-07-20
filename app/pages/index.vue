@@ -57,8 +57,8 @@ const { data } = useFetch<HomeData>("/api/home");
         class="xl:flex flex-col xl:justify-between space-y-6 xl:w-3/5 h-full"
       >
         <FoodSuggestions :foods="data?.oldestFoods" />
+        <MobileFoodThisWeek :foods="data?.groupedFoodsOfThisWeek" />
         <FoodThisWeek :foods="data?.groupedFoodsOfThisWeek" />
-        <WeekCarousel :foods="data?.groupedFoodsOfThisWeek" />
       </div>
       <MonthMostEaten :foods="data?.mostEatenFoods" />
     </section>
