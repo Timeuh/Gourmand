@@ -123,24 +123,34 @@ export default defineEventHandler(async (event) => {
     });
 
     // group foods of the week by day
-    const foodsByDay: GroupedCalendar[] = Object.values(
-      foodsOfThisWeek.reduce(
-        (acc, calendar) => {
-          const key = calendar.date.toISOString().split("T")[0] || "";
+    const foodsByDayMap: Record<string, GroupedCalendar> = {};
 
-          if (!acc[key]) {
-            acc[key] = {
-              date: calendar.date,
-              foods: [],
-            };
-          }
+    // create keys for last seven days
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - i);
 
-          acc[key].foods.push(calendar);
+      const key = date.toISOString().split("T")[0] || "";
 
-          return acc;
-        },
-        {} as Record<string, GroupedCalendar>,
-      ),
+      foodsByDayMap[key] = {
+        date: new Date(date),
+        foods: [],
+      };
+    }
+
+    // add foods for each day
+    for (const calendar of foodsOfThisWeek) {
+      const key = calendar.date.toISOString().split("T")[0] || "";
+
+      if (foodsByDayMap[key]) {
+        foodsByDayMap[key].foods.push(calendar);
+      }
+    }
+
+    // sort final array by desc day
+    const foodsByDay = Object.values(foodsByDayMap).sort(
+      (a, b) => b.date.getTime() - a.date.getTime(),
     );
 
     // group this week's foods to get times eaten
