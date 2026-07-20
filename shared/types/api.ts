@@ -20,13 +20,19 @@ export type ImageUploadResponse = {
   url: string;
 };
 
+// foods grouped by day
+export type GroupedCalendar = {
+  date: Date;
+  foods: FullCalendar[];
+};
+
 // data returned by the api for the home page
 export type HomeData = {
   foodsOfPreviousMonth: number;
   foodsOfCurrentMonth: number;
   favoriteFoods: Food[];
   groupedFoodsOfThisWeek: ThisWeekFood[];
-  foodsOfThisWeek: FullCalendar[];
+  foodsOfThisWeek: GroupedCalendar[];
   oldestFoods: OldestFood[];
   mostEatenFoods: MostEatenFood[];
 };
