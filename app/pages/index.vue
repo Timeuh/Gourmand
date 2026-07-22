@@ -62,8 +62,9 @@ const { data } = useFetch<HomeData>("/api/home");
       </div>
       <MonthMostEaten :foods="data?.mostEatenFoods" />
     </section>
-    <section id="last-row">
+    <section id="last-row" class="xl:h-[19%]">
       <MobileLastEaten :foods="data?.foodsOfThisWeek" />
+      <LastEaten :foods="data?.foodsOfThisWeek" />
     </section>
   </div>
 </template>
