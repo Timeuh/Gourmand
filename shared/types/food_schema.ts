@@ -82,7 +82,7 @@ export type FullFood = Infer<typeof FULL_FOOD_SCHEMA>;
 
 export type OldestFood = {
   food: Food | undefined;
-  lastEaten: string | undefined;
+  lastEaten: string | undefined | null;
 };
 
 export type MostEatenFood = {
