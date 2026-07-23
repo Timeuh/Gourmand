@@ -7,21 +7,11 @@ interface Props {
 // register props
 const props = defineProps<Props>();
 
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<MostEatenFood[]> = computed(() => {
-  return props.foods && props.foods.length > 0
-    ? props.foods
-    : mapDefaultFoods<MostEatenFood>((food: Food) => {
-        return {
-          food,
-          count: 1,
-        };
-      });
-});
-
 // calculate the percentage reprensented by current count in comparison with the most eaten food of the month
 function calculatePercentage(count: number) {
-  return Math.round((count / (foodsToDisplay.value[0]?.count || 1)) * 100);
+  if (!props.foods || !props.foods[0]) return 0;
+
+  return Math.round((count / props.foods[0].count) * 100);
 }
 </script>
 
@@ -33,10 +23,11 @@ function calculatePercentage(count: number) {
       </h2>
     </div>
     <div
-      class="flex flex-col items-center space-y-3 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl h-max"
+      class="flex flex-col items-center space-y-3 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl h-max xl:min-h-[90%]"
     >
       <div
-        v-for="food in foodsToDisplay"
+        v-if="props.foods?.length !== 0"
+        v-for="food in props.foods"
         class="flex flex-row justify-between items-center w-full"
       >
         <NuxtImg
@@ -57,6 +48,11 @@ function calculatePercentage(count: number) {
           <span class="font-bold text-secondary-900">{{ food.count }}</span>
           fois
         </h4>
+      </div>
+      <div v-else>
+        <h2 class="text-secondary-900">
+          Vous n'avez pas mangé de plat ce mois-ci
+        </h2>
       </div>
     </div>
   </div>
