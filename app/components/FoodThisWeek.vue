@@ -26,7 +26,9 @@ const cardsPerPage = 4;
 const currentPage = ref<number>(1);
 
 // calculate max page
-const maxPage = Math.ceil(foodsToDisplay.value.length / cardsPerPage);
+const maxPage = computed(() =>
+  Math.ceil(foodsToDisplay.value.length / cardsPerPage),
+);
 
 // display next page
 const next = async () => {
