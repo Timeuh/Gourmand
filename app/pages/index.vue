@@ -12,7 +12,7 @@ definePageMeta({
 const { user } = useUserSession();
 
 // fetch home data
-const { data } = useFetch<HomeData>("/api/home");
+const { data } = useFetch<HomeData>("/api/home", { key: "home" });
 </script>
 
 <template>
