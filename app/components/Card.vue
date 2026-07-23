@@ -72,7 +72,7 @@ async function logLongEatenFood(foodId: number | undefined) {
       </div>
       <button
         @click="logLongEatenFood(props.cardFood.food?.id)"
-        class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 shrink-0"
+        class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 cursor-pointer shrink-0"
       >
         <IconPlus class="size-6 text-primary-900" />
       </button>
@@ -90,7 +90,7 @@ async function logLongEatenFood(foodId: number | undefined) {
         </h4>
       </div>
       <button
-        class="flex flex-col justify-center items-center bg-primary-900 rounded-full size-7 shrink-0"
+        class="flex flex-col justify-center items-center bg-primary-900 rounded-full size-7 cursor-pointer shrink-0"
       >
         <IconPlus class="size-6 text-background-900" />
       </button>
