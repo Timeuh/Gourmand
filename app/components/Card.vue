@@ -22,6 +22,9 @@ const props = withDefaults(defineProps<Props>(), {
   class: "",
 });
 
+// in case an error happens
+const cardError = ref<string>("");
+
 // get the way to refresh home page data
 const { refresh } = useFetch("/api/home", { key: "home" });
 
@@ -33,18 +36,27 @@ async function logLongEatenFood(foodId: number | undefined) {
   // if user is not logged or food is not defined, do nothing
   if (!foodId || !loggedIn) return;
 
-  // create calendar entry with current food
-  await $fetch("/api/calendars", {
-    method: "POST",
-    body: {
-      date: new Date().toISOString(),
-      food_id: foodId,
-      user_id: user.value?.id,
-    },
-  });
+  try {
+    // create calendar entry with current food
+    await $fetch("/api/calendars", {
+      method: "POST",
+      body: {
+        date: new Date().toISOString(),
+        food_id: foodId,
+        user_id: user.value?.id,
+      },
+    });
 
-  // refresh home data
-  refresh();
+    // refresh home data
+    refresh();
+  } catch (error: any) {
+    console.error(error.data);
+    // display an error for 5 seconds
+    cardError.value = "Erreur pendant l'ajout";
+    setTimeout(() => {
+      cardError.value = "";
+    }, 5000);
+  }
 }
 </script>
 
@@ -53,6 +65,9 @@ async function logLongEatenFood(foodId: number | undefined) {
     class="relative shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-xl overflow-hidden"
     :class="props.class"
   >
+    <h3 class="top-2 absolute w-full text-red-700 text-center">
+      {{ cardError }}
+    </h3>
     <NuxtImg
       :src="props.cardFood.food?.image"
       :alt="props.cardFood.food?.name"
