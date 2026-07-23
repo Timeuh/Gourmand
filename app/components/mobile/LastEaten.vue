@@ -6,18 +6,6 @@ interface Props {
 
 // register props
 const props = defineProps<Props>();
-
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<GroupedCalendar[]> = computed(() => {
-  return props.foods && props.foods.length > 0
-    ? props.foods
-    : mapDefaultFoods<GroupedCalendar>((food: Food) => {
-        return {
-          date: new Date(),
-          foods: [{ food, id: 1, date: new Date(), food_id: 1 }],
-        };
-      });
-});
 </script>
 
 <template>
@@ -40,7 +28,7 @@ const foodsToDisplay: ComputedRef<GroupedCalendar[]> = computed(() => {
           class="flex flex-col justify-between items-center bg-secondary-100 w-1 h-full"
         >
           <div
-            v-for=" in foodsToDisplay"
+            v-for=" in props.foods"
             class="flex flex-col justify-center items-center h-10"
           >
             <div class="bg-secondary-900 rounded-full size-3" />
@@ -49,7 +37,7 @@ const foodsToDisplay: ComputedRef<GroupedCalendar[]> = computed(() => {
       </div>
       <div class="space-y-3 w-[95%]">
         <div
-          v-for="food in foodsToDisplay"
+          v-for="food in props.foods"
           class="flex flex-row justify-between items-center w-full h-10"
         >
           <h3 class="w-1/3 text-secondary-900 text-sm">

@@ -6,18 +6,6 @@ interface Props {
 
 // register props
 const props = defineProps<Props>();
-
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<GroupedCalendar[]> = computed(() => {
-  return props.foods && props.foods.length > 0
-    ? props.foods
-    : mapDefaultFoods<GroupedCalendar>((food: Food) => {
-        return {
-          date: new Date(),
-          foods: [{ food, id: 1, date: new Date(), food_id: 1 }],
-        };
-      });
-});
 </script>
 
 <template>
@@ -35,10 +23,7 @@ const foodsToDisplay: ComputedRef<GroupedCalendar[]> = computed(() => {
       </NuxtLink>
     </div>
     <div class="gap-2 grid grid-cols-7 w-full h-full">
-      <div
-        v-for="food in foodsToDisplay"
-        class="relative flex flex-col space-y-2"
-      >
+      <div v-for="food in props.foods" class="relative flex flex-col space-y-2">
         <h3 class="text-secondary-900 text-lg">
           {{ formatWeekDate(new Date(food.date)) }}
         </h3>
