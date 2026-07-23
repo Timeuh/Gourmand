@@ -7,18 +7,6 @@ interface Props {
 // register props
 const props = defineProps<Props>();
 
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<ThisWeekFood[]> = computed(() => {
-  return props.foods && props.foods.length > 0
-    ? props.foods
-    : mapDefaultFoods<ThisWeekFood>((food: Food) => {
-        return {
-          food,
-          count: 1,
-        };
-      });
-});
-
 // carousel page size
 const cardsPerPage = 4;
 
@@ -26,9 +14,11 @@ const cardsPerPage = 4;
 const currentPage = ref<number>(1);
 
 // calculate max page
-const maxPage = computed(() =>
-  Math.ceil(foodsToDisplay.value.length / cardsPerPage),
-);
+const maxPage = computed(() => {
+  if (!props.foods) return 1;
+
+  return Math.ceil(props.foods.length / cardsPerPage);
+});
 
 // display next page
 const next = async () => {
@@ -73,10 +63,15 @@ const cardWidth = 208 + 24;
           }"
         >
           <Card
-            v-for="food in foodsToDisplay"
+            v-for="food in props.foods"
             :key="food.food?.id"
             :card-food="food"
             class="w-52 h-48 shrink-0"
+          />
+          <Card
+            v-if="props.foods?.length == 0"
+            :card-food="undefined"
+            class="w-52 h-48"
           />
         </div>
       </div>
