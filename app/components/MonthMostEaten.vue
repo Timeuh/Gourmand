@@ -50,7 +50,7 @@ function calculatePercentage(count: number) {
         </h4>
       </div>
       <div v-else>
-        <h2 class="text-secondary-900">
+        <h2 class="text-secondary-900 xl:text-lg">
           Vous n'avez pas mangé de plat ce mois-ci
         </h2>
       </div>
