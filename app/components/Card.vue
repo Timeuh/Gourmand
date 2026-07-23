@@ -58,6 +58,13 @@ async function logLongEatenFood(foodId: number | undefined) {
     }, 5000);
   }
 }
+
+// test if the food has been eaten
+const lastEaten = computed(() =>
+  "lastEaten" in props.cardFood && props.cardFood.lastEaten != null
+    ? daysFromToday(new Date(props.cardFood.lastEaten || ""))
+    : "Pas encore mangé",
+);
 </script>
 
 <template>
@@ -82,7 +89,7 @@ async function logLongEatenFood(foodId: number | undefined) {
           {{ props.cardFood.food?.name }}
         </h3>
         <h4 class="font-bold text-secondary-100 text-xs">
-          {{ daysFromToday(new Date(props.cardFood.lastEaten || "")) }}
+          {{ lastEaten }}
         </h4>
       </div>
       <button
