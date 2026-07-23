@@ -67,7 +67,7 @@ const cardWidth = 208 + 24;
       <div class="w-full overflow-hidden">
         <div
           ref="carouselRef"
-          class="flex flex-row justify-between space-x-6 py-1 w-full transition-transform duration-700 ease-out"
+          class="flex flex-row space-x-6 py-1 w-full transition-transform duration-700 ease-out"
           :style="{
             transform: `translateX(-${(currentPage - 1) * cardsPerPage * cardWidth}px)`,
           }"
