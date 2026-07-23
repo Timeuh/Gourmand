@@ -22,11 +22,17 @@ const props = defineProps<Props>();
     </div>
     <div class="pb-2 w-full overflow-x-scroll">
       <div class="flex flex-row items-center space-x-4 w-max">
-        <Card v-for="food in props.foods" :card-food="food" class="size-44" />
+        <Card
+          v-for="food in props.foods"
+          :card-food="food"
+          class="size-44"
+          default-text=""
+        />
         <Card
           v-if="props.foods?.length == 0"
           :card-food="undefined"
           class="size-44"
+          default-text="Loggez un plat pour le voir ici"
         />
       </div>
     </div>

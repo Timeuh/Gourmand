@@ -67,11 +67,13 @@ const cardWidth = 208 + 24;
             :key="food.food?.id"
             :card-food="food"
             class="w-52 h-48 shrink-0"
+            default-text=""
           />
           <Card
             v-if="props.foods?.length == 0"
             :card-food="undefined"
             class="w-52 h-48"
+            default-text="Loggez un plat pour le voir ici"
           />
         </div>
       </div>

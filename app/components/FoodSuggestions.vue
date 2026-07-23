@@ -6,18 +6,6 @@ interface Props {
 
 // register props
 const props = defineProps<Props>();
-
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
-  return props.foods && props.foods.length > 0
-    ? props.foods
-    : mapDefaultFoods<OldestFood>((food: Food) => {
-        return {
-          food,
-          lastEaten: new Date().toISOString(),
-        };
-      });
-});
 </script>
 
 <template>
@@ -32,7 +20,18 @@ const foodsToDisplay: ComputedRef<OldestFood[]> = computed(() => {
       </NuxtLink>
     </div>
     <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 w-full h-full">
-      <Card v-for="food in foodsToDisplay" :card-food="food" class="h-44" />
+      <Card
+        v-for="food in props.foods"
+        :card-food="food"
+        class="h-44"
+        default-text=""
+      />
+      <Card
+        v-if="props.foods?.length === 0"
+        :card-food="undefined"
+        class="h-44"
+        default-text="Ajoutez une recette pour la voir ici"
+      />
     </div>
   </div>
 </template>

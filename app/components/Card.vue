@@ -3,6 +3,7 @@
 interface Props {
   cardFood: OldestFood | ThisWeekFood | undefined;
   class: string;
+  defaultText: string;
 }
 
 // register props
@@ -13,12 +14,13 @@ const props = withDefaults(defineProps<Props>(), {
       user_id: -1,
       preptime_id: -1,
       plates: 1,
-      name: "Log un plat pour qu'il apparaisse ici",
+      name: "Default",
       image: "/assets/default_food.png",
     },
     count: 0,
   }),
   class: "",
+  defaultText: "",
 });
 
 // in case an error happens
@@ -85,7 +87,11 @@ const lastEaten = computed(() =>
     >
       <div class="space-y-1 w-full">
         <h3 class="text-background-900 text-sm text-balance">
-          {{ props.cardFood.food?.name }}
+          {{
+            props.cardFood.food?.name === "Default"
+              ? props.defaultText
+              : props.cardFood.food?.name
+          }}
         </h3>
         <h4 class="font-bold text-secondary-100 text-xs">
           {{ lastEaten }}
@@ -104,7 +110,11 @@ const lastEaten = computed(() =>
     >
       <div class="space-y-1 w-full">
         <h3 class="text-sm text-balance">
-          {{ props.cardFood.food?.name }}
+          {{
+            props.cardFood.food?.name === "Default"
+              ? props.defaultText
+              : props.cardFood.food?.name
+          }}
         </h3>
         <h4
           class="font-bold text-primary-900 text-xs"
