@@ -21,6 +21,31 @@ const props = withDefaults(defineProps<Props>(), {
   }),
   class: "",
 });
+
+// get the way to refresh home page data
+const { refresh } = useFetch("/api/home", { key: "home" });
+
+// get current user
+const { user, loggedIn } = useUserSession();
+
+// log a food eaten since long time
+async function logLongEatenFood(foodId: number | undefined) {
+  // if user is not logged or food is not defined, do nothing
+  if (!foodId || !loggedIn) return;
+
+  // create calendar entry with current food
+  await $fetch("/api/calendars", {
+    method: "POST",
+    body: {
+      date: new Date().toISOString(),
+      food_id: foodId,
+      user_id: user.value?.id,
+    },
+  });
+
+  // refresh home data
+  refresh();
+}
 </script>
 
 <template>
@@ -46,6 +71,7 @@ const props = withDefaults(defineProps<Props>(), {
         </h4>
       </div>
       <button
+        @click="logLongEatenFood(props.cardFood.food?.id)"
         class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 shrink-0"
       >
         <IconPlus class="size-6 text-primary-900" />
