@@ -6,11 +6,6 @@ interface Props {
 
 // register props
 const props = defineProps<Props>();
-
-// return foods from database or default foods if not available
-const foodsToDisplay: ComputedRef<Food[]> = computed(() => {
-  return props.foods && props.foods.length > 0 ? props.foods : defaultFoods;
-});
 </script>
 
 <template>
@@ -19,7 +14,13 @@ const foodsToDisplay: ComputedRef<Food[]> = computed(() => {
     <div
       class="flex flex-row justify-between items-center bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full"
     >
-      <div v-for="food in foodsToDisplay">
+      <h3
+        v-if="props.foods?.length == 0"
+        class="w-full xl:min-h-22 xl:text-lg text-center"
+      >
+        Ajoutez des plats pour qu'ils apparaissent
+      </h3>
+      <div v-for="food in props.foods">
         <NuxtImg
           :src="food.image"
           :alt="food.name"
