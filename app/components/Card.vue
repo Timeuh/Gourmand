@@ -9,15 +9,14 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   cardFood: () => ({
     food: {
-      id: 1,
-      user_id: 1,
-      preptime_id: 1,
+      id: -1,
+      user_id: -1,
+      preptime_id: -1,
       plates: 1,
-      name: "Default",
+      name: "Log un plat pour qu'il apparaisse ici",
       image: "/assets/default_food.png",
     },
-    lastEaten: new Date().toString(),
-    count: 1,
+    count: 0,
   }),
   class: "",
 });
@@ -107,11 +106,15 @@ const lastEaten = computed(() =>
         <h3 class="text-sm text-balance">
           {{ props.cardFood.food?.name }}
         </h3>
-        <h4 class="font-bold text-primary-900 text-xs">
+        <h4
+          class="font-bold text-primary-900 text-xs"
+          v-if="props.cardFood.count != 0"
+        >
           {{ props.cardFood.count }} fois
         </h4>
       </div>
       <button
+        v-if="props.cardFood.count != 0"
         class="flex flex-col justify-center items-center bg-primary-900 rounded-full size-7 cursor-pointer shrink-0"
       >
         <IconPlus class="size-6 text-background-900" />
