@@ -33,7 +33,7 @@ const { refresh } = useFetch("/api/home", { key: "home" });
 const { user, loggedIn } = useUserSession();
 
 // log a food eaten since long time
-async function logLongEatenFood(foodId: number | undefined) {
+async function eatFood(foodId: number | undefined) {
   // if user is not logged or food is not defined, do nothing
   if (!foodId || !loggedIn) return;
 
@@ -98,7 +98,7 @@ const lastEaten = computed(() =>
         </h4>
       </div>
       <button
-        @click="logLongEatenFood(props.cardFood.food?.id)"
+        @click="eatFood(props.cardFood.food?.id)"
         class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 cursor-pointer shrink-0"
       >
         <IconPlus class="size-6 text-primary-900" />
@@ -124,6 +124,7 @@ const lastEaten = computed(() =>
         </h4>
       </div>
       <button
+        @click="eatFood(props.cardFood.food?.id)"
         v-if="props.cardFood.count != 0"
         class="flex flex-col justify-center items-center bg-primary-900 rounded-full size-7 cursor-pointer shrink-0"
       >
