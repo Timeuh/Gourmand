@@ -23,13 +23,18 @@ const props = defineProps<Props>();
       </NuxtLink>
     </div>
     <div class="gap-2 grid grid-cols-7 w-full h-full">
-      <div v-for="food in props.foods" class="relative flex flex-col space-y-2">
+      <div
+        v-for="(food, index) in props.foods"
+        :key="index"
+        class="relative flex flex-col space-y-2"
+      >
         <h3 class="text-secondary-900 text-lg">
           {{ formatWeekDate(new Date(food.date)) }}
         </h3>
         <div class="flex flex-row gap-2 pe-2 w-full">
           <div
             v-for="weekFood in food.foods"
+            :key="weekFood.id"
             class="group relative flex-1 max-w-14"
           >
             <div

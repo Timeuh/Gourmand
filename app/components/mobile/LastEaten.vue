@@ -28,7 +28,8 @@ const props = defineProps<Props>();
           class="flex flex-col justify-between items-center bg-secondary-100 w-1 h-full"
         >
           <div
-            v-for=" in props.foods"
+            v-for="(_food, index) in props.foods"
+            :key="index"
             class="flex flex-col justify-center items-center h-10"
           >
             <div class="bg-secondary-900 rounded-full size-3" />
@@ -37,7 +38,8 @@ const props = defineProps<Props>();
       </div>
       <div class="space-y-3 w-[95%]">
         <div
-          v-for="food in props.foods"
+          v-for="(food, index) in props.foods"
+          :key="index"
           class="flex flex-row justify-between items-center w-full h-10"
         >
           <h3 class="w-1/3 text-secondary-900 text-sm">
@@ -48,6 +50,7 @@ const props = defineProps<Props>();
           >
             <div
               v-for="weekFood in food.foods"
+              :key="weekFood.food_id"
               class="flex flex-row items-center space-x-2 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-2 rounded-md h-10"
             >
               <NuxtImg

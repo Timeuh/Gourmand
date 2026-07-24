@@ -28,6 +28,7 @@ function calculatePercentage(count: number) {
       <div
         v-if="props.foods?.length !== 0"
         v-for="food in props.foods"
+        :key="food.food?.id"
         class="flex flex-row justify-between items-center w-full"
       >
         <NuxtImg

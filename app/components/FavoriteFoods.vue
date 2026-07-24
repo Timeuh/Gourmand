@@ -20,7 +20,7 @@ const props = defineProps<Props>();
       >
         Ajoutez des plats pour qu'ils apparaissent
       </h3>
-      <div v-for="food in props.foods">
+      <div v-for="food in props.foods" :key="food.id">
         <NuxtImg
           :src="food.image"
           :alt="food.name"
