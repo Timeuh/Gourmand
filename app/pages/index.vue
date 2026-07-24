@@ -17,8 +17,9 @@ const { data } = useFetch<HomeData>("/api/home", { key: "home" });
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden"
+    class="relative space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden"
   >
+    <ModalLogFood />
     <section
       id="first-row"
       class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
