@@ -20,17 +20,16 @@ const props = defineProps<Props>();
       </NuxtLink>
     </div>
     <div class="gap-4 xl:gap-6 grid grid-cols-2 xl:grid-cols-4 w-full h-full">
-      <Card
+      <CardLastEaten
         v-for="food in props.foods"
+        :key="food.food?.id"
         :card-food="food"
         class="h-44"
-        default-text=""
       />
-      <Card
+      <CardPlaceHolder
         v-if="props.foods?.length === 0"
-        :card-food="undefined"
         class="h-44"
-        default-text="Ajoutez une recette pour la voir ici"
+        message="Ajoutez une recette pour la voir ici"
       />
     </div>
   </div>
