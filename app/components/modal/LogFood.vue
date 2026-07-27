@@ -5,6 +5,7 @@ const { showModal, closeModal } = useLogModal();
 // fetch all foods
 const { data } = useFetch<ApiCollection<OldestFood>>(
   "/api/foods?lastEaten=true",
+  { key: "LogModal" },
 );
 </script>
 
@@ -21,7 +22,7 @@ const { data } = useFetch<ApiCollection<OldestFood>>(
         </button>
       </div>
       <div class="gap-3 grid grid-cols-2 w-full h-[95%] overflow-auto">
-        <CardLastEaten
+        <CardLogModal
           v-for="food in data?.items"
           :key="food.food?.id"
           :card-food="food"
