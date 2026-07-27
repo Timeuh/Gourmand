@@ -5,7 +5,7 @@ export function useEatFood() {
   const { user, loggedIn } = useUserSession();
 
   // init error state
-  const cardError = ref("");
+  const cardError = useState("CardError", () => "");
 
   /**
    * Make current user register food in their calendar
