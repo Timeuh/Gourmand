@@ -18,6 +18,11 @@ const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
     food.food?.name.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
+
+// clear the search string value
+function clearSearch() {
+  search.value = "";
+}
 </script>
 
 <template>
@@ -32,13 +37,21 @@ const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
           <IconCross class="size-6 text-primary-900" />
         </button>
       </div>
-      <div>
-        <input
-          type="text"
-          v-model="search"
-          placeholder="Lasagnes"
-          class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
-        />
+      <div
+        class="flex flex-row justify-between items-center bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full"
+      >
+        <div class="flex flex-row items-center space-x-1">
+          <IconSearch class="size-5 text-secondary-500" />
+          <input
+            type="text"
+            v-model="search"
+            placeholder="Lasagnes"
+            class="outline-none text-secondary-900 placeholder:text-secondary-500"
+          />
+        </div>
+        <button v-if="search !== ''" @click="clearSearch">
+          <IconCross class="size-4 text-secondary-900" />
+        </button>
       </div>
       <div
         class="content-start gap-3 grid grid-cols-2 w-full h-[86%] overflow-auto"
