@@ -10,31 +10,6 @@ const props = defineProps<Props>();
 
 // get the function to eat a food
 const { eatFood } = useEatFood();
-// get the function to close log modal
-const { closeModal } = useLogModal();
-
-// get the function to refresh food data
-const { refresh } = useFetch<ApiCollection<OldestFood>>(
-  "/api/foods?lastEaten=true",
-  { key: "LogModal" },
-);
-
-/**
- * Eat current food, update data and close the modal
- *
- * @param foodId {number | undefined} : the id of the food to eat
- */
-async function eatCurrentFood(foodId: number | undefined) {
-  // do nothing if the food id is undefined
-  if (!foodId) return;
-
-  // eat the food
-  await eatFood(foodId);
-  // update food data
-  await refresh();
-  // close the log modal
-  closeModal();
-}
 
 // test if the food has been eaten
 const lastEaten = computed(() => {
@@ -67,7 +42,7 @@ const lastEaten = computed(() => {
           </h4>
         </div>
         <button
-          @click="eatCurrentFood(props.cardFood.food?.id)"
+          @click="eatFood(props.cardFood.food?.id)"
           class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 cursor-pointer shrink-0"
         >
           <IconPlus class="size-6 text-primary-900" />
