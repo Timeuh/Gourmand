@@ -1,11 +1,6 @@
 <script setup lang="ts">
-// if the log modal is displayed or not
-const showModal = useState<boolean>("LogModal", () => false);
-
-// show or hide the modal depending on its state
-function triggerModal() {
-  showModal.value = !showModal.value;
-}
+// get modal utils from composable
+const { showModal, closeModal } = useLogModal();
 
 // fetch all foods
 const { data } = useFetch<ApiCollection<OldestFood>>(
@@ -21,7 +16,7 @@ const { data } = useFetch<ApiCollection<OldestFood>>(
     <div class="space-y-2 bg-background-500 p-4 rounded-xl w-4/5 h-4/5">
       <div class="flex flex-row justify-between items-center w-full">
         <h1 class="font-bold text-primary-900 text-xl">Log un plat</h1>
-        <button @click="triggerModal" class="cursor-pointer">
+        <button @click="closeModal" class="cursor-pointer">
           <IconCross class="size-6 text-primary-900" />
         </button>
       </div>
