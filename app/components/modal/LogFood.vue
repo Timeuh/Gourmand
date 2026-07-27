@@ -40,7 +40,9 @@ const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
           class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
         />
       </div>
-      <div class="gap-3 grid grid-cols-2 w-full h-[86%] overflow-auto">
+      <div
+        class="content-start gap-3 grid grid-cols-2 w-full h-[86%] overflow-auto"
+      >
         <CardLastEaten
           v-for="food in foodsToDisplay"
           :key="food.food?.id"
