@@ -59,6 +59,12 @@ function clearSearch() {
           <IconCross class="size-4 text-secondary-900" />
         </button>
       </div>
+      <h2
+        v-if="data?.items.length == 0"
+        class="font-bold text-secondary-900 text-center"
+      >
+        Ajoutez une recette pour la voir ici
+      </h2>
       <div
         class="content-start gap-3 grid grid-cols-2 xl:grid-cols-3 w-full h-[86%] overflow-auto"
       >
