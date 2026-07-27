@@ -22,7 +22,7 @@ const { data } = useFetch<ApiCollection<OldestFood>>(
         </button>
       </div>
       <div class="gap-3 grid grid-cols-2 w-full h-[95%] overflow-auto">
-        <CardLogModal
+        <CardLastEaten
           v-for="food in data?.items"
           :key="food.food?.id"
           :card-food="food"
