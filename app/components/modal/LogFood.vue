@@ -48,7 +48,7 @@ function clearSearch() {
             type="text"
             v-model="search"
             placeholder="Lasagnes"
-            class="outline-none xl:w-full text-secondary-900 placeholder:text-secondary-500"
+            class="outline-none xl:w-full text-secondary-900 placeholder:text-secondary-100"
           />
         </div>
         <button
