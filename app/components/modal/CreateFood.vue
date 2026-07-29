@@ -4,6 +4,9 @@ import type { VNodeRef } from "vue";
 // get modal utils from composable
 const { showModal, closeModal } = useRecipeModal();
 
+// get user from session
+const { user } = useUserSession();
+
 // get all preptimes
 const { data: preptimeData } =
   useFetch<ApiCollection<Preptime>>("/api/preptimes");
@@ -69,7 +72,7 @@ function getCategoryName(categoryId: number) {
 // reference food for the form inputs
 const formFood = ref<Food>({
   id: -1,
-  user_id: -1,
+  user_id: user.value?.id || -1,
   preptime_id: 1,
   plates: 1,
   image: "",
@@ -152,11 +155,29 @@ function verifyForm(): boolean {
 }
 
 // handle form submission
-function submitForm(_event: SubmitEvent) {
-  console.log(formFood.value);
-  console.log(selectedIngredients.value);
+async function submitForm(_event: SubmitEvent) {
   const isValid = verifyForm();
   changeErrorState(!isValid);
+
+  if (!isValid) return;
+
+  try {
+    const createdFood = await $fetch("/api/foods", {
+      method: "POST",
+      body: {
+        name: formFood.value.name,
+        image: imageFile.value?.name,
+        preptime_id: formFood.value.preptime_id,
+        plates: formFood.value.plates,
+        user_id: formFood.value.user_id,
+      },
+    });
+    console.log(createdFood);
+  } catch (error: any) {
+    console.error(error);
+    formError.value = "Erreur lors de la création, veuillez réessayer";
+    changeErrorState(true);
+  }
 }
 </script>
 
