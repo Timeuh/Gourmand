@@ -186,12 +186,24 @@ async function submitForm(_event: SubmitEvent) {
   if (!isValid) return;
 
   try {
+    // create form data for image api creation
+    const imageForm = new FormData();
+    const filename = `${user.value?.id}_${imageFile.value?.name}`;
+    imageForm.append("filename", filename);
+    imageForm.append("image", imageFile.value!);
+
+    // call image storing api
+    await $fetch("/api/images", {
+      method: "POST",
+      body: imageForm,
+    });
+
     // create food in database
     const createdFood = await $fetch("/api/foods", {
       method: "POST",
       body: {
         name: formFood.value.name,
-        image: imageFile.value?.name,
+        image: `/uploads/foods/${filename}`,
         preptime_id: formFood.value.preptime_id,
         plates: formFood.value.plates,
         user_id: formFood.value.user_id,
