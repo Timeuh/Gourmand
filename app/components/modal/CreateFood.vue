@@ -286,11 +286,12 @@ watch(showModal, async (open) => {
               type="button"
               @click="removeFile"
               v-if="imagePreview !== '/assets/default_food.png'"
+              class="cursor-pointer"
             >
               <IconCross class="size-5 text-secondary-900" />
             </button>
           </div>
-          <div class="relative p-2 w-full h-[20vh]">
+          <div class="relative p-2 w-full h-[20vh] xl:h-[35vh]">
             <input
               ref="imageInput"
               type="file"
@@ -307,7 +308,7 @@ watch(showModal, async (open) => {
             <button
               type="button"
               @click="openFilePicker"
-              class="z-30 absolute inset-0 flex flex-col justify-center items-center space-y-1 w-full h-full text-background-900"
+              class="z-30 absolute inset-0 flex flex-col justify-center items-center space-y-1 w-full h-full text-background-900 cursor-pointer"
             >
               <IconPhoto
                 v-if="imagePreview === '/assets/default_food.png'"
@@ -395,21 +396,21 @@ watch(showModal, async (open) => {
               :disabled="formFood.plates == 1"
               class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
             >
-              <IconMinus class="size-4" />
+              <IconMinus class="size-4 xl:size-6" />
             </button>
             <input
               type="number"
               id="plates"
               v-model="formFood.plates"
               readonly
-              class="outline-none w-5 text-lg select-none"
+              class="outline-none w-5 xl:w-9 text-lg xl:text-xl select-none"
             />
             <button
               type="button"
               @click="increment"
               class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
             >
-              <IconPlus class="size-4" />
+              <IconPlus class="size-4 xl:size-6" />
             </button>
           </div>
         </section>
@@ -420,11 +421,15 @@ watch(showModal, async (open) => {
           <button
             type="button"
             @click="resetFormAndClose"
-            class="bg-secondary-500 p-2 rounded-md w-20"
+            class="bg-secondary-500 hover:bg-secondary-900 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
           >
             Annuler
           </button>
-          <button class="bg-primary-900 p-2 rounded-md w-20">Créer</button>
+          <button
+            class="bg-primary-900 hover:bg-primary-500 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+          >
+            Créer
+          </button>
         </div>
       </form>
     </div>
