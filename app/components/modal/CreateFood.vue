@@ -15,6 +15,14 @@ const { data: preptimeData } =
 const { data: ingredientData } =
   useFetch<ApiCollection<Ingredient>>("/api/ingredients");
 
+// get the function to refresh home data
+const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
+
+// get the function to refresh food data
+const { refresh: refreshFoods } = useFetch("/api/foods?lastEaten=true", {
+  key: "LogModal",
+});
+
 // error for the form
 const formError = ref<string>("Vous devez remplir les champs :");
 
@@ -154,14 +162,31 @@ function verifyForm(): boolean {
   return isValid;
 }
 
+// reset form inputs
+function clearForm() {
+  imagePreview.value = "/assets/default_food.png";
+  formFood.value = {
+    id: -1,
+    user_id: user.value?.id || -1,
+    preptime_id: 1,
+    plates: 1,
+    image: "",
+    name: "",
+  };
+  selectedIngredients.value = [];
+}
+
 // handle form submission
 async function submitForm(_event: SubmitEvent) {
+  // check form validity and display error if needed
   const isValid = verifyForm();
   changeErrorState(!isValid);
 
+  // do nothing if form is invalid
   if (!isValid) return;
 
   try {
+    // create food in database
     const createdFood = await $fetch("/api/foods", {
       method: "POST",
       body: {
@@ -173,7 +198,16 @@ async function submitForm(_event: SubmitEvent) {
       },
     });
     console.log(createdFood);
+
+    // refresh home and food logging data
+    await refreshHome();
+    await refreshFoods();
+
+    // reset form and close the modal
+    clearForm();
+    closeModal();
   } catch (error: any) {
+    // display error to user
     console.error(error);
     formError.value = "Erreur lors de la création, veuillez réessayer";
     changeErrorState(true);
