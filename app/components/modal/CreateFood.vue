@@ -164,7 +164,14 @@ function verifyForm(): boolean {
 
 // reset form inputs
 function clearForm() {
+  // reset image input and temporary url
   imagePreview.value = "/assets/default_food.png";
+  imageFile.value = undefined;
+  if (imageInput.value) {
+    imageInput.value.value = "";
+  }
+
+  // reset form food values
   formFood.value = {
     id: -1,
     user_id: user.value?.id || -1,
@@ -173,7 +180,15 @@ function clearForm() {
     image: "",
     name: "",
   };
+
+  // empty selected ingredients
   selectedIngredients.value = [];
+}
+
+// reset form and close modal
+function resetFormAndClose() {
+  closeModal();
+  clearForm();
 }
 
 // handle form submission
@@ -254,7 +269,7 @@ watch(showModal, async (open) => {
     >
       <div class="flex flex-row justify-between items-center w-full">
         <h1 class="font-bold text-primary-900 text-xl">Ajouter une recette</h1>
-        <button @click="closeModal" class="cursor-pointer">
+        <button @click="resetFormAndClose" class="cursor-pointer">
           <IconCross class="size-6 text-primary-900" />
         </button>
       </div>
@@ -402,7 +417,11 @@ watch(showModal, async (open) => {
         <div
           class="flex flex-row justify-end items-center space-x-2 text-background-900"
         >
-          <button type="button" class="bg-secondary-500 p-2 rounded-md w-20">
+          <button
+            type="button"
+            @click="resetFormAndClose"
+            class="bg-secondary-500 p-2 rounded-md w-20"
+          >
             Annuler
           </button>
           <button class="bg-primary-900 p-2 rounded-md w-20">Créer</button>
