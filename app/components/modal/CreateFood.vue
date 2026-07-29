@@ -12,6 +12,17 @@ const { data: preptimeData } =
 const { data: ingredientData } =
   useFetch<ApiCollection<Ingredient>>("/api/ingredients");
 
+// error for the form
+const formError = ref<string>("Vous devez remplir les champs :");
+
+// should the error be displayed
+const showError = ref<boolean>(false);
+
+// show or hide the error depending on its current state
+function changeErrorState(newState: boolean) {
+  showError.value = newState;
+}
+
 // regroup ingredients by category id
 const ingredientsByCategory = computed(() => {
   if (!ingredientData.value?.items) return {};
@@ -117,10 +128,35 @@ function decrement() {
   formFood.value.plates--;
 }
 
+// verify form inputs
+function verifyForm(): boolean {
+  let isValid = true;
+  formError.value = "Vous devez remplir les champs :";
+
+  if (imagePreview.value === "/assets/default_food.png") {
+    isValid = false;
+    formError.value += " image, ";
+  }
+
+  if (formFood.value.name == "") {
+    isValid = false;
+    formError.value += " nom, ";
+  }
+
+  if (selectedIngredients.value.length == 0) {
+    isValid = false;
+    formError.value += " au moins 1 ingrédient";
+  }
+
+  return isValid;
+}
+
 // handle form submission
 function submitForm(_event: SubmitEvent) {
   console.log(formFood.value);
   console.log(selectedIngredients.value);
+  const isValid = verifyForm();
+  changeErrorState(!isValid);
 }
 </script>
 
@@ -277,6 +313,7 @@ function submitForm(_event: SubmitEvent) {
             </button>
           </div>
         </section>
+        <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
         <div
           class="flex flex-row justify-end items-center space-x-2 text-background-900"
         >
