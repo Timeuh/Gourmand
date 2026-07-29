@@ -46,7 +46,7 @@ const props = defineProps<Props>();
             {{ formatWeekDate(new Date(food.date)) }}
           </h3>
           <div
-            class="flex flex-row items-center space-x-3 w-3/5 overflow-x-scroll"
+            class="flex flex-row items-center space-x-3 p-1 w-3/5 overflow-auto"
           >
             <div
               v-for="weekFood in food.foods"

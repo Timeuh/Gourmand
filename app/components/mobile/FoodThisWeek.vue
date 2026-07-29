@@ -9,7 +9,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="xl:hidden space-y-2 w-full">
+  <div class="xl:hidden w-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">🗓️ Cette semaine</h2>
       <NuxtLink
@@ -20,7 +20,7 @@ const props = defineProps<Props>();
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="pb-2 w-full overflow-x-scroll">
+    <div class="p-1 px-2 w-full overflow-x-scroll">
       <div class="flex flex-row items-center space-x-4 w-max">
         <CardTimesEaten
           v-for="food in props.foods"

@@ -31,11 +31,11 @@ const prev = async () => {
 };
 
 // card width and spacing for carousel animation
-const cardWidth = 208 + 24;
+const cardWidth = 208 + 20;
 </script>
 
 <template>
-  <div class="hidden xl:block space-y-2 w-full">
+  <div class="hidden xl:block w-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">🗓️ Cette semaine</h2>
       <NuxtLink
@@ -54,10 +54,10 @@ const cardWidth = 208 + 24;
       >
         <IconChevronLeft class="size-5" />
       </button>
-      <div class="w-full overflow-hidden">
+      <div class="p-1 w-full overflow-hidden">
         <div
           ref="carouselRef"
-          class="flex flex-row space-x-6 py-1 w-full transition-transform duration-700 ease-out"
+          class="flex flex-row space-x-5 py-1 w-full transition-transform duration-700 ease-out"
           :style="{
             transform: `translateX(-${(currentPage - 1) * cardsPerPage * cardWidth}px)`,
           }"
