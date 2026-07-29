@@ -264,10 +264,8 @@ watch(showModal, async (open) => {
     :class="showModal ? 'opacity-100' : 'opacity-0 pointer-events-none'"
     class="z-20 fixed inset-0 flex flex-col justify-center items-center bg-black/50 backdrop-blur-xs w-full h-screen transition duration-500 ease-in-out"
   >
-    <div
-      class="space-y-3 bg-background-500 p-4 rounded-xl w-4/5 xl:w-1/3 h-4/5"
-    >
-      <div class="flex flex-row justify-between items-center w-full">
+    <div class="space-y-3 bg-background-500 rounded-xl w-4/5 xl:w-1/3 h-4/5">
+      <div class="flex flex-row justify-between items-center p-4 w-full">
         <h1 class="font-bold text-primary-900 text-xl">Ajouter une recette</h1>
         <button @click="resetFormAndClose" class="cursor-pointer">
           <IconCross class="size-6 text-primary-900" />
@@ -277,7 +275,7 @@ watch(showModal, async (open) => {
         ref="modalContent"
         novalidate
         @submit.prevent="submitForm"
-        class="space-y-3 h-[90%] overflow-auto text-secondary-900"
+        class="space-y-3 p-4 h-[90%] overflow-auto text-secondary-900"
       >
         <section id="form-image" class="space-y-2">
           <div class="flex flex-row justify-between items-center w-full">
@@ -330,7 +328,7 @@ watch(showModal, async (open) => {
             type="text"
             id="name"
             placeholder="Lasagnes"
-            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-100"
+            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-100"
           />
         </section>
         <section id="form-preptime" class="space-y-2">
@@ -340,7 +338,7 @@ watch(showModal, async (open) => {
           <select
             id="preptime"
             v-model.number="formFood.preptime_id"
-            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
+            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
           >
             <option
               v-for="preptime in preptimeData?.items"
@@ -394,7 +392,7 @@ watch(showModal, async (open) => {
               type="button"
               @click="decrement"
               :disabled="formFood.plates == 1"
-              class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
+              class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
             >
               <IconMinus class="size-4 xl:size-6" />
             </button>
@@ -408,7 +406,7 @@ watch(showModal, async (open) => {
             <button
               type="button"
               @click="increment"
-              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
+              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
             >
               <IconPlus class="size-4 xl:size-6" />
             </button>
