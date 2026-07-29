@@ -23,6 +23,12 @@ const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
 function clearSearch() {
   search.value = "";
 }
+
+// clear search and close modal
+function exitModal() {
+  closeModal();
+  clearSearch();
+}
 </script>
 
 <template>
@@ -35,7 +41,7 @@ function clearSearch() {
     >
       <div class="flex flex-row justify-between items-center w-full">
         <h1 class="font-bold text-primary-900 text-xl">Log un plat</h1>
-        <button @click="closeModal" class="cursor-pointer">
+        <button @click="exitModal" class="cursor-pointer">
           <IconCross class="size-6 text-primary-900" />
         </button>
       </div>
