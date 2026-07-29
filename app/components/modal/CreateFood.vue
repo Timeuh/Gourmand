@@ -4,6 +4,70 @@ import type { VNodeRef } from "vue";
 // get modal utils from composable
 const { showModal, closeModal } = useRecipeModal();
 
+// get all preptimes
+const { data: preptimeData } =
+  useFetch<ApiCollection<Preptime>>("/api/preptimes");
+
+// get all ingredients
+const { data: ingredientData } =
+  useFetch<ApiCollection<Ingredient>>("/api/ingredients");
+
+// regroup ingredients by category id
+const ingredientsByCategory = computed(() => {
+  if (!ingredientData.value?.items) return {};
+
+  return ingredientData.value.items.reduce(
+    (acc, ingredient) => {
+      const category = ingredient.category_id;
+
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(ingredient);
+
+      return acc;
+    },
+    {} as Record<number, Ingredient[]>,
+  );
+});
+
+// assign each category id to a name
+function getCategoryName(categoryId: number) {
+  switch (categoryId) {
+    case 1:
+      return "🥕 LEGUMES";
+
+    case 2:
+      return "🍓 FRUITS";
+
+    case 3:
+      return "🍗 VIANDES ET POISSONS";
+
+    case 4:
+      return "🧂 ASSAISONNEMENT";
+
+    case 5:
+      return "🍟 ACCOMPAGNEMENT";
+
+    default:
+      return "";
+  }
+}
+
+// reference food for the form inputs
+const formFood = ref<Food>({
+  id: -1,
+  user_id: -1,
+  preptime_id: 1,
+  plates: 1,
+  image: "",
+  name: "",
+});
+
+// list of ingredients ids
+const selectedIngredients = ref<number[]>([]);
+
 // init form image references
 const imageInput = ref<VNodeRef | null>(null);
 const imagePreview = ref<string>("/assets/default_food.png");
@@ -41,9 +105,22 @@ function removeFile() {
   imagePreview.value = "/assets/default_food.png";
 }
 
+// increment food plates
+function increment() {
+  formFood.value.plates++;
+}
+
+// decrement food plates, minimum 1
+function decrement() {
+  if (formFood.value.plates == 1) return;
+
+  formFood.value.plates--;
+}
+
 // handle form submission
 function submitForm(_event: SubmitEvent) {
-  console.log("submit");
+  console.log(formFood.value);
+  console.log(selectedIngredients.value);
 }
 </script>
 
@@ -64,9 +141,9 @@ function submitForm(_event: SubmitEvent) {
       <form
         novalidate
         @submit.prevent="submitForm"
-        class="space-y-2 text-secondary-900"
+        class="space-y-3 h-[90%] overflow-auto text-secondary-900"
       >
-        <div class="space-y-2">
+        <section id="form-image" class="space-y-2">
           <div class="flex flex-row justify-between items-center w-full">
             <label for="image" class="font-bold text-lg">Photo</label>
             <button
@@ -108,7 +185,98 @@ function submitForm(_event: SubmitEvent) {
               </h3>
             </button>
           </div>
-        </div>
+        </section>
+        <section id="form-name" class="space-y-2">
+          <label for="name" class="font-bold text-lg">Nom</label>
+          <input
+            v-model="formFood.name"
+            type="text"
+            id="name"
+            placeholder="Lasagnes"
+            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-100"
+          />
+        </section>
+        <section id="form-preptime" class="space-y-2">
+          <label for="preptime" class="font-bold text-lg"
+            >Temps de préparation</label
+          >
+          <select
+            id="preptime"
+            v-model.number="formFood.preptime_id"
+            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
+          >
+            <option
+              v-for="preptime in preptimeData?.items"
+              :value="preptime.id"
+              :key="preptime.id"
+            >
+              {{ preptime.time }}
+            </option>
+          </select>
+        </section>
+        <section id="form-ingredients" class="space-y-2">
+          <h2 class="font-bold text-lg">Ingrédients</h2>
+          <section
+            v-for="(ingredients, categoryId) in ingredientsByCategory"
+            :key="categoryId"
+            class="space-y-2 pb-2"
+          >
+            <h3>
+              {{ getCategoryName(Number(categoryId)) }}
+            </h3>
+            <div class="flex flex-row flex-wrap gap-2">
+              <div
+                v-for="ingredient in ingredients"
+                :key="ingredient.id"
+                class="bg-background-900 has-checked:bg-primary-900 p-1 px-2 rounded-md w-fit has-checked:text-background-900 transition duration-300 ease-in-out"
+              >
+                <input
+                  :id="`ingredient-${ingredient.id}`"
+                  v-model="selectedIngredients"
+                  type="checkbox"
+                  :value="ingredient.id"
+                  class="hidden"
+                />
+
+                <label
+                  :for="`ingredient-${ingredient.id}`"
+                  class="cursor-pointer"
+                >
+                  {{ ingredient.name }}
+                </label>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section id="form-plates" class="space-y-2">
+          <label for="plates" class="font-bold text-lg"
+            >Nombre de portions</label
+          >
+          <div class="flex flex-row items-center space-x-4 text-secondary-900">
+            <button
+              type="button"
+              @click="decrement"
+              :disabled="formFood.plates == 1"
+              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
+            >
+              <IconMinus class="size-4" />
+            </button>
+            <input
+              type="number"
+              id="plates"
+              v-model="formFood.plates"
+              readonly
+              class="outline-none w-5 select-none"
+            />
+            <button
+              type="button"
+              @click="increment"
+              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
+            >
+              <IconPlus class="size-4" />
+            </button>
+          </div>
+        </section>
         <button>Créer</button>
       </form>
     </div>
