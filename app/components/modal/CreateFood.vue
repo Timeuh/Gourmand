@@ -199,7 +199,7 @@ async function submitForm(_event: SubmitEvent) {
     });
 
     // create food in database
-    const createdFood = await $fetch("/api/foods", {
+    const createdFood = await $fetch<Food>("/api/foods", {
       method: "POST",
       body: {
         name: formFood.value.name,
@@ -209,7 +209,13 @@ async function submitForm(_event: SubmitEvent) {
         user_id: formFood.value.user_id,
       },
     });
-    console.log(createdFood);
+
+    // link each ingredient to the created food
+    selectedIngredients.value.forEach((ingredient: number) => {
+      $fetch(`/api/foods/${createdFood.id}/ingredients/${ingredient}`, {
+        method: "POST",
+      });
+    });
 
     // refresh home and food logging data
     await refreshHome();
