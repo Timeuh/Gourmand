@@ -213,6 +213,17 @@ async function submitForm(_event: SubmitEvent) {
     changeErrorState(true);
   }
 }
+
+// form content ref
+const modalContent = ref<HTMLElement | null>(null);
+
+// reset form scroll when modal is open
+watch(showModal, async (open) => {
+  if (open) {
+    await nextTick();
+    modalContent.value!.scrollTop = 0;
+  }
+});
 </script>
 
 <template>
@@ -230,6 +241,7 @@ async function submitForm(_event: SubmitEvent) {
         </button>
       </div>
       <form
+        ref="modalContent"
         novalidate
         @submit.prevent="submitForm"
         class="space-y-3 h-[90%] overflow-auto text-secondary-900"
