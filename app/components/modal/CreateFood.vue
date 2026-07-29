@@ -277,7 +277,14 @@ function submitForm(_event: SubmitEvent) {
             </button>
           </div>
         </section>
-        <button>Créer</button>
+        <div
+          class="flex flex-row justify-end items-center space-x-2 text-background-900"
+        >
+          <button type="button" class="bg-secondary-500 p-2 rounded-md w-20">
+            Annuler
+          </button>
+          <button class="bg-primary-900 p-2 rounded-md w-20">Créer</button>
+        </div>
       </form>
     </div>
   </section>
