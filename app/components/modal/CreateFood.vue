@@ -257,7 +257,7 @@ function submitForm(_event: SubmitEvent) {
               type="button"
               @click="decrement"
               :disabled="formFood.plates == 1"
-              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
+              class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md"
             >
               <IconMinus class="size-4" />
             </button>
@@ -266,7 +266,7 @@ function submitForm(_event: SubmitEvent) {
               id="plates"
               v-model="formFood.plates"
               readonly
-              class="outline-none w-5 select-none"
+              class="outline-none w-5 text-lg select-none"
             />
             <button
               type="button"
