@@ -1,7 +1,13 @@
+<script setup lang="ts">
+const { showToast, toastContent } = useToast();
+</script>
+
 <template>
   <div
-    class="right-0 bottom-0 z-30 fixed bg-primary-900 p-2 w-20 h-10 text-background-900 text-xl"
+    :class="showToast ? 'translate-x-0' : 'translate-x-[120%]'"
+    class="right-2 bottom-[12vh] z-30 fixed flex flex-row items-center space-x-2 bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md h-10 text-green-600 text-xl transition duration-300 ease-in-out"
   >
-    <h1>Toast</h1>
+    <IconSuccess class="size-5" />
+    <h2>{{ toastContent }}</h2>
   </div>
 </template>
