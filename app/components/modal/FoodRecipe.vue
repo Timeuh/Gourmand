@@ -10,8 +10,10 @@ const {
   imageInput,
   buttonText,
   modalTitle,
+  showDeleteButton,
   clearForm,
   createOrUpdateRecipe,
+  deleteRecipe,
 } = useRecipeUtils();
 
 // get modal utils from composable
@@ -165,6 +167,25 @@ watch(showModal, async (open) => {
     modalContent.value!.scrollTop = 0;
   }
 });
+
+// if the delete confirmation window should be displayed
+const showDeleteConfirmation = ref<boolean>(false);
+
+// show delete confirmation window
+function clickDeleteRecipe() {
+  showDeleteConfirmation.value = true;
+}
+
+// exit the delete confirmation window
+function exitConfirmation() {
+  showDeleteConfirmation.value = false;
+}
+
+// delete the recipe
+function deleteRecipeForever() {
+  deleteRecipe();
+  showDeleteConfirmation.value = false;
+}
 </script>
 
 <template>
@@ -172,7 +193,36 @@ watch(showModal, async (open) => {
     :class="showModal ? 'opacity-100' : 'opacity-0 pointer-events-none'"
     class="z-20 fixed inset-0 flex flex-col justify-center items-center bg-black/50 backdrop-blur-xs w-full h-screen transition duration-500 ease-in-out"
   >
-    <div class="bg-background-500 rounded-xl w-4/5 xl:w-1/3 h-4/5">
+    <div class="relative bg-background-500 rounded-xl w-4/5 xl:w-1/3 h-4/5">
+      <div
+        id="delete-confirmation"
+        :class="
+          showDeleteConfirmation
+            ? 'opacity-100'
+            : 'opacity-0 pointer-events-none'
+        "
+        class="z-40 absolute inset-0 flex flex-col justify-center items-center bg-black/50 transition duration-300 ease-in-out"
+      >
+        <div
+          class="relative flex flex-col items-center space-y-2 bg-background-900 p-2 rounded-md w-4/5"
+        >
+          <div class="flex flex-row justify-end items-center w-full">
+            <button type="button" @click="exitConfirmation">
+              <IconCross class="size-5 text-primary-900" />
+            </button>
+          </div>
+          <h2 class="font-bold text-secondary-900 text-xl text-center">
+            Vous êtes sur le point de supprimer cette recette
+          </h2>
+          <button
+            type="button"
+            @click="deleteRecipeForever"
+            class="bg-primary-900 p-2 rounded-md text-background-900"
+          >
+            Supprimer définitivement
+          </button>
+        </div>
+      </div>
       <div class="flex flex-row justify-between items-center p-4 w-full">
         <h1 class="font-bold text-primary-900 text-xl">{{ modalTitle }}</h1>
         <button @click="resetFormAndClose" class="cursor-pointer">
@@ -326,21 +376,31 @@ watch(showModal, async (open) => {
           </div>
         </section>
         <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
-        <div
-          class="flex flex-row justify-end items-center space-x-2 text-background-900"
-        >
+        <div class="flex flex-row justify-between items-center">
           <button
             type="button"
-            @click="resetFormAndClose"
-            class="bg-secondary-500 hover:bg-secondary-900 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+            v-if="showDeleteButton"
+            @click="clickDeleteRecipe"
+            class="bg-primary-900 p-2 rounded-md size-10"
           >
-            Annuler
+            <IconTrash class="size-6 text-background-900" />
           </button>
-          <button
-            class="bg-primary-900 hover:bg-primary-500 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+          <div
+            class="flex flex-row justify-end space-x-2 w-full text-background-900"
           >
-            {{ buttonText }}
-          </button>
+            <button
+              type="button"
+              @click="resetFormAndClose"
+              class="bg-secondary-500 hover:bg-secondary-900 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+            >
+              Annuler
+            </button>
+            <button
+              class="bg-primary-900 hover:bg-primary-500 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+            >
+              {{ buttonText }}
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -34,6 +34,9 @@ export function useRecipeUtils() {
   );
 
   // recipe modal button text
+  const showDeleteButton = useState<boolean>("RecipeDeleteButton", () => false);
+
+  // recipe modal button text
   const buttonText = useState<string>("RecipeButtonText", () => "Créer");
 
   // error for the form
@@ -94,6 +97,9 @@ export function useRecipeUtils() {
     // reset button text
     buttonText.value = "Créer";
     modalTitle.value = "Ajouter une recette";
+
+    // hide the delete button in the modal
+    showDeleteButton.value = false;
   }
 
   // create recipe in database
@@ -175,8 +181,8 @@ export function useRecipeUtils() {
       }
 
       // reset form and close the modal
-      clearForm();
       closeModal();
+      setTimeout(() => clearForm(), 500);
     } catch (error) {
       // display error to user
       console.error(error);
@@ -210,8 +216,38 @@ export function useRecipeUtils() {
     buttonText.value = "Modifier";
     modalTitle.value = "Modifier une recette";
 
+    // show the delete button in the modal
+    showDeleteButton.value = true;
+
     // open the recipe modal
     openModal();
+  }
+
+  // delete the recipe
+  async function deleteRecipe() {
+    try {
+      // delete the recipe in the database
+      await $fetch(`/api/foods/${formFood.value.id}`, {
+        method: "DELETE",
+      });
+
+      // refresh home and food logging data
+      await refreshHome();
+      await refreshFoods();
+      await refreshFoodsPage();
+
+      // display a confirmation toast
+      displayToast("Recette supprimée");
+
+      // reset form and close the modal
+      closeModal();
+      setTimeout(() => clearForm(), 500);
+    } catch (error) {
+      // display error to user
+      console.error(error);
+      formError.value = "Erreur lors de la suppression, veuillez réessayer";
+      showError.value = true;
+    }
   }
 
   return {
@@ -225,8 +261,10 @@ export function useRecipeUtils() {
     imageInput,
     buttonText,
     modalTitle,
+    showDeleteButton,
     clearForm,
     createOrUpdateRecipe,
     loadRecipe,
+    deleteRecipe,
   };
 }
