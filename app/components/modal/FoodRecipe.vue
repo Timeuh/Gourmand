@@ -138,7 +138,8 @@ function verifyForm(): boolean {
 // reset form and close modal
 function resetFormAndClose() {
   closeModal();
-  clearForm();
+  // wait for the transition to take effect before clearing the form
+  setTimeout(() => clearForm(), 500);
 }
 
 // handle form submission

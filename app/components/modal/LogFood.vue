@@ -27,7 +27,8 @@ function clearSearch() {
 // clear search and close modal
 function exitModal() {
   closeModal();
-  clearSearch();
+  // wait for the transition to take effect before clearing the search
+  setTimeout(() => clearSearch(), 500);
 }
 </script>
 
