@@ -220,9 +220,6 @@ export default defineEventHandler(async (event) => {
     // limit to 6 foods
     const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
 
-    // limit to 6 foods
-    const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
-
     // get the most eaten foods of this month
     const mostEatenFoodsDetails: Food[] = await prisma.food.findMany({
       where: {
