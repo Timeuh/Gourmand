@@ -150,7 +150,7 @@ async function submitForm(_event: SubmitEvent) {
   // do nothing if form is invalid
   if (!isValid) return;
 
-  // wait for recipe creation
+  // wait for recipe creation or update
   await createOrUpdateRecipe();
 }
 
