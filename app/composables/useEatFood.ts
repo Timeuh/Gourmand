@@ -2,6 +2,8 @@
 export function useEatFood() {
   // get the function to close log modal
   const { closeModal } = useLogModal();
+  // get toast display method
+  const { displayToast } = useToast();
   // get the function to refresh home data
   const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
   // get the function to refresh food data
@@ -38,6 +40,9 @@ export function useEatFood() {
       refreshHome();
       refreshFoods();
       closeModal();
+
+      // display a toast to tell user the food has been added
+      displayToast("Plat ajouté");
     } catch {
       // display an error in case something goes wrong
       cardError.value = "Erreur pendant l'ajout";

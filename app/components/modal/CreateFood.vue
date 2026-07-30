@@ -7,6 +7,9 @@ const { showModal, closeModal } = useRecipeModal();
 // get user from session
 const { user } = useUserSession();
 
+// get toast display logic
+const { displayToast } = useToast();
+
 // get all preptimes
 const { data: preptimeData } =
   useFetch<ApiCollection<Preptime>>("/api/preptimes");
@@ -239,6 +242,9 @@ async function submitForm(_event: SubmitEvent) {
     // reset form and close the modal
     clearForm();
     closeModal();
+
+    // display a confirmation toast
+    displayToast("Recette créée");
   } catch (error: any) {
     // display error to user
     console.error(error);
