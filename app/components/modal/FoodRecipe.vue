@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import type { VNodeRef } from "vue";
+// get utils for recipe creation from the composable
+const {
+  formError,
+  showError,
+  formFood,
+  selectedIngredients,
+  imagePreview,
+  imageFile,
+  imageInput,
+  buttonText,
+  modalTitle,
+  clearForm,
+  createOrUpdateRecipe,
+} = useRecipeUtils();
 
 // get modal utils from composable
 const { showModal, closeModal } = useRecipeModal();
-
-// get user from session
-const { user } = useUserSession();
-
-// get toast display logic
-const { displayToast } = useToast();
 
 // get all preptimes
 const { data: preptimeData } =
@@ -17,30 +24,6 @@ const { data: preptimeData } =
 // get all ingredients
 const { data: ingredientData } =
   useFetch<ApiCollection<Ingredient>>("/api/ingredients");
-
-// get the function to refresh home data
-const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
-
-// get the function to refresh food data
-const { refresh: refreshFoods } = useFetch("/api/foods?lastEaten=true", {
-  key: "LogModal",
-});
-
-// get the function to refresh food page data
-const { refresh: refreshFoodsPage } = useFetch("/api/foods?fullContent=true", {
-  key: "FoodPage",
-});
-
-// error for the form
-const formError = ref<string>("Vous devez remplir les champs :");
-
-// should the error be displayed
-const showError = ref<boolean>(false);
-
-// show or hide the error depending on its current state
-function changeErrorState(newState: boolean) {
-  showError.value = newState;
-}
 
 // regroup ingredients by category id
 const ingredientsByCategory = computed(() => {
@@ -84,24 +67,6 @@ function getCategoryName(categoryId: number) {
       return "";
   }
 }
-
-// reference food for the form inputs
-const formFood = ref<Food>({
-  id: -1,
-  user_id: user.value?.id || -1,
-  preptime_id: 1,
-  plates: 1,
-  image: "",
-  name: "",
-});
-
-// list of ingredients ids
-const selectedIngredients = ref<number[]>([]);
-
-// init form image references
-const imageInput = ref<VNodeRef | null>(null);
-const imagePreview = ref<string>("/assets/default_food.png");
-const imageFile = ref<File | undefined>(undefined);
 
 // open the file picker on click
 function openFilePicker() {
@@ -170,29 +135,6 @@ function verifyForm(): boolean {
   return isValid;
 }
 
-// reset form inputs
-function clearForm() {
-  // reset image input and temporary url
-  imagePreview.value = "/assets/default_food.png";
-  imageFile.value = undefined;
-  if (imageInput.value) {
-    imageInput.value.value = "";
-  }
-
-  // reset form food values
-  formFood.value = {
-    id: -1,
-    user_id: user.value?.id || -1,
-    preptime_id: 1,
-    plates: 1,
-    image: "",
-    name: "",
-  };
-
-  // empty selected ingredients
-  selectedIngredients.value = [];
-}
-
 // reset form and close modal
 function resetFormAndClose() {
   closeModal();
@@ -203,60 +145,13 @@ function resetFormAndClose() {
 async function submitForm(_event: SubmitEvent) {
   // check form validity and display error if needed
   const isValid = verifyForm();
-  changeErrorState(!isValid);
+  showError.value = !isValid;
 
   // do nothing if form is invalid
   if (!isValid) return;
 
-  try {
-    // create form data for image api creation
-    const imageForm = new FormData();
-    const filename = `${user.value?.id}_${imageFile.value?.name}`;
-    imageForm.append("filename", filename);
-    imageForm.append("image", imageFile.value!);
-
-    // call image storing api
-    await $fetch("/api/images", {
-      method: "POST",
-      body: imageForm,
-    });
-
-    // create food in database
-    const createdFood = await $fetch<Food>("/api/foods", {
-      method: "POST",
-      body: {
-        name: formFood.value.name,
-        image: `/uploads/foods/${filename}`,
-        preptime_id: formFood.value.preptime_id,
-        plates: formFood.value.plates,
-        user_id: formFood.value.user_id,
-      },
-    });
-
-    // link each ingredient to the created food
-    selectedIngredients.value.forEach((ingredient: number) => {
-      $fetch(`/api/foods/${createdFood.id}/ingredients/${ingredient}`, {
-        method: "POST",
-      });
-    });
-
-    // refresh home and food logging data
-    await refreshHome();
-    await refreshFoods();
-    await refreshFoodsPage();
-
-    // reset form and close the modal
-    clearForm();
-    closeModal();
-
-    // display a confirmation toast
-    displayToast("Recette créée");
-  } catch (error: any) {
-    // display error to user
-    console.error(error);
-    formError.value = "Erreur lors de la création, veuillez réessayer";
-    changeErrorState(true);
-  }
+  // wait for recipe creation
+  await createOrUpdateRecipe();
 }
 
 // form content ref
@@ -278,7 +173,7 @@ watch(showModal, async (open) => {
   >
     <div class="bg-background-500 rounded-xl w-4/5 xl:w-1/3 h-4/5">
       <div class="flex flex-row justify-between items-center p-4 w-full">
-        <h1 class="font-bold text-primary-900 text-xl">Ajouter une recette</h1>
+        <h1 class="font-bold text-primary-900 text-xl">{{ modalTitle }}</h1>
         <button @click="resetFormAndClose" class="cursor-pointer">
           <IconCross class="size-6 text-primary-900" />
         </button>
@@ -375,7 +270,12 @@ watch(showModal, async (open) => {
               <div
                 v-for="ingredient in ingredients"
                 :key="ingredient.id"
-                class="bg-background-900 has-checked:bg-primary-900 p-1 px-2 rounded-md w-fit has-checked:text-background-900 transition duration-300 ease-in-out"
+                :class="
+                  selectedIngredients.includes(ingredient.id)
+                    ? 'bg-primary-900 text-background-900'
+                    : ''
+                "
+                class="bg-background-900 p-1 px-2 rounded-md w-fit transition duration-300 ease-in-out"
               >
                 <input
                   :id="`ingredient-${ingredient.id}`"
@@ -438,7 +338,7 @@ watch(showModal, async (open) => {
           <button
             class="bg-primary-900 hover:bg-primary-500 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
           >
-            Créer
+            {{ buttonText }}
           </button>
         </div>
       </form>
