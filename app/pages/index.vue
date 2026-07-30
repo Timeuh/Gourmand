@@ -12,13 +12,15 @@ definePageMeta({
 const { user } = useUserSession();
 
 // fetch home data
-const { data } = useFetch<HomeData>("/api/home");
+const { data } = useFetch<HomeData>("/api/home", { key: "home" });
 </script>
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden"
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden select-none"
   >
+    <ModalLogFood />
+    <ModalCreateFood />
     <section
       id="first-row"
       class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
@@ -57,10 +59,14 @@ const { data } = useFetch<HomeData>("/api/home");
         class="xl:flex flex-col xl:justify-between space-y-6 xl:w-3/5 h-full"
       >
         <FoodSuggestions :foods="data?.oldestFoods" />
+        <MobileFoodThisWeek :foods="data?.groupedFoodsOfThisWeek" />
         <FoodThisWeek :foods="data?.groupedFoodsOfThisWeek" />
-        <WeekCarousel :foods="data?.groupedFoodsOfThisWeek" />
       </div>
       <MonthMostEaten :foods="data?.mostEatenFoods" />
+    </section>
+    <section id="last-row" class="xl:h-[19%]">
+      <MobileLastEaten :foods="data?.foodsOfThisWeek" />
+      <LastEaten :foods="data?.foodsOfThisWeek" />
     </section>
   </div>
 </template>

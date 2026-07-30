@@ -3,5 +3,6 @@
     <Navbar />
     <Sidebar />
     <slot />
+    <Toast />
   </main>
 </template>

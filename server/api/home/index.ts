@@ -1,3 +1,6 @@
+import type { GroupedCalendar } from "~~/shared/types/api";
+import type { FullCalendar } from "~~/shared/types/calendar_schema";
+
 // get all home page information endpoint
 export default defineEventHandler(async (event) => {
   try {
@@ -33,7 +36,7 @@ export default defineEventHandler(async (event) => {
     const lastWeekStart = new Date(
       today.getFullYear(),
       today.getMonth(),
-      today.getDate() - 7,
+      today.getDate() - 6,
     );
     const previousMonthStart = new Date(
       today.getFullYear(),
@@ -119,6 +122,37 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // group foods of the week by day
+    const foodsByDayMap: Record<string, GroupedCalendar> = {};
+
+    // create keys for last seven days
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - i);
+
+      const key = date.toISOString().split("T")[0] || "";
+
+      foodsByDayMap[key] = {
+        date: new Date(date),
+        foods: [],
+      };
+    }
+
+    // add foods for each day
+    for (const calendar of foodsOfThisWeek) {
+      const key = calendar.date.toISOString().split("T")[0] || "";
+
+      if (foodsByDayMap[key]) {
+        foodsByDayMap[key].foods.push(calendar);
+      }
+    }
+
+    // sort final array by desc day
+    const foodsByDay = Object.values(foodsByDayMap).sort(
+      (a, b) => b.date.getTime() - a.date.getTime(),
+    );
+
     // group this week's foods to get times eaten
     const groupedFoodsOfThisWeek: ThisWeekFood[] = Object.values(
       foodsOfThisWeek.reduce(
@@ -145,39 +179,46 @@ export default defineEventHandler(async (event) => {
       return b.count - a.count;
     });
 
-    // get the 4 oldest eaten foods ids and date
-    const groupedOldestFoods = await prisma.calendar.groupBy({
-      by: ["food_id"],
+    // get the oldest eaten foods
+    const groupedOldestFoods = await prisma.food.findMany({
       where: {
+        user_id: idToCheck,
+      },
+      include: {
+        calendars: {
+          orderBy: {
+            date: "desc",
+          },
+          take: 1,
+        },
+      },
+    });
+
+    // take 4 of the longest eaten foods
+    const oldestFoods: OldestFood[] = groupedOldestFoods
+      .map((food) => ({
         food: {
-          user_id: idToCheck,
+          id: food.id,
+          name: food.name,
+          image: food.image,
+          preptime_id: food.preptime_id,
+          user_id: food.user_id,
+          plates: food.plates,
         },
-      },
-      _max: {
-        date: true,
-      },
-      orderBy: {
-        _max: {
-          date: "asc",
-        },
-      },
-      take: 4,
-    });
+        lastEaten: food.calendars[0]?.date.toISOString() ?? null,
+      }))
+      .sort((a, b) => {
+        if (!a.lastEaten) return -1;
+        if (!b.lastEaten) return 1;
 
-    // get the 4 oldest eaten foods details
-    const oldestFoodsDetails: Food[] = await prisma.food.findMany({
-      where: {
-        id: {
-          in: groupedOldestFoods.map((g) => g.food_id),
-        },
-      },
-    });
+        return (
+          new Date(a.lastEaten).getTime() - new Date(b.lastEaten).getTime()
+        );
+      })
+      .slice(0, 4);
 
-    // format result to include food details and last eaten date
-    const oldestFoods: OldestFood[] = groupedOldestFoods.map((g) => ({
-      food: oldestFoodsDetails.find((f) => f.id === g.food_id),
-      lastEaten: g._max.date?.toISOString(),
-    }));
+    // limit to 6 foods
+    const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
 
     // limit to 6 foods
     const mostEatenFoodsLimit = foodsOfCurrentMonth.slice(0, 6);
@@ -207,7 +248,7 @@ export default defineEventHandler(async (event) => {
       foodsOfCurrentMonth: foodsOfCurrentMonth.length,
       favoriteFoods,
       groupedFoodsOfThisWeek,
-      foodsOfThisWeek,
+      foodsOfThisWeek: foodsByDay,
       oldestFoods,
       mostEatenFoods,
     };
