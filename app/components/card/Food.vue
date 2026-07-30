@@ -7,6 +7,14 @@ interface Props {
 
 // register props
 const props = defineProps<Props>();
+
+// get recipe loading function from composable
+const { loadRecipe } = useRecipeUtils();
+
+// laod the food into the recipe edit modal
+function openEditModal() {
+  loadRecipe(props.cardFood);
+}
 </script>
 
 <template>
@@ -21,6 +29,7 @@ const props = defineProps<Props>();
           </h3>
         </div>
         <button
+          @click="openEditModal"
           class="flex flex-col justify-center items-center size-7 cursor-pointer shrink-0"
         >
           <IconEdit class="size-5 text-background-900" />
