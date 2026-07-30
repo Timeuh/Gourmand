@@ -5,6 +5,12 @@ useHead({
 definePageMeta({
   middleware: ["authenticated"],
 });
+
+// fetch all foods
+const { data } = useFetch<ApiCollection<FullFood>>(
+  "/api/foods?fullContent=true",
+  { key: "FoodPage" },
+);
 </script>
 
 <template>
@@ -28,6 +34,11 @@ definePageMeta({
       </div>
       <div class="xl:hidden h-max">
         <ButtonMobileAdd />
+      </div>
+    </section>
+    <section id="second-row">
+      <div class="gap-3 grid grid-cols-2 w-full">
+        <CardFood v-for="food in data?.items" :card-food="food" class="h-48" />
       </div>
     </section>
   </div>
