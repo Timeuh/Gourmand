@@ -26,6 +26,11 @@ const { refresh: refreshFoods } = useFetch("/api/foods?lastEaten=true", {
   key: "LogModal",
 });
 
+// get the function to refresh food page data
+const { refresh: refreshFoodsPage } = useFetch("/api/foods?fullContent=true", {
+  key: "FoodPage",
+});
+
 // error for the form
 const formError = ref<string>("Vous devez remplir les champs :");
 
@@ -238,6 +243,7 @@ async function submitForm(_event: SubmitEvent) {
     // refresh home and food logging data
     await refreshHome();
     await refreshFoods();
+    await refreshFoodsPage();
 
     // reset form and close the modal
     clearForm();
