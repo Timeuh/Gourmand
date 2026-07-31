@@ -28,14 +28,17 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
       // compare food name with search string
       food.name.toLowerCase().includes(search.value.toLowerCase()),
     )
-    .filter((food) =>
-      // check for every filter selected ingredient
-      selectedIngredients.value.every((ingredientId) =>
-        // check if food has this ingredient id
-        food.foodIngredients.some(
-          (foodIngredient) => foodIngredient.ingredient.id === ingredientId,
+    .filter(
+      (food) =>
+        // display all foods if there are no ingredient selected
+        selectedIngredients.value.length === 0 ||
+        // check for every filter selected ingredient
+        selectedIngredients.value.some((ingredientId) =>
+          // check if food has this ingredient id
+          food.foodIngredients.some(
+            (foodIngredient) => foodIngredient.ingredient.id === ingredientId,
+          ),
         ),
-      ),
     );
 });
 </script>
