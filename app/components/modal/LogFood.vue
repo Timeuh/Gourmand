@@ -9,7 +9,7 @@ const { data } = useFetch<ApiCollection<OldestFood>>(
 );
 
 // search input value
-const search = ref<string>("");
+const search = useState<string>("ModalSearch", () => "");
 
 // foods filtered by search value
 const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
@@ -46,26 +46,7 @@ function exitModal() {
           <IconCross class="size-6 text-primary-900" />
         </button>
       </div>
-      <div
-        class="flex flex-row justify-between items-center bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full"
-      >
-        <div class="flex flex-row items-center space-x-1 xl:w-full">
-          <IconSearch class="size-5 text-secondary-500" />
-          <input
-            type="text"
-            v-model="search"
-            placeholder="Lasagnes"
-            class="outline-none xl:w-full text-secondary-900 placeholder:text-secondary-100"
-          />
-        </div>
-        <button
-          v-if="search !== ''"
-          @click="clearSearch"
-          class="cursor-pointer"
-        >
-          <IconCross class="size-4 text-secondary-900" />
-        </button>
-      </div>
+      <SearchBar :ref-key="'ModalSearch'" />
       <h2
         v-if="data?.items.length == 0"
         class="font-bold text-secondary-900 text-center"
