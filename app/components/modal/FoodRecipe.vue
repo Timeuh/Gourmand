@@ -20,8 +20,7 @@ const {
 const { showModal, closeModal } = useRecipeModal();
 
 // get utils from food details composable
-const { ingredientsByCategory, preptimeData, getCategoryName } =
-  useFoodDetails();
+const { preptimeData } = useFoodDetails();
 
 // open the file picker on click
 function openFilePicker() {
@@ -260,44 +259,8 @@ function deleteRecipeForever() {
             </option>
           </select>
         </section>
-        <section id="form-ingredients" class="space-y-2">
-          <h2 class="font-bold text-lg">Ingrédients</h2>
-          <section
-            v-for="(ingredients, categoryId) in ingredientsByCategory"
-            :key="categoryId"
-            class="space-y-2 pb-2"
-          >
-            <h3>
-              {{ getCategoryName(Number(categoryId)) }}
-            </h3>
-            <div class="flex flex-row flex-wrap gap-2">
-              <div
-                v-for="ingredient in ingredients"
-                :key="ingredient.id"
-                :class="
-                  selectedIngredients.includes(ingredient.id)
-                    ? 'bg-primary-900 text-background-900'
-                    : ''
-                "
-                class="bg-background-900 p-1 px-2 rounded-md w-fit transition duration-300 ease-in-out"
-              >
-                <input
-                  :id="`ingredient-${ingredient.id}`"
-                  v-model="selectedIngredients"
-                  type="checkbox"
-                  :value="ingredient.id"
-                  class="hidden"
-                />
-
-                <label
-                  :for="`ingredient-${ingredient.id}`"
-                  class="cursor-pointer"
-                >
-                  {{ ingredient.name }}
-                </label>
-              </div>
-            </div>
-          </section>
+        <section id="form-ingredients">
+          <FormIngredients ref-key="RecipeIngredients" prefix="recipe" />
         </section>
         <section id="form-plates" class="space-y-2">
           <label for="plates" class="font-bold text-lg"
