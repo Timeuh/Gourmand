@@ -11,6 +11,17 @@ const { data } = useFetch<ApiCollection<FullFood>>(
   "/api/foods?fullContent=true",
   { key: "FoodPage" },
 );
+
+// search input value
+const search = useState<string>("FoodsSearch", () => "");
+
+// foods filtered by search value
+const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
+  return data.value?.items.filter((food) =>
+    // compare food name with search string
+    food.name.toLowerCase().includes(search.value.toLowerCase()),
+  );
+});
 </script>
 
 <template>
@@ -36,9 +47,14 @@ const { data } = useFetch<ApiCollection<FullFood>>(
         <ButtonMobileAdd />
       </div>
     </section>
-    <section id="second-row">
+    <section id="second-row" class="space-y-4">
+      <SearchBar :ref-key="'FoodsSearch'" />
       <div class="gap-3 grid grid-cols-2 w-full">
-        <CardFood v-for="food in data?.items" :card-food="food" class="h-48" />
+        <CardFood
+          v-for="food in foodsToDisplay"
+          :card-food="food"
+          class="h-48"
+        />
       </div>
     </section>
   </div>
