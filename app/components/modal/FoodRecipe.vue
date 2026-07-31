@@ -19,56 +19,9 @@ const {
 // get modal utils from composable
 const { showModal, closeModal } = useRecipeModal();
 
-// get all preptimes
-const { data: preptimeData } =
-  useFetch<ApiCollection<Preptime>>("/api/preptimes");
-
-// get all ingredients
-const { data: ingredientData } =
-  useFetch<ApiCollection<Ingredient>>("/api/ingredients");
-
-// regroup ingredients by category id
-const ingredientsByCategory = computed(() => {
-  if (!ingredientData.value?.items) return {};
-
-  return ingredientData.value.items.reduce(
-    (acc, ingredient) => {
-      const category = ingredient.category_id;
-
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-
-      acc[category].push(ingredient);
-
-      return acc;
-    },
-    {} as Record<number, Ingredient[]>,
-  );
-});
-
-// assign each category id to a name
-function getCategoryName(categoryId: number) {
-  switch (categoryId) {
-    case 1:
-      return "🥕 LEGUMES";
-
-    case 2:
-      return "🍓 FRUITS";
-
-    case 3:
-      return "🍗 VIANDES ET POISSONS";
-
-    case 4:
-      return "🧂 ASSAISONNEMENT";
-
-    case 5:
-      return "🍟 ACCOMPAGNEMENT";
-
-    default:
-      return "";
-  }
-}
+// get utils from food details composable
+const { ingredientsByCategory, preptimeData, getCategoryName } =
+  useFoodDetails();
 
 // open the file picker on click
 function openFilePicker() {
