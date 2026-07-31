@@ -48,7 +48,10 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
       </div>
     </section>
     <section id="second-row" class="space-y-4">
-      <SearchBar :ref-key="'FoodsSearch'" />
+      <div class="flex flex-row justify-between items-center space-x-4 w-full">
+        <SearchBar :ref-key="'FoodsSearch'" />
+        <MobileFoodsFilter />
+      </div>
       <div class="gap-3 grid grid-cols-2 w-full">
         <CardFood
           v-for="food in foodsToDisplay"
