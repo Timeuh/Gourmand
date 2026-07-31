@@ -45,7 +45,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 overflow-hidden select-none"
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 min-h-screen overflow-hidden select-none"
   >
     <ModalFoodRecipe />
     <section id="first-row" class="flex flex-row justify-between w-full">
@@ -67,7 +67,9 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
       </div>
     </section>
     <section id="second-row" class="space-y-4">
-      <div class="flex flex-row justify-between items-center space-x-4 w-full">
+      <div
+        class="relative flex flex-row justify-between items-center space-x-4"
+      >
         <SearchBar :ref-key="'FoodsSearch'" />
         <MobileFoodsFilter />
       </div>
