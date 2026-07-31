@@ -15,12 +15,28 @@ const { data } = useFetch<ApiCollection<FullFood>>(
 // search input value
 const search = useState<string>("FoodsSearch", () => "");
 
+// array of selected ingredient ids
+const selectedIngredients = useState<number[]>(
+  "FoodsIngredientsFilter",
+  () => [],
+);
+
 // foods filtered by search value
 const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
-  return data.value?.items.filter((food) =>
-    // compare food name with search string
-    food.name.toLowerCase().includes(search.value.toLowerCase()),
-  );
+  return data.value?.items
+    .filter((food) =>
+      // compare food name with search string
+      food.name.toLowerCase().includes(search.value.toLowerCase()),
+    )
+    .filter((food) =>
+      // check for every filter selected ingredient
+      selectedIngredients.value.every((ingredientId) =>
+        // check if food has this ingredient id
+        food.foodIngredients.some(
+          (foodIngredient) => foodIngredient.ingredient.id === ingredientId,
+        ),
+      ),
+    );
 });
 </script>
 
