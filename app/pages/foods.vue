@@ -107,6 +107,11 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
           :card-food="food"
           class="xl:w-full h-48"
         />
+        <CardPlaceHolder
+          v-if="foodsToDisplay?.length === 0"
+          class="h-48"
+          message="Ajoutez une recette pour la voir ici"
+        />
       </div>
     </section>
   </div>
