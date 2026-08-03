@@ -12,11 +12,21 @@ const { ingredientsByCategory, getCategoryName } = useFoodDetails();
 
 // array of selected ingredient ids
 const selectedIngredients = useState<number[]>(props.refKey, () => []);
+
+// clear the selected ingredients array
+function clearIngredients() {
+  selectedIngredients.value = [];
+}
 </script>
 
 <template>
   <section class="space-y-2">
-    <h2 class="font-bold text-lg">Ingrédients</h2>
+    <div class="flex flex-row justify-between items-center">
+      <h2 class="font-bold text-lg">Ingrédients</h2>
+      <button @click="clearIngredients" v-if="selectedIngredients.length > 0">
+        <IconCross class="size-5 text-secondary-900" />
+      </button>
+    </div>
     <section
       v-for="(ingredients, categoryId) in ingredientsByCategory"
       :key="categoryId"
