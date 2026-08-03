@@ -64,6 +64,9 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // show the most recent first
+    foods.reverse();
+
     // if the user wants last eaten date for each food
     if (lastEaten) {
       // format foods to match the OldestFood type

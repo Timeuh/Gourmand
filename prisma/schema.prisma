@@ -86,8 +86,8 @@ model Food_Ingredient {
   food_id       Int
   ingredient_id Int
 
-  food       Food       @relation(fields: [food_id], references: [id])
-  ingredient Ingredient @relation(fields: [ingredient_id], references: [id])
+  food       Food       @relation(fields: [food_id], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredient_id], references: [id], onDelete: Cascade)
 
   @@id([food_id, ingredient_id])
 }
@@ -97,5 +97,5 @@ model Calendar {
   date    DateTime
   food_id Int
 
-  food Food @relation(fields: [food_id], references: [id])
+  food Food @relation(fields: [food_id], references: [id], onDelete: Cascade)
 }
