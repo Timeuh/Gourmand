@@ -21,12 +21,30 @@ const selectedIngredients = useState<number[]>(
   () => [],
 );
 
+// food for the filters
+const formFood = useState<Food>("FoodsPreptimeFilter", () => {
+  return {
+    id: -1,
+    user_id: -1,
+    preptime_id: 0,
+    plates: 1,
+    image: "",
+    name: "",
+  };
+});
+
 // foods filtered by search value
 const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
   return data.value?.items
     .filter((food) =>
       // compare food name with search string
       food.name.toLowerCase().includes(search.value.toLowerCase()),
+    )
+    .filter(
+      (food) =>
+        // filter foods with selected preptime id, dont filter if the preptime is the default one
+        food.preptime_id == formFood.value.preptime_id ||
+        formFood.value.preptime_id == 0,
     )
     .filter((food) =>
       // check for every filter selected ingredient
