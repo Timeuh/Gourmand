@@ -20,7 +20,7 @@ const props = defineProps<Props>();
         <IconChevronRight class="size-5" />
       </NuxtLink>
     </div>
-    <div class="p-1 px-2 w-full overflow-x-scroll">
+    <div class="p-1 w-full overflow-x-scroll">
       <div class="flex flex-row items-center space-x-4 w-max">
         <CardTimesEaten
           v-for="food in props.foods"

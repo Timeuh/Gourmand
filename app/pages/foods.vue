@@ -91,7 +91,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
       class="xl:flex flex-row-reverse justify-between items-start space-y-3 xl:h-[88vh]"
     >
       <div
-        class="relative flex flex-row xl:flex-col justify-between items-center xl:space-x-0 xl:w-1/3 xl:h-full"
+        class="relative flex flex-row xl:flex-col justify-between items-center xl:space-x-0 px-2 xl:px-0 xl:w-1/3 xl:h-full"
       >
         <SearchBar :ref-key="'FoodsSearch'" />
         <MobileFoodsFilter />
@@ -100,7 +100,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
         </div>
       </div>
       <div
-        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 p-2 w-full xl:w-[65%] xl:h-full overflow-auto"
+        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 px-2 w-full xl:w-[65%] xl:h-full overflow-auto"
       >
         <CardFood
           v-for="food in foodsToDisplay"
@@ -108,7 +108,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
           class="xl:w-full h-48"
         />
         <CardPlaceHolder
-          v-if="foodsToDisplay?.length === 0"
+          v-if="data?.items.length === 0"
           class="h-48"
           message="Ajoutez une recette pour la voir ici"
         />
