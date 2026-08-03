@@ -55,16 +55,8 @@ function removeFile() {
 }
 
 // increment food plates
-function increment() {
-  formFood.value.plates++;
-}
 
 // decrement food plates, minimum 1
-function decrement() {
-  if (formFood.value.plates == 1) return;
-
-  formFood.value.plates--;
-}
 
 // verify form inputs
 function verifyForm(): boolean {
@@ -253,33 +245,7 @@ function deleteRecipeForever() {
           <FormIngredients ref-key="RecipeIngredients" prefix="recipe" />
         </section>
         <section id="form-plates" class="space-y-2">
-          <label for="plates" class="font-bold text-lg"
-            >Nombre de portions</label
-          >
-          <div class="flex flex-row items-center space-x-4 text-secondary-900">
-            <button
-              type="button"
-              @click="decrement"
-              :disabled="formFood.plates == 1"
-              class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
-            >
-              <IconMinus class="size-4 xl:size-6" />
-            </button>
-            <input
-              type="number"
-              id="plates"
-              v-model="formFood.plates"
-              readonly
-              class="outline-none w-5 xl:w-9 text-lg xl:text-xl select-none"
-            />
-            <button
-              type="button"
-              @click="increment"
-              class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
-            >
-              <IconPlus class="size-4 xl:size-6" />
-            </button>
-          </div>
+          <FormPlates ref-key="RecipeFood" prefix="recipe" />
         </section>
         <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
         <div class="flex flex-row justify-between items-center">
