@@ -81,6 +81,11 @@ function verifyForm(): boolean {
     formError.value += " nom, ";
   }
 
+  if (formFood.value.preptime_id == 0) {
+    isValid = false;
+    formError.value += " temps de préparation, ";
+  }
+
   if (selectedIngredients.value.length == 0) {
     isValid = false;
     formError.value += " au moins 1 ingrédient";
