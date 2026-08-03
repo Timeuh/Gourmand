@@ -22,7 +22,7 @@ const selectedIngredients = useState<number[]>(
 );
 
 // food for the filters
-const formFood = useState<Food>("FoodsPreptimeFilter", () => {
+const formFood = useState<Food>("FoodsFormFilter", () => {
   return {
     id: -1,
     user_id: -1,
@@ -42,9 +42,14 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
     )
     .filter(
       (food) =>
-        // filter foods with selected preptime id, dont filter if the preptime is the default one
+        // filter foods with selected preptime id, dont filter for base value
         food.preptime_id == formFood.value.preptime_id ||
         formFood.value.preptime_id == 0,
+    )
+    .filter(
+      (food) =>
+        // filter foods with selected plates number, dont filter for base value
+        food.plates == formFood.value.plates || formFood.value.plates == 1,
     )
     .filter((food) =>
       // check for every filter selected ingredient
