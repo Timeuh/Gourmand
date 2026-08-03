@@ -241,23 +241,8 @@ function deleteRecipeForever() {
             class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-100"
           />
         </section>
-        <section id="form-preptime" class="space-y-2">
-          <label for="preptime" class="font-bold text-lg"
-            >Temps de préparation</label
-          >
-          <select
-            id="preptime"
-            v-model.number="formFood.preptime_id"
-            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
-          >
-            <option
-              v-for="preptime in preptimeData?.items"
-              :value="preptime.id"
-              :key="preptime.id"
-            >
-              {{ preptime.time }}
-            </option>
-          </select>
+        <section id="form-preptime">
+          <FormPreptime ref-key="RecipeFood" prefix="recipe" />
         </section>
         <section id="form-ingredients">
           <FormIngredients ref-key="RecipeIngredients" prefix="recipe" />
