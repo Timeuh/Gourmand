@@ -86,18 +86,26 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
         <ButtonMobileAdd />
       </div>
     </section>
-    <section id="second-row" class="space-y-4">
+    <section
+      id="second-row"
+      class="xl:flex flex-row-reverse justify-between items-start space-y-3 xl:h-[88vh]"
+    >
       <div
-        class="relative flex flex-row justify-between items-center space-x-4"
+        class="relative flex flex-row xl:flex-col justify-between items-center xl:space-x-0 xl:w-1/3 xl:h-full"
       >
         <SearchBar :ref-key="'FoodsSearch'" />
         <MobileFoodsFilter />
+        <div class="hidden xl:block h-[92%]">
+          <FoodsAdvancedFilters />
+        </div>
       </div>
-      <div class="gap-3 grid grid-cols-2 w-full">
+      <div
+        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 p-2 w-full xl:w-[65%] xl:h-full overflow-auto"
+      >
         <CardFood
           v-for="food in foodsToDisplay"
           :card-food="food"
-          class="h-48"
+          class="xl:w-full h-48"
         />
       </div>
     </section>
