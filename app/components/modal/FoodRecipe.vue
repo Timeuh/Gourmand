@@ -244,7 +244,7 @@ function deleteRecipeForever() {
         <section id="form-ingredients">
           <FormIngredients ref-key="RecipeIngredients" prefix="recipe" />
         </section>
-        <section id="form-plates" class="space-y-2">
+        <section id="form-plates">
           <FormPlates ref-key="RecipeFood" prefix="recipe" />
         </section>
         <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
