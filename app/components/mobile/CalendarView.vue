@@ -5,6 +5,13 @@ const { currentMonth } = useCurrentMonth();
 // today's date
 const today = new Date();
 
+// today as a CalendarDay object
+const todayDate: CalendarDay = {
+  day: today.getDate(),
+  month: today.getMonth(),
+  year: today.getFullYear(),
+};
+
 // today's date, formated with desired format
 const formatedDate = computed(() => {
   return today.toLocaleDateString("fr-FR", {
@@ -35,33 +42,44 @@ const firstWeekDay = computed(() => {
 });
 
 // days of the month with empty cases for the first week if the 1st isn't monday
-const calendarDays = computed(() => {
+const calendarDays: ComputedRef<Array<CalendarDay | null>> = computed(() => {
   return [
     ...Array.from({ length: firstWeekDay.value }, () => null),
-    ...Array.from({ length: daysInMonth.value }, (_, index) => index + 1),
+    ...Array.from({ length: daysInMonth.value }, (_, index) => {
+      return {
+        day: index + 1,
+        month: month.value,
+        year: year.value,
+      };
+    }),
   ];
 });
 
 /**
- * Check if the given day is today
+ * Check if the given day is the same as the compareTo day
  *
- * @param day {number | null} number of the given day to check
+ * @param day {CalendarDay | null} CalendarDay of the given day to check
+ * @param compareTo {CalendarDay} CalendarDay to compare with
  */
-function isToday(day: number | null) {
+function isDate(day: CalendarDay | null, compareTo: CalendarDay): boolean {
   if (!day) return false;
 
   return (
-    day === today.getDate() &&
-    month.value === today.getMonth() &&
-    year.value === today.getFullYear()
+    day.day === compareTo.day &&
+    day.month === compareTo.month &&
+    day.year === compareTo.year
   );
 }
 
 // current selected date
-const selectedDate = ref<number>(today.getDate());
+const selectedDate = ref<CalendarDay>({
+  day: today.getDate(),
+  month: today.getMonth(),
+  year: today.getFullYear(),
+});
 
 // on click on another date, update the selected date
-function selectDate(day: number | null) {
+function selectDate(day: CalendarDay | null) {
   if (!day) return;
 
   selectedDate.value = day;
@@ -99,14 +117,14 @@ function selectDate(day: number | null) {
           <h4
             :class="[
               'flex items-center justify-center size-8 rounded-full font-bold text-lg transition-all duration-300 ease-in-out',
-              day === selectedDate
+              isDate(day, selectedDate)
                 ? 'bg-primary-900 text-background-900'
-                : isToday(day)
+                : isDate(day, todayDate)
                   ? 'text-primary-500'
                   : 'text-secondary-900',
             ]"
           >
-            {{ day }}
+            {{ day?.day }}
           </h4>
         </button>
       </div>
