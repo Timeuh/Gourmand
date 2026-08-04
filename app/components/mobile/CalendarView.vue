@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// get current month utils
+const { currentMonth } = useCurrentMonth();
+
 // today's date
 const today = new Date();
 
@@ -17,21 +20,42 @@ const weekDays: string[] = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 // get today's index in the weekdays array
 const todayIndex = (today.getDay() + 6) % 7;
 
-// get this year and month
-const year = today.getFullYear();
-const month = today.getMonth();
+// get current month date's year and month
+const year = computed(() => currentMonth.value.getFullYear());
+const month = computed(() => currentMonth.value.getMonth());
 
 // number of days in the month
-const daysInMonth = new Date(year, month + 1, 0).getDate();
+const daysInMonth = computed(() => {
+  return new Date(year.value, month.value + 1, 0).getDate();
+});
 
 // first days of the month if the month doesn't start on a monday
-const firstWeekDay = (new Date(year, month, 1).getDay() + 6) % 7;
+const firstWeekDay = computed(() => {
+  return (new Date(year.value, month.value, 1).getDay() + 6) % 7;
+});
 
 // days of the month with empty cases for the first week if the 1st isn't monday
-const calendarDays = [
-  ...Array.from({ length: firstWeekDay }, () => null),
-  ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
-];
+const calendarDays = computed(() => {
+  return [
+    ...Array.from({ length: firstWeekDay.value }, () => null),
+    ...Array.from({ length: daysInMonth.value }, (_, index) => index + 1),
+  ];
+});
+
+/**
+ * Check if the given day is today
+ *
+ * @param day {number | null} number of the given day to check
+ */
+function isToday(day: number | null) {
+  if (!day) return false;
+
+  return (
+    day === today.getDate() &&
+    month.value === today.getMonth() &&
+    year.value === today.getFullYear()
+  );
+}
 
 // current selected date
 const selectedDate = ref<number>(today.getDate());
@@ -51,7 +75,7 @@ function selectDate(day: number | null) {
     >
       <h2 class="ps-4 font-bold text-xl">{{ formatedDate }}</h2>
     </div>
-    <div class="space-y-2 bg-background-900 p-2 rounded-b-md">
+    <div class="space-y-2 bg-background-900 p-2 rounded-b-md min-h-[34vh]">
       <div class="flex flex-row justify-between items-center w-full text-lg">
         <h3
           v-for="(day, index) in weekDays"
@@ -77,7 +101,7 @@ function selectDate(day: number | null) {
               'flex items-center justify-center size-8 rounded-full font-bold text-lg transition-all duration-300 ease-in-out',
               day === selectedDate
                 ? 'bg-primary-900 text-background-900'
-                : day === today.getDate()
+                : isToday(day)
                   ? 'text-primary-500'
                   : 'text-secondary-900',
             ]"
