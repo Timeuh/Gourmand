@@ -8,7 +8,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="bg-background-500 p-8 w-full xl:w-5/6 h-screen">
+  <div class="space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen">
     <section
       id="first-row"
       class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
