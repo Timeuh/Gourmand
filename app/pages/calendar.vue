@@ -20,5 +20,8 @@ definePageMeta({
         </h2>
       </div>
     </section>
+    <section id="second-row">
+      <MobileCalendarView />
+    </section>
   </div>
 </template>
