@@ -11,7 +11,7 @@ definePageMeta({
   <div class="space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen">
     <section
       id="first-row"
-      class="xl:flex flex-row justify-between space-y-6 xl:space-y-0 w-full"
+      class="flex flex-row justify-between items-center w-full"
     >
       <div>
         <h1 class="font-bold text-secondary-900 text-xl">🗓️ Calendrier</h1>
@@ -19,6 +19,7 @@ definePageMeta({
           {{ formatDate(new Date()) }}
         </h2>
       </div>
+      <ButtonChangeMonth />
     </section>
     <section id="second-row">
       <MobileCalendarView />
