@@ -32,6 +32,16 @@ const calendarDays = [
   ...Array.from({ length: firstWeekDay }, () => null),
   ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
 ];
+
+// current selected date
+const selectedDate = ref<number>(today.getDate());
+
+// on click on another date, update the selected date
+function selectDate(day: number | null) {
+  if (!day) return;
+
+  selectedDate.value = day;
+}
 </script>
 
 <template>
@@ -59,15 +69,21 @@ const calendarDays = [
         <button
           v-for="(day, index) in calendarDays"
           :key="index"
-          class="justify-self-center font-bold text-lg"
+          class="justify-self-center font-bold text-lg transition duration-300 ease-in-out"
+          @click="day !== null && selectDate(day)"
         >
           <h4
-            v-if="day == today.getDate()"
-            class="flex justify-center items-center bg-primary-900 rounded-full size-7 text-background-900"
+            :class="[
+              'flex items-center justify-center size-8 rounded-full font-bold text-lg transition-all duration-300 ease-in-out',
+              day === selectedDate
+                ? 'bg-primary-900 text-background-900'
+                : day === today.getDate()
+                  ? 'text-primary-500'
+                  : 'text-secondary-900',
+            ]"
           >
             {{ day }}
           </h4>
-          <h4 v-else class="text-secondary-900">{{ day }}</h4>
         </button>
       </div>
     </div>
