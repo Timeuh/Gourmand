@@ -1,11 +1,6 @@
 <script setup lang="ts">
-// today's date
-const today = new Date();
-
-// current month date
-const currentMonth = ref<Date>(
-  new Date(today.getFullYear(), today.getMonth(), 1),
-);
+// get current month utils
+const { currentMonth, changeMonth } = useCurrentMonth();
 
 // format current month name
 const monthName = computed(() => {
@@ -14,20 +9,6 @@ const monthName = computed(() => {
     year: "numeric",
   });
 });
-
-/**
- * change current month
- *
- * @param offset {number} -1 for previous month, 1 for next month
- */
-function changeMonth(offset: number) {
-  const newMonth = new Date(
-    currentMonth.value.getFullYear(),
-    currentMonth.value.getMonth() + offset,
-    1,
-  );
-  currentMonth.value = newMonth;
-}
 </script>
 
 <template>
