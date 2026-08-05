@@ -29,7 +29,7 @@ const todayIndex = (today.getDay() + 6) % 7;
 
 // get current month date's year and month
 const year = computed(() => currentMonth.value.getFullYear());
-const month = computed(() => currentMonth.value.getMonth() + 1);
+const month = computed(() => currentMonth.value.getMonth());
 
 // number of days in the month
 const daysInMonth = computed(() => {
@@ -48,7 +48,7 @@ const calendarDays: ComputedRef<Array<CalendarDay | null>> = computed(() => {
     ...Array.from({ length: daysInMonth.value }, (_, index) => {
       return {
         day: index + 1,
-        month: month.value,
+        month: month.value + 1,
         year: year.value,
       };
     }),
