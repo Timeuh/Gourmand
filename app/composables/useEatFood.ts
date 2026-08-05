@@ -1,19 +1,22 @@
 // composable to add a food to foods eaten today
 export function useEatFood() {
-  // get the function to close log modal
+  // get log modal utils
   const { closeModal, modalDate } = useLogModal();
+
   // get toast display method
   const { displayToast } = useToast();
+
+  // get calendar refresh function
+  const { refreshCalendar } = useCalendarUtils();
+
   // get the function to refresh home data
   const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
+
   // get the function to refresh food data
   const { refresh: refreshFoods } = useFetch("/api/foods?lastEaten=true", {
     key: "LogModal",
   });
-  // get the function to refresh calendar data
-  const { refresh: refreshCalendar } = useFetch("/api/calendars", {
-    key: "CalendarDay",
-  });
+
   // get user session
   const { user, loggedIn } = useUserSession();
 
