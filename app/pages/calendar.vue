@@ -5,6 +5,17 @@ useHead({
 definePageMeta({
   middleware: ["authenticated"],
 });
+
+// get calendar utils from composable
+const { resetSelectedDate, hideFoodsPanel } = useCalendarUtils();
+
+// reset selected date and hide foods panel when leaving the page
+onBeforeRouteLeave(() => {
+  setTimeout(() => {
+    resetSelectedDate();
+    hideFoodsPanel();
+  }, 300);
+});
 </script>
 
 <template>
