@@ -69,6 +69,17 @@ export function useCalendarUtils() {
     })),
   });
 
+  /**
+   * Reset the selected date to today
+   */
+  function resetSelectedDate(): void {
+    selectedDate.value = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear(),
+    };
+  }
+
   return {
     currentMonth,
     changeMonth,
@@ -79,5 +90,6 @@ export function useCalendarUtils() {
     formatedSelectedDate,
     data,
     refreshCalendar,
+    resetSelectedDate,
   };
 }
