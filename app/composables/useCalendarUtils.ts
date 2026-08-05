@@ -12,12 +12,12 @@ export function useCalendarUtils() {
   /**
    * change current month
    *
-   * @param offset {number} -2 for previous month, 0 for next month, cause of the offset
+   * @param offset {number} -1 for previous month, 1 for next month, cause of the offset
    */
   function changeMonth(offset: number) {
     const newMonth = new Date(
       currentMonth.value.getFullYear(),
-      currentMonth.value.getMonth() + 1 + offset,
+      currentMonth.value.getMonth() + offset,
       1,
     );
     currentMonth.value = newMonth;
