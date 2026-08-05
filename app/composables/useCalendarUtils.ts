@@ -23,5 +23,23 @@ export function useCalendarUtils() {
     currentMonth.value = newMonth;
   }
 
-  return { currentMonth, changeMonth };
+  // current selected date
+  const selectedDate = useState<CalendarDay>("SelectedDate", () => ({
+    day: today.getDate(),
+    month: today.getMonth(),
+    year: today.getFullYear(),
+  }));
+
+  /**
+   * Select a date in the calendar
+   *
+   * @param day {CalendarDay | null} the day to select, or null to deselect
+   */
+  function selectDate(day: CalendarDay | null): void {
+    if (!day) return;
+
+    selectedDate.value = day;
+  }
+
+  return { currentMonth, changeMonth, selectedDate, selectDate };
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// get current month utils
-const { currentMonth } = useCalendarUtils();
+// get calendar utils
+const { currentMonth, selectedDate, selectDate } = useCalendarUtils();
 
 // today's date
 const today = new Date();
@@ -69,20 +69,6 @@ function isDate(day: CalendarDay | null, compareTo: CalendarDay): boolean {
     day.month === compareTo.month &&
     day.year === compareTo.year
   );
-}
-
-// current selected date
-const selectedDate = ref<CalendarDay>({
-  day: today.getDate(),
-  month: today.getMonth(),
-  year: today.getFullYear(),
-});
-
-// on click on another date, update the selected date
-function selectDate(day: CalendarDay | null) {
-  if (!day) return;
-
-  selectedDate.value = day;
 }
 </script>
 
