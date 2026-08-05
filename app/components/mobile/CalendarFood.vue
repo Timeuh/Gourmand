@@ -1,21 +1,10 @@
 <script setup lang="ts">
 // get calendar utils from composable
-const { selectedDate, showFoods, hideFoodsPanel } = useCalendarUtils();
+const { showFoods, hideFoodsPanel, formatedSelectedDate, selectedDate, data } =
+  useCalendarUtils();
 
-// format selected date as "YYYY-MM-DD"
-const formatedSelectedDate = computed(
-  () =>
-    `${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}`,
-);
-
-// fetch calendar data for the selected date
-const { data } = useFetch<ApiCollection<FullCalendar>>("/api/calendars", {
-  key: "CalendarDay",
-  query: computed(() => ({
-    date: formatedSelectedDate.value,
-    fullContent: true,
-  })),
-});
+// get log modal utils from composable
+const { openModal } = useLogModal();
 
 // selected date, formated with desired format
 const formatedDate = computed(() => {
@@ -46,6 +35,14 @@ const formatedDate = computed(() => {
       </div>
       <div class="space-y-3 p-3 pt-2 w-full h-[15vh] overflow-auto">
         <div
+          v-if="data?.items.length == 0"
+          class="flex flex-row justify-center items-center bg-background-500 p-2 rounded-md w-full h-18"
+        >
+          <h3 class="text-secondary-900 text-lg">
+            Aucun plat mangé à cette date
+          </h3>
+        </div>
+        <div
           v-for="calendar in data?.items"
           :key="calendar.id"
           class="flex flex-row items-center space-x-4 bg-background-900 shadow-[0_0_3px_0] shadow-secondary-900/50 p-2 rounded-md w-full"
@@ -63,6 +60,16 @@ const formatedDate = computed(() => {
       <div class="p-3">
         <button
           class="flex flex-row justify-center items-center space-x-4 bg-background-900 p-2 border-2 border-secondary-900/50 border-dotted rounded-md w-full h-18"
+          @click="
+            openModal(
+              new Date(
+                selectedDate.year,
+                selectedDate.month - 1,
+                selectedDate.day,
+                12,
+              ),
+            )
+          "
         >
           <IconPlus class="size-7 text-secondary-900" />
         </button>

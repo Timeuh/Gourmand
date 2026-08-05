@@ -9,6 +9,7 @@ definePageMeta({
 
 <template>
   <div class="space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen">
+    <ModalLogFood />
     <section
       id="first-row"
       class="flex flex-row justify-between items-center w-full"
