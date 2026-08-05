@@ -39,7 +39,25 @@ export function useCalendarUtils() {
     if (!day) return;
 
     selectedDate.value = day;
+    showFoods.value = true;
   }
 
-  return { currentMonth, changeMonth, selectedDate, selectDate };
+  // show mobile foods panel
+  const showFoods = useState<boolean>("ShowFoods", () => false);
+
+  /**
+   * Hide the mobile foods panel
+   */
+  function hideFoodsPanel(): void {
+    showFoods.value = false;
+  }
+
+  return {
+    currentMonth,
+    changeMonth,
+    selectedDate,
+    selectDate,
+    showFoods,
+    hideFoodsPanel,
+  };
 }
