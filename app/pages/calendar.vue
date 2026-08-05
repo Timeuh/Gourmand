@@ -23,6 +23,7 @@ definePageMeta({
     </section>
     <section id="second-row">
       <MobileCalendarView />
+      <MobileCalendarFood />
     </section>
   </div>
 </template>
