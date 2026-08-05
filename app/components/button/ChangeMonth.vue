@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // get current month utils
-const { currentMonth, changeMonth } = useCurrentMonth();
+const { currentMonth, changeMonth } = useCalendarUtils();
 
 // format current month name
 const monthName = computed(() => {

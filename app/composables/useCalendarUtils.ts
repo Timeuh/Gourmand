@@ -1,5 +1,5 @@
 // composable to manage the current month in the calendar
-export function useCurrentMonth() {
+export function useCalendarUtils() {
   // get today's date
   const today = new Date();
 
