@@ -52,6 +52,23 @@ export function useCalendarUtils() {
     showFoods.value = false;
   }
 
+  // format selected date as "YYYY-MM-DD"
+  const formatedSelectedDate = computed(
+    () =>
+      `${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}`,
+  );
+
+  // fetch calendar data for the selected date
+  const { data, refresh: refreshCalendar } = useFetch<
+    ApiCollection<FullCalendar>
+  >("/api/calendars", {
+    key: "CalendarDay",
+    query: computed(() => ({
+      date: formatedSelectedDate.value,
+      fullContent: true,
+    })),
+  });
+
   return {
     currentMonth,
     changeMonth,
@@ -59,5 +76,8 @@ export function useCalendarUtils() {
     selectDate,
     showFoods,
     hideFoodsPanel,
+    formatedSelectedDate,
+    data,
+    refreshCalendar,
   };
 }
