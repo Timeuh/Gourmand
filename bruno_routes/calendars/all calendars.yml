@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/api/calendars
+  url: http://localhost:3000/api/calendars?userId=1&date=2026-7-30
   headers:
     - name: Authorization
       value: Bearer {{NUXT_API_KEY}}
@@ -17,7 +17,9 @@ http:
     - name: userId
       value: "1"
       type: query
-      disabled: true
+    - name: date
+      value: 2026-7-30
+      type: query
   auth: inherit
 
 settings:
