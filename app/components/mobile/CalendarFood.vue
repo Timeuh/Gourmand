@@ -1,6 +1,14 @@
 <script setup lang="ts">
 // get calendar utils from composable
 const { selectedDate, showFoods, hideFoodsPanel } = useCalendarUtils();
+
+// fetch calendar data for the selected date
+const { data } = useFetch<ApiCollection<Calendar>>("/api/calendars", {
+  key: "CalendarDay",
+  query: computed(() => ({
+    date: `${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}`,
+  })),
+});
 </script>
 
 <template>
@@ -16,7 +24,7 @@ const { selectedDate, showFoods, hideFoodsPanel } = useCalendarUtils();
     </div>
     <div class="p-2">
       <h3>
-        {{ selectedDate.day }}/{{ selectedDate.month }}/{{ selectedDate.year }}
+        {{ data?.items }}
       </h3>
     </div>
   </div>
