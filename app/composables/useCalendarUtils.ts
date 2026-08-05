@@ -12,21 +12,21 @@ export function useCalendarUtils() {
   /**
    * change current month
    *
-   * @param offset {number} -1 for previous month, 1 for next month
+   * @param offset {number} -2 for previous month, 0 for next month, cause of the offset
    */
   function changeMonth(offset: number) {
     const newMonth = new Date(
       currentMonth.value.getFullYear(),
-      currentMonth.value.getMonth() + offset,
+      currentMonth.value.getMonth() + 1 + offset,
       1,
     );
     currentMonth.value = newMonth;
   }
 
-  // current selected date
+  // current selected date (+1 to month because JS months are 0-indexed)
   const selectedDate = useState<CalendarDay>("SelectedDate", () => ({
     day: today.getDate(),
-    month: today.getMonth(),
+    month: today.getMonth() + 1,
     year: today.getFullYear(),
   }));
 

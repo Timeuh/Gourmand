@@ -8,7 +8,7 @@ const today = new Date();
 // today as a CalendarDay object
 const todayDate: CalendarDay = {
   day: today.getDate(),
-  month: today.getMonth(),
+  month: today.getMonth() + 1,
   year: today.getFullYear(),
 };
 
@@ -29,11 +29,11 @@ const todayIndex = (today.getDay() + 6) % 7;
 
 // get current month date's year and month
 const year = computed(() => currentMonth.value.getFullYear());
-const month = computed(() => currentMonth.value.getMonth());
+const month = computed(() => currentMonth.value.getMonth() + 1);
 
 // number of days in the month
 const daysInMonth = computed(() => {
-  return new Date(year.value, month.value + 1, 0).getDate();
+  return new Date(year.value, month.value, 0).getDate();
 });
 
 // first days of the month if the month doesn't start on a monday
