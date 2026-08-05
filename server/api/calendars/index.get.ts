@@ -5,6 +5,19 @@ export default defineEventHandler(async (event) => {
     const fullContent = getQuery(event).fullContent === "true";
     // get calendars from a specific user
     const userId = getQuery(event).userId;
+    // get date to check from the request parameters
+    const dateToCheck = getQuery(event).date as string | undefined;
+
+    // convert dateToCheck to a Date object if it's provided
+    const date = new Date(dateToCheck!);
+
+    // start of the day to check
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+
+    // end of the day to check
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
 
     // get user from session
     const { user } = await getUserSession(event);
@@ -30,13 +43,19 @@ export default defineEventHandler(async (event) => {
     // get calendars from database
     const calendars: Calendar[] | FullCalendar[] =
       await prisma.calendar.findMany({
-        where: idToCheck
-          ? {
-              food: {
-                user_id: idToCheck,
-              },
-            }
-          : undefined,
+        where: {
+          ...(idToCheck && {
+            food: {
+              user_id: idToCheck,
+            },
+          }),
+          ...(dateToCheck && {
+            date: {
+              gte: start,
+              lte: end,
+            },
+          }),
+        },
         include: fullContent
           ? {
               food: true,
