@@ -80,6 +80,37 @@ export function useCalendarUtils() {
     };
   }
 
+  // days of the week
+  const weekDays: string[] = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+  // get current month date's year and month
+  const year = computed(() => currentMonth.value.getFullYear());
+  const month = computed(() => currentMonth.value.getMonth());
+
+  // number of days in the month
+  const daysInMonth = computed(() => {
+    return new Date(year.value, month.value + 1, 0).getDate();
+  });
+
+  // first days of the month if the month doesn't start on a monday
+  const firstWeekDay = computed(() => {
+    return (new Date(year.value, month.value, 1).getDay() + 6) % 7;
+  });
+
+  // days of the month with empty cases for the first week if the 1st isn't monday
+  const calendarDays: ComputedRef<Array<CalendarDay | null>> = computed(() => {
+    return [
+      ...Array.from({ length: firstWeekDay.value }, () => null),
+      ...Array.from({ length: daysInMonth.value }, (_, index) => {
+        return {
+          day: index + 1,
+          month: month.value + 1,
+          year: year.value,
+        };
+      }),
+    ];
+  });
+
   return {
     currentMonth,
     changeMonth,
@@ -91,5 +122,7 @@ export function useCalendarUtils() {
     data,
     refreshCalendar,
     resetSelectedDate,
+    weekDays,
+    calendarDays,
   };
 }
