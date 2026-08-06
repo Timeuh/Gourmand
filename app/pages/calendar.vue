@@ -35,6 +35,7 @@ onBeforeRouteLeave(() => {
       <ButtonChangeMonth />
     </section>
     <section id="second-row">
+      <CalendarView />
       <MobileCalendarView />
       <MobileCalendarFood />
     </section>
