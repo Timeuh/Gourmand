@@ -64,5 +64,6 @@ export function useEatFood() {
   return {
     eatFood,
     cardError,
+    refreshHome,
   };
 }
