@@ -6,6 +6,9 @@ const { showFoods, hideFoodsPanel, formatedSelectedDate, selectedDate, data } =
 // get log modal utils from composable
 const { openModal } = useLogModal();
 
+// get delete calendar modal utils from composable
+const { openModal: openDeleteCalendarModal } = useDeleteCalendar();
+
 // selected date, formated with desired format
 const formatedDate = computed(() => {
   return new Date(formatedSelectedDate.value).toLocaleDateString("fr-FR", {
@@ -45,16 +48,24 @@ const formatedDate = computed(() => {
         <div
           v-for="calendar in data?.items"
           :key="calendar.id"
-          class="flex flex-row items-center space-x-4 bg-background-900 shadow-[0_0_3px_0] shadow-secondary-900/50 p-2 rounded-md w-full"
+          class="flex flex-row justify-between items-center bg-background-900 shadow-[0_0_3px_0] shadow-secondary-900/50 p-2 rounded-md w-full"
         >
-          <NuxtImg
-            :src="calendar.food.image"
-            :alt="calendar.food.name"
-            class="rounded-md size-16 object-cover"
-          />
-          <h3 class="font-bold text-secondary-900 text-xl">
-            {{ calendar.food.name }}
-          </h3>
+          <div class="flex flex-row items-center space-x-4">
+            <NuxtImg
+              :src="calendar.food.image"
+              :alt="calendar.food.name"
+              class="rounded-md size-16 object-cover"
+            />
+            <h3 class="font-bold text-secondary-900 text-xl">
+              {{ calendar.food.name }}
+            </h3>
+          </div>
+          <button
+            class="justify-end"
+            @click="openDeleteCalendarModal(calendar.id)"
+          >
+            <IconTrash class="size-7 text-red-500" />
+          </button>
         </div>
       </div>
       <div class="p-3">
