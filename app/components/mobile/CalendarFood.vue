@@ -22,7 +22,7 @@ const formatedDate = computed(() => {
 <template>
   <div
     :class="showFoods ? 'translate-y-0' : 'translate-y-[90%]'"
-    class="bottom-20 left-0 fixed bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/25 rounded-md w-full h-fit transition duration-300 ease-in-out"
+    class="xl:hidden bottom-20 left-0 fixed bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/25 rounded-md w-full h-fit transition duration-300 ease-in-out"
   >
     <div class="flex flex-row justify-center items-center pt-2 w-full">
       <button

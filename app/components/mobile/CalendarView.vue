@@ -73,7 +73,7 @@ function isDate(day: CalendarDay | null, compareTo: CalendarDay): boolean {
 </script>
 
 <template>
-  <div class="shadow-[0_0_2px_0] shadow-secondary-900/50 w-full">
+  <div class="xl:hidden shadow-[0_0_2px_0] shadow-secondary-900/50 w-full">
     <div
       class="flex flex-row items-center bg-primary-900 p-2 rounded-md w-full h-12 text-background-900"
     >
