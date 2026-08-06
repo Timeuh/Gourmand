@@ -83,6 +83,17 @@ export function useCalendarUtils() {
   // days of the week
   const weekDays: string[] = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 
+  // days of the week, for desktop format
+  const desktopWeekDays: string[] = [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+    "Dimanche",
+  ];
+
   // get current month date's year and month
   const year = computed(() => currentMonth.value.getFullYear());
   const month = computed(() => currentMonth.value.getMonth());
@@ -124,5 +135,6 @@ export function useCalendarUtils() {
     resetSelectedDate,
     weekDays,
     calendarDays,
+    desktopWeekDays,
   };
 }
