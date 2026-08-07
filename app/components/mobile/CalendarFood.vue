@@ -1,7 +1,12 @@
 <script setup lang="ts">
 // get calendar utils from composable
-const { showFoods, hideFoodsPanel, formatedSelectedDate, selectedDate, data } =
-  useCalendarUtils();
+const {
+  showFoods,
+  hideFoodsPanel,
+  formatedSelectedDate,
+  selectedDate,
+  calendarDayData,
+} = useCalendarUtils();
 
 // get log modal utils from composable
 const { openModal } = useLogModal();
@@ -38,7 +43,7 @@ const formatedDate = computed(() => {
       </div>
       <div class="space-y-3 p-3 pt-2 w-full h-[15vh] overflow-auto">
         <div
-          v-if="data?.items.length == 0"
+          v-if="calendarDayData?.items.length == 0"
           class="flex flex-row justify-center items-center bg-background-500 p-2 rounded-md w-full h-18"
         >
           <h3 class="text-secondary-900 text-lg">
@@ -46,7 +51,7 @@ const formatedDate = computed(() => {
           </h3>
         </div>
         <div
-          v-for="calendar in data?.items"
+          v-for="calendar in calendarDayData?.items"
           :key="calendar.id"
           class="flex flex-row justify-between items-center bg-background-900 shadow-[0_0_3px_0] shadow-secondary-900/50 p-2 rounded-md w-full"
         >

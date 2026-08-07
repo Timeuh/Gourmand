@@ -7,7 +7,7 @@ export function useEatFood() {
   const { displayToast } = useToast();
 
   // get calendar refresh function
-  const { refreshCalendar } = useCalendarUtils();
+  const { refreshCalendarDay } = useCalendarUtils();
 
   // get the function to refresh home data
   const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
@@ -46,7 +46,7 @@ export function useEatFood() {
       // refresh the data and close the log modal in case it was open
       refreshHome();
       refreshFoods();
-      refreshCalendar();
+      refreshCalendarDay();
       closeModal();
 
       // display a toast to tell user the food has been added
