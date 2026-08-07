@@ -58,13 +58,30 @@ export function useCalendarUtils() {
       `${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}`,
   );
 
+  // format current month as "YYYY-MM-DD"
+  const formatedSelectedMonth = computed(
+    () =>
+      `${currentMonth.value.getFullYear()}-${currentMonth.value.getMonth() + 1}-${currentMonth.value.getDay()}`,
+  );
+
   // fetch calendar data for the selected date
-  const { data, refresh: refreshCalendar } = useFetch<
+  const { data: calendarDayData, refresh: refreshCalendarDay } = useFetch<
     ApiCollection<FullCalendar>
   >("/api/calendars", {
     key: "CalendarDay",
     query: computed(() => ({
       date: formatedSelectedDate.value,
+      fullContent: true,
+    })),
+  });
+
+  // fetch calendar data for the selected month
+  const { data: calendarMonthData, refresh: refreshCalendarMonth } = useFetch<
+    ApiCollection<FullCalendar>
+  >("/api/calendars", {
+    key: "CalendarMonth",
+    query: computed(() => ({
+      month: formatedSelectedMonth.value,
       fullContent: true,
     })),
   });
@@ -161,13 +178,15 @@ export function useCalendarUtils() {
     showFoods,
     hideFoodsPanel,
     formatedSelectedDate,
-    data,
-    refreshCalendar,
+    calendarDayData,
+    refreshCalendarDay,
     resetSelectedDate,
     weekDays,
     calendarDays,
     desktopWeekDays,
     isDate,
     todayDate,
+    calendarMonthData,
+    refreshCalendarMonth,
   };
 }
