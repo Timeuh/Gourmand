@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // get calendar utils
-const { desktopWeekDays, calendarDays, isDate, todayDate } = useCalendarUtils();
+const { desktopWeekDays, calendarDays, isDate, todayDate, calendarMonthData } =
+  useCalendarUtils();
 
 // today's date
 const today = new Date();
@@ -38,7 +39,7 @@ function isweekend(index: number) {
       </h2>
     </div>
     <div
-      class="grid grid-cols-7 border-secondary-100 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
+      class="grid grid-cols-7 auto-rows-fr border-secondary-100 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
     >
       <div
         v-for="(day, index) in calendarDays"
@@ -46,9 +47,9 @@ function isweekend(index: number) {
           isweekend(index) ? 'bg-background-500' : '',
           isDate(day, todayDate) ? 'bg-primary-100' : '',
         ]"
-        class="justify-self-center p-2 border-secondary-100 border-r border-b w-full h-full text-secondary-900"
+        class="flex flex-col p-2 border-secondary-100 border-r border-b w-full h-full min-h-0 overflow-hidden text-secondary-900"
       >
-        <div class="flex flex-row justify-between items-center w-full">
+        <div class="flex flex-row justify-between items-center w-full shrink-0">
           <button
             v-if="day !== null"
             class="p-1 border border-secondary-500 border-dotted rounded-md"
@@ -65,6 +66,21 @@ function isweekend(index: number) {
           >
             {{ day?.day }}
           </h3>
+        </div>
+        <div class="flex-1 mt-2 min-h-0 overflow-y-auto">
+          <div v-for="calendar in calendarMonthData?.items">
+            <div
+              v-if="
+                isDate(day, {
+                  day: new Date(calendar.date).getDay(),
+                  month: new Date(calendar.date).getMonth() + 1,
+                  year: new Date(calendar.date).getFullYear(),
+                })
+              "
+            >
+              {{ calendar.food.name }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
