@@ -108,6 +108,13 @@ export function useCalendarUtils() {
     return (new Date(year.value, month.value, 1).getDay() + 6) % 7;
   });
 
+  // days to fill the end of the month
+  const monthFillDays = computed(() => {
+    // check if the calendar will count 5 or 6 lines
+    const totaldays = firstWeekDay.value >= 5 ? 42 : 35;
+    return totaldays - daysInMonth.value - firstWeekDay.value;
+  });
+
   // days of the month with empty cases for the first week if the 1st isn't monday
   const calendarDays: ComputedRef<Array<CalendarDay | null>> = computed(() => {
     return [
@@ -119,6 +126,7 @@ export function useCalendarUtils() {
           year: year.value,
         };
       }),
+      ...Array.from({ length: monthFillDays.value }, () => null),
     ];
   });
 
