@@ -1,16 +1,10 @@
 <script setup lang="ts">
 // get calendar utils
-const { selectedDate, selectDate, weekDays, calendarDays } = useCalendarUtils();
+const { selectedDate, selectDate, weekDays, calendarDays, todayDate, isDate } =
+  useCalendarUtils();
 
 // today's date
 const today = new Date();
-
-// today as a CalendarDay object
-const todayDate: CalendarDay = {
-  day: today.getDate(),
-  month: today.getMonth() + 1,
-  year: today.getFullYear(),
-};
 
 // today's date, formated with desired format
 const formatedDate = computed(() => {
@@ -23,22 +17,6 @@ const formatedDate = computed(() => {
 
 // get today's index in the weekdays array
 const todayIndex = (today.getDay() + 6) % 7;
-
-/**
- * Check if the given day is the same as the compareTo day
- *
- * @param day {CalendarDay | null} CalendarDay of the given day to check
- * @param compareTo {CalendarDay} CalendarDay to compare with
- */
-function isDate(day: CalendarDay | null, compareTo: CalendarDay): boolean {
-  if (!day) return false;
-
-  return (
-    day.day === compareTo.day &&
-    day.month === compareTo.month &&
-    day.year === compareTo.year
-  );
-}
 </script>
 
 <template>

@@ -130,6 +130,29 @@ export function useCalendarUtils() {
     ];
   });
 
+  /**
+   * Check if the given day is the same as the compareTo day
+   *
+   * @param day {CalendarDay | null} CalendarDay of the given day to check
+   * @param compareTo {CalendarDay} CalendarDay to compare with
+   */
+  function isDate(day: CalendarDay | null, compareTo: CalendarDay): boolean {
+    if (!day) return false;
+
+    return (
+      day.day === compareTo.day &&
+      day.month === compareTo.month &&
+      day.year === compareTo.year
+    );
+  }
+
+  // today as a CalendarDay object
+  const todayDate: CalendarDay = {
+    day: today.getDate(),
+    month: today.getMonth() + 1,
+    year: today.getFullYear(),
+  };
+
   return {
     currentMonth,
     changeMonth,
@@ -144,5 +167,7 @@ export function useCalendarUtils() {
     weekDays,
     calendarDays,
     desktopWeekDays,
+    isDate,
+    todayDate,
   };
 }
