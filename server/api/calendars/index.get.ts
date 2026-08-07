@@ -7,9 +7,14 @@ export default defineEventHandler(async (event) => {
     const userId = getQuery(event).userId;
     // get date to check from the request parameters
     const dateToCheck = getQuery(event).date as string | undefined;
+    // get month to check from the request parameters
+    const monthToCheck = getQuery(event).month as string | undefined;
 
     // convert dateToCheck to a Date object if it's provided
     const date = new Date(dateToCheck!);
+
+    // convert monthToCheck to a Date object if it's provided
+    const month = new Date(monthToCheck!);
 
     // start of the day to check
     const start = new Date(date);
@@ -18,6 +23,12 @@ export default defineEventHandler(async (event) => {
     // end of the day to check
     const end = new Date(date);
     end.setHours(23, 59, 59, 999);
+
+    // start of the month to check
+    const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
+
+    // end of the month to check
+    const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
 
     // get user from session
     const { user } = await getUserSession(event);
@@ -49,12 +60,20 @@ export default defineEventHandler(async (event) => {
               user_id: idToCheck,
             },
           }),
-          ...(dateToCheck && {
-            date: {
-              gte: start,
-              lte: end,
-            },
-          }),
+          ...(dateToCheck &&
+            !monthToCheck && {
+              date: {
+                gte: start,
+                lte: end,
+              },
+            }),
+          ...(monthToCheck &&
+            !dateToCheck && {
+              date: {
+                gte: monthStart,
+                lte: monthEnd,
+              },
+            }),
         },
         include: fullContent
           ? {
