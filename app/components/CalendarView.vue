@@ -24,7 +24,7 @@ function isweekend(index: number) {
   <div
     class="hidden xl:block bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full h-[85vh]"
   >
-    <div class="gap-3 grid grid-cols-7 w-full h-10">
+    <div class="grid grid-cols-7 w-full h-10">
       <h2
         v-for="(day, index) in desktopWeekDays"
         :class="
@@ -37,11 +37,13 @@ function isweekend(index: number) {
         {{ day }}
       </h2>
     </div>
-    <div class="gap-3 grid grid-cols-7 w-full h-[95%]">
+    <div
+      class="grid grid-cols-7 border-secondary-100 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
+    >
       <div
         v-for="(day, index) in calendarDays"
         :class="isweekend(index) ? 'bg-background-500' : ''"
-        class="justify-self-center w-full h-full text-secondary-900"
+        class="justify-self-center p-2 border-secondary-100 border-r border-b w-full h-full text-secondary-900"
       >
         {{ day?.day }}
       </div>
