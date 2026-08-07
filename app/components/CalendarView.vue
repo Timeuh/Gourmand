@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // get calendar utils
-const { desktopWeekDays, calendarDays } = useCalendarUtils();
+const { desktopWeekDays, calendarDays, isDate, todayDate } = useCalendarUtils();
 
 // today's date
 const today = new Date();
@@ -42,10 +42,30 @@ function isweekend(index: number) {
     >
       <div
         v-for="(day, index) in calendarDays"
-        :class="isweekend(index) ? 'bg-background-500' : ''"
+        :class="[
+          isweekend(index) ? 'bg-background-500' : '',
+          isDate(day, todayDate) ? 'bg-primary-100' : '',
+        ]"
         class="justify-self-center p-2 border-secondary-100 border-r border-b w-full h-full text-secondary-900"
       >
-        {{ day?.day }}
+        <div class="flex flex-row justify-between items-center w-full">
+          <button
+            v-if="day !== null"
+            class="p-1 border border-secondary-500 border-dotted rounded-md"
+          >
+            <IconPlus class="size-5 text-secondary-500" />
+          </button>
+          <h3
+            :class="[
+              'text-xl font-bold',
+              isDate(day, todayDate)
+                ? 'text-primary-900'
+                : 'text-secondary-900',
+            ]"
+          >
+            {{ day?.day }}
+          </h3>
+        </div>
       </div>
     </div>
   </div>
