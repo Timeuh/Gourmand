@@ -54,10 +54,6 @@ function removeFile() {
   imagePreview.value = "/assets/default_food.png";
 }
 
-// increment food plates
-
-// decrement food plates, minimum 1
-
 // verify form inputs
 function verifyForm(): boolean {
   let isValid = true;

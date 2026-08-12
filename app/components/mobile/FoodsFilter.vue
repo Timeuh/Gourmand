@@ -17,7 +17,7 @@ function toggleFilters() {
       <IconFilter class="size-5 text-secondary-900" />
     </button>
     <div
-      class="top-12 left-0 z-40 absolute transition duration-500 ease-in-out"
+      class="top-12 left-0 z-40 absolute px-2 transition duration-500 ease-in-out"
       :class="showFilters ? 'translate-x-0' : 'translate-x-[120%]'"
     >
       <FoodsAdvancedFilters />

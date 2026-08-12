@@ -18,6 +18,14 @@ http:
       value: "1"
       type: query
       disabled: true
+    - name: date
+      value: 2026-7-30
+      type: query
+      disabled: true
+    - name: month
+      value: 2026-7-1
+      type: query
+      disabled: true
   auth: inherit
 
 settings:

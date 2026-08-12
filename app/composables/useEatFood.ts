@@ -1,15 +1,22 @@
 // composable to add a food to foods eaten today
 export function useEatFood() {
-  // get the function to close log modal
-  const { closeModal } = useLogModal();
+  // get log modal utils
+  const { closeModal, modalDate } = useLogModal();
+
   // get toast display method
   const { displayToast } = useToast();
+
+  // get calendar refresh function
+  const { refreshCalendarDay, refreshCalendarMonth } = useCalendarUtils();
+
   // get the function to refresh home data
   const { refresh: refreshHome } = useFetch("/api/home", { key: "home" });
+
   // get the function to refresh food data
   const { refresh: refreshFoods } = useFetch("/api/foods?lastEaten=true", {
     key: "LogModal",
   });
+
   // get user session
   const { user, loggedIn } = useUserSession();
 
@@ -30,7 +37,7 @@ export function useEatFood() {
       await $fetch("/api/calendars", {
         method: "POST",
         body: {
-          date: new Date().toISOString(),
+          date: modalDate.value.toISOString(),
           food_id: foodId,
           user_id: user.value?.id,
         },
@@ -39,6 +46,8 @@ export function useEatFood() {
       // refresh the data and close the log modal in case it was open
       refreshHome();
       refreshFoods();
+      refreshCalendarDay();
+      refreshCalendarMonth();
       closeModal();
 
       // display a toast to tell user the food has been added
@@ -56,5 +65,6 @@ export function useEatFood() {
   return {
     eatFood,
     cardError,
+    refreshHome,
   };
 }
