@@ -67,18 +67,31 @@ function isweekend(index: number) {
             {{ day?.day }}
           </h3>
         </div>
-        <div class="flex-1 mt-2 min-h-0 overflow-y-auto">
+        <div class="flex-1 space-y-3 mt-2 min-h-0 overflow-y-auto">
           <div v-for="calendar in calendarMonthData?.items">
             <div
               v-if="
                 isDate(day, {
-                  day: new Date(calendar.date).getDay(),
+                  day: new Date(calendar.date).getDate(),
                   month: new Date(calendar.date).getMonth() + 1,
                   year: new Date(calendar.date).getFullYear(),
                 })
               "
+              class="flex flex-row justify-between items-center w-full"
             >
-              {{ calendar.food.name }}
+              <div class="flex flex-row items-center space-x-2">
+                <NuxtImg
+                  :src="calendar.food.image"
+                  :alt="calendar.food.name"
+                  class="rounded-md size-10 object-cover"
+                />
+                <h3 class="font-bold text-secondary-900 text-xs">
+                  {{ calendar.food.name }}
+                </h3>
+              </div>
+              <button class="justify-end cursor-pointer">
+                <IconTrash class="size-5 text-red-500" />
+              </button>
             </div>
           </div>
         </div>
