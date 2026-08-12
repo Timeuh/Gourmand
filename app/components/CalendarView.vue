@@ -3,6 +3,9 @@
 const { desktopWeekDays, calendarDays, isDate, todayDate, calendarMonthData } =
   useCalendarUtils();
 
+// get delete calendar modal utils from composable
+const { openModal: openDeleteCalendarModal } = useDeleteCalendar();
+
 // today's date
 const today = new Date();
 
@@ -67,7 +70,7 @@ function isweekend(index: number) {
             {{ day?.day }}
           </h3>
         </div>
-        <div class="flex-1 space-y-3 mt-2 min-h-0 overflow-y-auto">
+        <div class="flex-1 mt-2 min-h-0 overflow-y-auto">
           <div v-for="calendar in calendarMonthData?.items">
             <div
               v-if="
@@ -77,7 +80,7 @@ function isweekend(index: number) {
                   year: new Date(calendar.date).getFullYear(),
                 })
               "
-              class="flex flex-row justify-between items-center w-full"
+              class="flex flex-row justify-between items-center pb-3 w-full"
             >
               <div class="flex flex-row items-center space-x-2">
                 <NuxtImg
@@ -89,7 +92,10 @@ function isweekend(index: number) {
                   {{ calendar.food.name }}
                 </h3>
               </div>
-              <button class="justify-end cursor-pointer">
+              <button
+                class="justify-end cursor-pointer"
+                @click="openDeleteCalendarModal(calendar.id)"
+              >
                 <IconTrash class="size-5 text-red-500" />
               </button>
             </div>

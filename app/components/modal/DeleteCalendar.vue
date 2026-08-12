@@ -4,7 +4,7 @@ const { showModal, closeModal, deleteCalendarFromDatabase } =
   useDeleteCalendar();
 
 // get calendar utils from composable
-const { refreshCalendarDay } = useCalendarUtils();
+const { refreshCalendarDay, refreshCalendarMonth } = useCalendarUtils();
 
 // get the function to refresh home data
 const { refreshHome } = useEatFood();
@@ -13,6 +13,7 @@ const { refreshHome } = useEatFood();
 async function deleteCalendar() {
   await deleteCalendarFromDatabase();
   refreshCalendarDay();
+  refreshCalendarMonth();
   refreshHome();
   closeModal();
 }
