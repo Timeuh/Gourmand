@@ -6,6 +6,9 @@ const { desktopWeekDays, calendarDays, isDate, todayDate, calendarMonthData } =
 // get delete calendar modal utils from composable
 const { openModal: openDeleteCalendarModal } = useDeleteCalendar();
 
+// get log modal utils from composable
+const { openModal } = useLogModal();
+
 // today's date
 const today = new Date();
 
@@ -55,7 +58,8 @@ function isweekend(index: number) {
         <div class="flex flex-row justify-between items-center w-full shrink-0">
           <button
             v-if="day !== null"
-            class="p-1 border border-secondary-500 border-dotted rounded-md"
+            @click="openModal(new Date(day.year, day.month - 1, day.day, 12))"
+            class="p-1 border border-secondary-500 border-dotted rounded-md cursor-pointer"
           >
             <IconPlus class="size-5 text-secondary-500" />
           </button>
