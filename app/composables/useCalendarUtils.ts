@@ -61,7 +61,7 @@ export function useCalendarUtils() {
   // format current month as "YYYY-MM-DD"
   const formatedSelectedMonth = computed(
     () =>
-      `${currentMonth.value.getFullYear()}-${currentMonth.value.getMonth() + 1}-${currentMonth.value.getDay()}`,
+      `${currentMonth.value.getFullYear()}-${currentMonth.value.getMonth() + 1}-${currentMonth.value.getDate()}`,
   );
 
   // fetch calendar data for the selected date
