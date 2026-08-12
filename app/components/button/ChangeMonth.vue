@@ -13,13 +13,13 @@ const monthName = computed(() => {
 
 <template>
   <div
-    class="relative flex flex-row justify-center items-center space-x-2 bg-background-900 shadow-[0_0_1px_0] shadow-secondary-900/50 p-2 rounded-md min-w-[45vw] xl:min-w-[10vw] text-secondary-900"
+    class="relative flex flex-row justify-center items-center bg-background-900 shadow-[0_0_1px_0] shadow-secondary-900/50 p-2 rounded-md min-w-[42vw] xl:min-w-[10vw] text-secondary-900"
   >
-    <button @click="changeMonth(-1)" class="left-2 absolute">
+    <button @click="changeMonth(-1)" class="left-1 xl:left-2 absolute">
       <IconChevronLeft class="size-5" />
     </button>
     <h2>{{ monthName }}</h2>
-    <button @click="changeMonth(1)" class="right-2 absolute">
+    <button @click="changeMonth(1)" class="right-1 xl:right-2 absolute">
       <IconChevronRight class="size-5" />
     </button>
   </div>
