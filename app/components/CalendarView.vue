@@ -74,7 +74,7 @@ function isweekend(index: number) {
             {{ day?.day }}
           </h3>
         </div>
-        <div class="flex-1 mt-2 min-h-0 overflow-y-auto">
+        <div class="flex-1 mt-2 pr-1 min-h-0 overflow-y-auto">
           <div v-for="calendar in calendarMonthData?.items">
             <div
               v-if="

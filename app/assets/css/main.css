@@ -21,3 +21,27 @@
   --background-900: #f2f8ff;
   --background-500: #e2e6eb;
 }
+
+*::-webkit-scrollbar {
+  width: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--secondary-500);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-100);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
