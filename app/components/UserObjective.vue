@@ -1,14 +1,53 @@
+<script lang="ts" setup>
+const { user, loggedIn } = useUserSession();
+
+// instanciate local objective to interract with
+const currentObjective = ref<number>(user.value?.month_objective || 15);
+
+// decrement objective, min is 5
+function decrement() {
+  if (currentObjective.value <= 5) return;
+
+  currentObjective.value--;
+}
+
+// increment objective, no max provided
+function increment() {
+  currentObjective.value++;
+}
+</script>
+
 <template>
-  <section>
-    <h2>Objectif mensuel de plats</h2>
-    <div>
-      <button><IconMinus class="size-4" /></button>
-      <h3>15</h3>
-      <button><IconPlus class="size-4" /></button>
+  <section
+    v-if="loggedIn"
+    class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-8 rounded-xl w-full xl:w-1/2 xl:min-h-[24vh] text-secondary-900"
+  >
+    <h2 class="font-bold text-xl">Objectif mensuel de plats</h2>
+    <div class="flex flex-col items-center space-y-4 w-full">
+      <div class="flex flex-row items-center space-x-4">
+        <button
+          @click="decrement"
+          :disabled="currentObjective == 5"
+          class="flex flex-col justify-center items-center disabled:bg-background-500 border border-secondary-900 rounded-md size-12"
+        >
+          <IconMinus class="size-8" />
+        </button>
+        <h3 class="min-w-10 font-bold text-2xl text-center">
+          {{ currentObjective }}
+        </h3>
+        <button
+          @click="increment"
+          class="flex flex-col justify-center items-center border border-secondary-900 rounded-md size-12"
+        >
+          <IconPlus class="size-8" />
+        </button>
+      </div>
+      <button
+        class="flex flex-row justify-center items-center space-x-2 bg-primary-900 p-2 rounded-xl w-full h-12 text-background-900"
+      >
+        <IconEdit class="size-6" />
+        <h4 class="text-lg">Mettre à jour</h4>
+      </button>
     </div>
-    <button>
-      <IconEdit class="size-4" />
-      <h4>Mettre à jour</h4>
-    </button>
   </section>
 </template>
