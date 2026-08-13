@@ -15,5 +15,6 @@ useHead({
       </h2>
     </section>
     <UserAccount />
+    <UserObjective />
   </div>
 </template>
