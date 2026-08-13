@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+// get user session utils
 const { user, loggedIn, fetch } = useUserSession();
 
+// get toast display utils
 const { displayToast } = useToast();
 
 // instanciate local objective to interract with
