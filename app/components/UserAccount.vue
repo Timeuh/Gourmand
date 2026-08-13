@@ -36,17 +36,29 @@ const { user, loggedIn, clear } = useUserSession();
         </button>
       </div>
     </section>
-    <section v-else>
-      <div>
-        <NuxtImg src="" alt="" />
+    <section v-else class="space-y-8 w-full">
+      <div class="flex flex-row items-center space-x-4 w-full">
+        <div
+          class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-24"
+        >
+          <IconUser class="size-10" />
+        </div>
         <div>
-          <h3>Invité</h3>
-          <h4>john.doe@mail.com</h4>
+          <h3 class="font-bold">Invité</h3>
+          <h4 class="text-md text-secondary-500">john.doe@mail.com</h4>
         </div>
       </div>
-      <div>
-        <a href="/api/auth/google">Se connecter</a>
-      </div>
+      <a
+        href="/api/auth/google"
+        class="flex flex-row justify-center items-center space-x-2 bg-background-500 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12"
+      >
+        <NuxtImg
+          src="/assets/google_icon.png"
+          alt="logo de google"
+          class="size-6"
+        />
+        <h4 class="text-lg">Se connecter</h4>
+      </a>
     </section>
   </section>
 </template>
