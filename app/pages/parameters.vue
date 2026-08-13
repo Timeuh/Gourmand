@@ -2,8 +2,6 @@
 useHead({
   title: "Gourmand - Paramètres",
 });
-
-const { user, loggedIn, clear } = useUserSession();
 </script>
 
 <template>
