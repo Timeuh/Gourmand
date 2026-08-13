@@ -46,15 +46,17 @@ async function updateObjective() {
 <template>
   <section
     v-if="loggedIn"
-    class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-8 rounded-xl w-full xl:w-1/2 xl:min-h-[24vh] text-secondary-900"
+    class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 px-8 py-6 rounded-xl w-full xl:w-1/2 text-secondary-900"
   >
-    <h2 class="font-bold text-xl">Objectif mensuel de plats</h2>
-    <div class="flex flex-col items-center space-y-4 w-full">
-      <div class="flex flex-row items-center space-x-4">
+    <h2 class="font-bold text-2xl text-center">Objectif mensuel de plats</h2>
+    <div
+      class="flex xl:flex-row flex-col xl:justify-around items-center space-y-4 xl:space-y-0 w-full"
+    >
+      <div class="flex flex-row justify-center items-center space-x-4 w-full">
         <button
           @click="decrement"
           :disabled="currentObjective == 5"
-          class="flex flex-col justify-center items-center disabled:bg-background-500 border border-secondary-900 rounded-md size-12"
+          class="flex flex-col justify-center items-center disabled:bg-background-500 border border-secondary-900 rounded-md size-12 cursor-pointer"
         >
           <IconMinus class="size-8" />
         </button>
@@ -63,14 +65,14 @@ async function updateObjective() {
         </h3>
         <button
           @click="increment"
-          class="flex flex-col justify-center items-center border border-secondary-900 rounded-md size-12"
+          class="flex flex-col justify-center items-center border border-secondary-900 rounded-md size-12 cursor-pointer"
         >
           <IconPlus class="size-8" />
         </button>
       </div>
       <button
         @click="updateObjective"
-        class="flex flex-row justify-center items-center space-x-2 bg-primary-900 p-2 rounded-xl w-full h-12 text-background-900"
+        class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 p-2 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
       >
         <IconEdit class="size-6" />
         <h4 class="text-lg">Mettre à jour</h4>
