@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const { user, loggedIn } = useUserSession();
+const { user, loggedIn, fetch } = useUserSession();
+
+const { displayToast } = useToast();
 
 // instanciate local objective to interract with
 const currentObjective = ref<number>(user.value?.month_objective || 15);
@@ -14,6 +16,28 @@ function decrement() {
 // increment objective, no max provided
 function increment() {
   currentObjective.value++;
+}
+
+// update user montly objective in database and session
+async function updateObjective() {
+  // do nothing if objective is already this number
+  if (currentObjective.value == user.value?.month_objective) return;
+
+  // update in database and in user session
+  await $fetch(`/api/users/${user.value?.id || 0}`, {
+    method: "PUT",
+    body: {
+      email: user.value?.email,
+      theme_id: user.value?.theme_id,
+      month_objective: currentObjective.value,
+    },
+  });
+
+  // refresh session
+  await fetch();
+
+  // display a toast to tell user the food has been added
+  displayToast("Objectif modifié");
 }
 </script>
 
@@ -43,6 +67,7 @@ function increment() {
         </button>
       </div>
       <button
+        @click="updateObjective"
         class="flex flex-row justify-center items-center space-x-2 bg-primary-900 p-2 rounded-xl w-full h-12 text-background-900"
       >
         <IconEdit class="size-6" />
