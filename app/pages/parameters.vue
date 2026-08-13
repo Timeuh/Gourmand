@@ -16,19 +16,6 @@ const { user, loggedIn, clear } = useUserSession();
         {{ formatDate(new Date()) }}
       </h2>
     </section>
-    <div v-if="loggedIn">
-      <p>Bienvenue, {{ user?.name }} !</p>
-      <button @click="clear" class="bg-red-500 px-4 py-2 rounded text-white">
-        Se déconnecter
-      </button>
-    </div>
-    <div v-else>
-      <a
-        href="/api/auth/google"
-        class="inline-block bg-blue-600 px-4 py-2 rounded font-medium text-white"
-      >
-        Se connecter avec Google
-      </a>
-    </div>
+    <UserAccount />
   </div>
 </template>
