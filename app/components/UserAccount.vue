@@ -4,7 +4,7 @@ const { user, loggedIn, clear } = useUserSession();
 
 <template>
   <section
-    class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 p-8 rounded-xl w-full xl:w-1/2 xl:min-h-[24vh] text-secondary-900"
+    class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 px-8 py-6 rounded-xl w-full xl:w-1/2 xl:min-h-[24vh] text-secondary-900"
   >
     <h2 class="font-bold text-2xl">Compte</h2>
     <section
