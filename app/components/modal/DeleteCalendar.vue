@@ -41,7 +41,7 @@ async function deleteCalendar() {
       <button
         type="button"
         @click="deleteCalendar"
-        class="bg-primary-900 p-2 rounded-md text-background-900"
+        class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
       >
         Supprimer cette entrée
       </button>
