@@ -14,7 +14,7 @@ const fakeFood: Food = {
   user_id: -1,
   preptime_id: -1,
   name: "",
-  image: "/assets/default_food.png",
+  image: "",
   plates: -1,
 };
 </script>
@@ -23,13 +23,11 @@ const fakeFood: Food = {
   <CardBase :class="props.class" :food="fakeFood">
     <template #overlay>
       <div
-        class="bottom-0 absolute flex flex-row justify-between items-center bg-background-900 p-2 w-full text-secondary-900"
+        class="absolute inset-0 flex flex-row justify-between items-center p-2 w-full text-secondary-900"
       >
-        <div class="space-y-1 w-full">
-          <h3 class="text-sm text-balance">
-            {{ props.message }}
-          </h3>
-        </div>
+        <h3 class="text-lg text-center">
+          {{ props.message }}
+        </h3>
       </div>
     </template>
   </CardBase>
