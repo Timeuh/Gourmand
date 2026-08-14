@@ -51,7 +51,7 @@ const props = defineProps<Props>();
             />
           </div>
         </div>
-        <div class="right-0 absolute bg-secondary-100 w-0.5 h-4/5" />
+        <div class="right-0 absolute bg-secondary-500 w-0.5 h-4/5" />
       </div>
     </div>
   </div>
