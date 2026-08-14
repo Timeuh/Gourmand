@@ -47,7 +47,7 @@ const { loggedIn } = useUserSession();
       @click="updateTheme"
       class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 p-2 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
     >
-      <IconEdit class="size-6" />
+      <IconSave class="size-6" />
       <h4 class="text-lg">Sauvegarder</h4>
     </button>
   </section>
