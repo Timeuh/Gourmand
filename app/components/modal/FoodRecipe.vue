@@ -243,9 +243,9 @@ function deleteRecipeForever() {
             type="button"
             v-if="showDeleteButton"
             @click="clickDeleteRecipe"
-            class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md size-10 text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+            class="cursor-pointer"
           >
-            <IconTrash class="size-6" />
+            <IconTrash class="size-8 text-failure" />
           </button>
           <div
             class="flex flex-row justify-end space-x-2 w-full text-secondary-100"
