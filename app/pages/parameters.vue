@@ -16,5 +16,6 @@ useHead({
     </section>
     <UserAccount />
     <UserObjective />
+    <UserTheme />
   </div>
 </template>
