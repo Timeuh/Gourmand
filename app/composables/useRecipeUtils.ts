@@ -50,7 +50,7 @@ export function useRecipeUtils() {
     return {
       id: -1,
       user_id: user.value?.id || -1,
-      preptime_id: 0,
+      preptime_id: 1,
       plates: 1,
       image: "",
       name: "",
@@ -78,7 +78,7 @@ export function useRecipeUtils() {
     formFood.value = {
       id: -1,
       user_id: user.value?.id || -1,
-      preptime_id: 0,
+      preptime_id: 1,
       plates: 1,
       image: "",
       name: "",
