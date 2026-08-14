@@ -41,7 +41,7 @@ function clearIngredients() {
           :key="ingredient.id"
           :class="
             selectedIngredients.includes(ingredient.id)
-              ? 'bg-primary-900 text-background-900'
+              ? 'bg-primary-900 text-secondary-100'
               : ''
           "
           class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 px-2 rounded-md w-fit transition duration-300 ease-in-out"

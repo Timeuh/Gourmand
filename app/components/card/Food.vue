@@ -32,7 +32,7 @@ function openEditModal() {
           @click="openEditModal"
           class="flex flex-col justify-center items-center size-7 cursor-pointer shrink-0"
         >
-          <IconEdit class="size-5 text-background-900" />
+          <IconEdit class="size-5 text-secondary-100" />
         </button>
       </div>
     </template>

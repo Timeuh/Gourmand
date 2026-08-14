@@ -42,7 +42,7 @@ function decrement() {
         type="button"
         @click="decrement"
         :disabled="formFood.plates == 1"
-        class="bg-background-900 disabled:bg-secondary-100 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
+        class="bg-background-900 disabled:bg-secondary-500 shadow-[0_0_2px_0] shadow-secondary-900/50 p-1 rounded-md cursor-pointer"
       >
         <IconMinus class="size-4 xl:size-6" />
       </button>
