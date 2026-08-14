@@ -15,9 +15,9 @@
   --primary-900: #b20007;
   --primary-500: #ff7779;
   --primary-100: #eed4db;
-  --secondary-900: #355070;
-  --secondary-500: #627387;
-  --secondary-100: #b9bcbf;
+  --secondary-900: #452424;
+  --secondary-500: #705252;
+  --secondary-100: #c2aeae;
   --background-900: #f2f8ff;
   --background-500: #e2e6eb;
 }
@@ -26,6 +26,9 @@
   --primary-900: #7f00b2;
   --primary-500: #dd77ff;
   --primary-100: #e7d4ee;
+  --secondary-900: #452445;
+  --secondary-500: #705270;
+  --secondary-100: #c2aec2;
 }
 
 *::-webkit-scrollbar {
