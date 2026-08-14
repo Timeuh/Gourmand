@@ -16,8 +16,8 @@
   --primary-500: #ff7779;
   --primary-100: #eed4db;
   --secondary-900: #452424;
-  --secondary-500: #705252;
-  --secondary-100: #c2aeae;
+  --secondary-500: #8c6666;
+  --secondary-100: #e5dcdc;
   --background-900: #f2f8ff;
   --background-500: #e2e6eb;
 }
@@ -28,7 +28,7 @@
   --primary-100: #e7d4ee;
   --secondary-900: #452445;
   --secondary-500: #705270;
-  --secondary-100: #c2aec2;
+  --secondary-100: #e9e2e9;
 }
 
 *::-webkit-scrollbar {
