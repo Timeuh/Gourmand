@@ -2,28 +2,20 @@
 useHead({
   title: "Gourmand - Paramètres",
 });
-
-const { user, loggedIn, clear } = useUserSession();
 </script>
 
 <template>
-  <div class="bg-background-500 p-8 w-full xl:w-5/6 h-screen">
-    <h1>Paramètres</h1>
-
-    <div v-if="loggedIn">
-      <p>Bienvenue, {{ user?.name }} !</p>
-      <button @click="clear" class="bg-red-500 px-4 py-2 rounded text-white">
-        Se déconnecter
-      </button>
-    </div>
-
-    <div v-else>
-      <a
-        href="/api/auth/google"
-        class="inline-block bg-blue-600 px-4 py-2 rounded font-medium text-white"
-      >
-        Se connecter avec Google
-      </a>
-    </div>
+  <div
+    class="space-y-6 bg-background-500 mb-20 xl:mb-0 p-8 w-full xl:w-5/6 min-h-screen select-none"
+  >
+    <section id="first-row">
+      <h1 class="font-bold text-secondary-900 text-xl">⚙️ Paramètres</h1>
+      <h2 class="text-md text-secondary-500">
+        {{ formatDate(new Date()) }}
+      </h2>
+    </section>
+    <UserAccount />
+    <UserObjective />
+    <UserTheme />
   </div>
 </template>

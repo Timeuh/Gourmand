@@ -4,6 +4,9 @@ export default defineEventHandler(async (event) => {
     // get id from the request parameters
     const userId = Number(getRouterParam(event, "id"));
 
+    // get user from session
+    const { user } = await getUserSession(event);
+
     // read the request body and validate its data
     const body = await readBody<UserUpdate>(event);
     const validatedBody: UserUpdate = await userUpdateValidator.validate(body);
@@ -15,6 +18,20 @@ export default defineEventHandler(async (event) => {
       },
       data: validatedBody,
     });
+
+    // if user session exists, set updated data into the session
+    if (user) {
+      await setUserSession(event, {
+        user: {
+          id: updatedUser.id,
+          email: updatedUser.email,
+          theme_id: updatedUser.theme_id,
+          name: user.name,
+          picture: user.picture,
+          month_objective: updatedUser.month_objective,
+        },
+      });
+    }
 
     // return the updated user
     return sendJsonResponse<User>(updatedUser, HTTP_OK);
