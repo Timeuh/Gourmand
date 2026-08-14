@@ -13,17 +13,13 @@ const { eatFood } = useEatFood();
 
 // test if the food has been eaten
 const lastEaten = computed(() => {
-  // in case it wasnt eaten before
-  if (props.cardFood.lastEaten == null) return "Pas encore mangé";
+  // if never eaten
+  if (props.cardFood.lastEaten == null) {
+    return "Pas encore mangé";
+  }
 
-  // in case it has been eaten today
-  if (
-    new Date().getDate() == new Date(props.cardFood.lastEaten || "").getDate()
-  )
-    return "Aujourd'hui";
-
-  // other cases
-  return daysFromToday(new Date(props.cardFood.lastEaten || ""));
+  // get last eaten text
+  return daysFromToday(new Date(props.cardFood.lastEaten));
 });
 </script>
 
