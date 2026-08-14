@@ -69,7 +69,7 @@ const formatedDate = computed(() => {
             class="justify-end"
             @click="openDeleteCalendarModal(calendar.id)"
           >
-            <IconTrash class="size-7 text-red-500" />
+            <IconTrash class="size-7 text-failure" />
           </button>
         </div>
       </div>

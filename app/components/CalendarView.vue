@@ -100,7 +100,7 @@ function isweekend(index: number) {
                 class="justify-end cursor-pointer"
                 @click="openDeleteCalendarModal(calendar.id)"
               >
-                <IconTrash class="size-5 text-red-500" />
+                <IconTrash class="size-5 text-failure" />
               </button>
             </div>
           </div>
