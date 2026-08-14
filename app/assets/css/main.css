@@ -22,6 +22,12 @@
   --background-500: #e2e6eb;
 }
 
+.Violet {
+  --primary-900: #7f00b2;
+  --primary-500: #dd77ff;
+  --primary-100: #e7d4ee;
+}
+
 *::-webkit-scrollbar {
   width: 2px;
   height: 2px;
