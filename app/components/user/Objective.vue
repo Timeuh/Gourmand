@@ -56,18 +56,18 @@ async function updateObjective() {
         <button
           @click="decrement"
           :disabled="currentObjective == 5"
-          class="flex flex-col justify-center items-center disabled:bg-background-500 border border-secondary-900 rounded-md size-12 cursor-pointer"
+          class="flex flex-col justify-center items-center disabled:bg-secondary-100 border border-secondary-900 rounded-md size-10 cursor-pointer"
         >
-          <IconMinus class="size-8" />
+          <IconMinus class="size-6" />
         </button>
         <h3 class="min-w-10 font-bold text-2xl text-center">
           {{ currentObjective }}
         </h3>
         <button
           @click="increment"
-          class="flex flex-col justify-center items-center border border-secondary-900 rounded-md size-12 cursor-pointer"
+          class="flex flex-col justify-center items-center border border-secondary-900 rounded-md size-10 cursor-pointer"
         >
-          <IconPlus class="size-8" />
+          <IconPlus class="size-6" />
         </button>
       </div>
       <button
