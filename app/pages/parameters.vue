@@ -6,7 +6,7 @@ useHead({
 
 <template>
   <div
-    class="space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen select-none"
+    class="space-y-6 bg-background-500 mb-20 p-8 w-full xl:w-5/6 min-h-screen select-none"
   >
     <section id="first-row">
       <h1 class="font-bold text-secondary-900 text-xl">⚙️ Paramètres</h1>
