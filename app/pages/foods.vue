@@ -100,7 +100,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
         </div>
       </div>
       <div
-        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 px-2 w-full xl:w-[65%] xl:h-full overflow-auto"
+        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 px-2 pb-2 w-full xl:w-[65%] xl:h-full overflow-auto"
       >
         <CardFood
           v-for="food in foodsToDisplay"
