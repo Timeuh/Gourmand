@@ -237,7 +237,7 @@ function deleteRecipeForever() {
         <section id="form-plates">
           <FormPlates ref-key="RecipeFood" prefix="recipe" />
         </section>
-        <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
+        <h2 v-if="showError" class="text-failure">{{ formError }}</h2>
         <div class="flex flex-row justify-between items-center">
           <button
             type="button"
