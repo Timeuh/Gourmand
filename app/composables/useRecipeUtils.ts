@@ -62,16 +62,13 @@ export function useRecipeUtils() {
 
   // image data
   const imageInput = ref<VNodeRef | null>(null);
-  const imagePreview = useState<string>(
-    "RecipeImage",
-    () => "/assets/default_food.png",
-  );
+  const imagePreview = useState<string>("RecipeImage", () => "");
   const imageFile = ref<File | undefined>(undefined);
 
   // reset form inputs
   function clearForm() {
     // reset image input and temporary url
-    imagePreview.value = "/assets/default_food.png";
+    imagePreview.value = "";
     imageFile.value = undefined;
     if (imageInput.value) {
       imageInput.value.value = "";
