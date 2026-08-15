@@ -86,21 +86,21 @@ INSERT INTO "User" ("id", "email", "theme_id") VALUES
 (10000,	'timeuh@mail.com',	10000);
 
 INSERT INTO "Food" ("id", "name", "image", "preptime_id", "user_id", "plates") VALUES
-(10000,	'Lasagnes',	'/uploads/foods/1_lasagnes.jpg',	10002,	10000, 4),
-(10001,	'Pâtes bolognaise',	'/uploads/foods/1_pates_bolognaise.jpg',	10001,	10000,	2),
-(10002,	'Poissemoule',	'/uploads/foods/1_poissemoule.jpg',	10000,	10000,	1),
-(10003,	'Cordon bleu petits pois carottes',	'/uploads/foods/1_cordon_bleu_petits_pois_carottes.jpg',	10000,	10000,	1),
-(10004,	'Couscous boulettes',	'/uploads/foods/1_couscous_boulettes.jpg',	10000,	10000,	2),
-(10005,	'Pizza',	'/uploads/foods/1_pizza.png',	10001,	10000,	1),
-(10006,	'Poulet curry',	'/uploads/foods/1_poulet_curry.jpg',	10001,	10000, 2),
-(10007,	'Hamburger frites',	'/uploads/foods/1_hamburger_frites.jpg',	10001,	10000,	2),
-(10008,	'Nems samossas',	'/uploads/foods/1_nems_samossas.jpg',	10001,	10000,	1),
-(10009,	'Pâtes carbonara',	'/uploads/foods/1_pates_carbonara.jpg',	10001,	10000,	2),
-(10010,	'Poisson pané',	'/uploads/foods/1_poisson_pane.png',	10000,	10000,	1),
-(10011,	'Saumon riz',	'/uploads/foods/1_saumon_riz.jpg',	10001,	10000,	2),
-(10012,	'Sushis',	'/uploads/foods/1_sushis.png',	10000,	10000,	1),
-(10013,	'Raclette',	'/uploads/foods/1_raclette.jpg',	10002,	10000,	2),
-(10014,	'Poulet pané légumes',	'/uploads/foods/1_poulet_pane_legumes.jpg',	10001,	10000,	2);
+(10000,	'Lasagnes',	'/uploads/10000_lasagnes.jpg',	10002,	10000, 4),
+(10001,	'Pâtes bolognaise',	'/uploads/10000_pates_bolognaise.jpg',	10001,	10000,	2),
+(10002,	'Poissemoule',	'/uploads/10000_poissemoule.jpg',	10000,	10000,	1),
+(10003,	'Cordon bleu petits pois carottes',	'/uploads/10000_cordon_bleu_petits_pois_carottes.jpg',	10000,	10000,	1),
+(10004,	'Couscous boulettes',	'/uploads/10000_couscous_boulettes.jpg',	10000,	10000,	2),
+(10005,	'Pizza',	'/uploads/10000_pizza.png',	10001,	10000,	1),
+(10006,	'Poulet curry',	'/uploads/10000_poulet_curry.jpg',	10001,	10000, 2),
+(10007,	'Hamburger frites',	'/uploads/10000_hamburger_frites.jpg',	10001,	10000,	2),
+(10008,	'Nems samossas',	'/uploads/10000_nems_samossas.jpg',	10001,	10000,	1),
+(10009,	'Pâtes carbonara',	'/uploads/10000_pates_carbonara.jpg',	10001,	10000,	2),
+(10010,	'Poisson pané',	'/uploads/10000_poisson_pane.png',	10000,	10000,	1),
+(10011,	'Saumon riz',	'/uploads/10000_saumon_riz.jpg',	10001,	10000,	2),
+(10012,	'Sushis',	'/uploads/10000_sushis.png',	10000,	10000,	1),
+(10013,	'Raclette',	'/uploads/10000_raclette.jpg',	10002,	10000,	2),
+(10014,	'Poulet pané légumes',	'/uploads/10000_poulet_pane_legumes.jpg',	10001,	10000,	2);
 
 INSERT INTO "Ingredient" ("id", "name", "category_id") VALUES
 (10000, 'Aubergine', 10000),
