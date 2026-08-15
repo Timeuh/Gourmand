@@ -15,7 +15,7 @@ const formFood = useState<Food>(props.refKey, () => {
   return {
     id: -1,
     user_id: -1,
-    preptime_id: 1,
+    preptime_id: 10000,
     plates: 1,
     image: "",
     name: "",
