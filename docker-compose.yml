@@ -8,6 +8,8 @@ services:
       - .env
     working_dir: /app
     restart: unless-stopped
+    volumes:
+      - gourmand_data:/app/.data
 
   database:
     image: postgres
@@ -20,3 +22,6 @@ services:
     image: adminer
     container_name: gourmand-adminer
     restart: unless-stopped
+
+volumes:
+  gourmand_data:
