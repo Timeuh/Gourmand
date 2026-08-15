@@ -9,23 +9,48 @@
   --color-secondary-100: var(--secondary-100);
   --color-background-900: var(--background-900);
   --color-background-500: var(--background-500);
+  --color-failure: var(--failure);
+  --color-success: var(--success);
 }
 
 :root {
   --primary-900: #b20007;
   --primary-500: #ff7779;
   --primary-100: #eed4db;
-  --secondary-900: #355070;
-  --secondary-500: #627387;
-  --secondary-100: #b9bcbf;
+  --secondary-900: #452424;
+  --secondary-500: #8c6666;
+  --secondary-100: #e5dcdc;
   --background-900: #f2f8ff;
   --background-500: #e2e6eb;
+  --failure: #ff0000;
+  --success: #3ec93e;
 }
 
 .Violet {
   --primary-900: #7f00b2;
   --primary-500: #dd77ff;
   --primary-100: #e7d4ee;
+  --secondary-900: #452445;
+  --secondary-500: #705270;
+  --secondary-100: #e9e2e9;
+}
+
+.Bleu {
+  --primary-900: #1e00b3;
+  --primary-500: #8e78ff;
+  --primary-100: #d7d3ed;
+  --secondary-900: #292445;
+  --secondary-500: #575270;
+  --secondary-100: #e2e1e8;
+}
+
+.Vert {
+  --primary-900: #00b30f;
+  --primary-500: #78ff83;
+  --primary-100: #d3edd5;
+  --secondary-900: #244527;
+  --secondary-500: #527054;
+  --secondary-100: #e1e8e2;
 }
 
 *::-webkit-scrollbar {

@@ -102,12 +102,15 @@ const barStops: ProgressBarStop[] = [
           <span class="text-primary-900">{{ props.objective }}</span>
         </h4>
         <h4>
-          <span v-if="difference > 0" class="text-green-600">+</span>
-          <span v-if="difference == 0" class="text-red-600">-</span>
-          <span :class="difference <= 0 ? 'text-red-600' : 'text-green-600'">{{
-            difference
-          }}</span>
-          vs mois dernier
+          <span v-if="difference > 0" class="text-success">+</span>
+          <span v-if="difference == 0">autant que le</span>
+          <span
+            v-if="difference != 0"
+            :class="difference <= 0 ? 'text-failure' : 'text-success'"
+            >{{ difference }}</span
+          >
+          <span v-if="difference != 0"> vs</span>
+          mois dernier
         </h4>
       </div>
     </div>

@@ -29,7 +29,8 @@ export default defineOAuthGoogleEventHandler({
       const newUser: User = await prisma.user.create({
         data: {
           email: user.email,
-          theme_id: 1,
+          theme_id: 10000,
+          month_objective: 15,
         },
       });
 

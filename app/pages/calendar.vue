@@ -20,7 +20,7 @@ onBeforeRouteLeave(() => {
 
 <template>
   <div
-    class="space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen select-none"
+    class="flex flex-col space-y-6 bg-background-500 p-8 w-full xl:w-5/6 h-screen select-none"
   >
     <ModalLogFood />
     <ModalDeleteCalendar />
@@ -36,7 +36,7 @@ onBeforeRouteLeave(() => {
       </div>
       <ButtonChangeMonth />
     </section>
-    <section id="second-row">
+    <section id="second-row" class="flex flex-col flex-1 min-h-0">
       <CalendarView />
       <MobileCalendarView />
       <MobileCalendarFood />

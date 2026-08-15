@@ -13,17 +13,13 @@ const { eatFood } = useEatFood();
 
 // test if the food has been eaten
 const lastEaten = computed(() => {
-  // in case it wasnt eaten before
-  if (props.cardFood.lastEaten == null) return "Pas encore mangé";
+  // if never eaten
+  if (props.cardFood.lastEaten == null) {
+    return "Pas encore mangé";
+  }
 
-  // in case it has been eaten today
-  if (
-    new Date().getDate() == new Date(props.cardFood.lastEaten || "").getDate()
-  )
-    return "Aujourd'hui";
-
-  // other cases
-  return daysFromToday(new Date(props.cardFood.lastEaten || ""));
+  // get last eaten text
+  return daysFromToday(new Date(props.cardFood.lastEaten));
 });
 </script>
 
@@ -31,13 +27,13 @@ const lastEaten = computed(() => {
   <CardBase :class="props.class" :food="props.cardFood.food">
     <template #overlay>
       <div
-        class="bottom-0 absolute flex flex-row justify-between items-center bg-linear-to-t from-black via-60% via-black/80 to-black/20 backdrop-blur-xs p-2 w-full"
+        class="bottom-0 absolute flex flex-row justify-between items-center bg-linear-to-t from-secondary-900 via-60% via-secondary-900/80 to-secondary-900/20 backdrop-blur-xs p-2 w-full"
       >
         <div class="space-y-1 w-full">
-          <h3 class="text-background-900 text-sm text-balance">
+          <h3 class="font-bold text-secondary-100 text-sm text-balance">
             {{ props.cardFood.food?.name }}
           </h3>
-          <h4 class="font-bold text-secondary-100 text-xs">
+          <h4 class="text-secondary-100 text-xs">
             {{ lastEaten }}
           </h4>
         </div>

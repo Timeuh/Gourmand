@@ -35,19 +35,19 @@ export function useFoodDetails() {
   // assign each category id to a name
   function getCategoryName(categoryId: number) {
     switch (categoryId) {
-      case 1:
+      case 10000:
         return "🥕 LEGUMES";
 
-      case 2:
+      case 10001:
         return "🍓 FRUITS";
 
-      case 3:
+      case 10002:
         return "🍗 VIANDES ET POISSONS";
 
-      case 4:
+      case 10003:
         return "🧂 ASSAISONNEMENT";
 
-      case 5:
+      case 10004:
         return "🍟 ACCOMPAGNEMENT";
 
       default:

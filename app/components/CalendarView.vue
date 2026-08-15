@@ -29,7 +29,7 @@ function isweekend(index: number) {
 
 <template>
   <div
-    class="hidden xl:block bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full h-[85vh]"
+    class="hidden xl:flex flex-col flex-1 bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full min-h-0"
   >
     <div class="grid grid-cols-7 w-full h-10">
       <h2
@@ -45,7 +45,7 @@ function isweekend(index: number) {
       </h2>
     </div>
     <div
-      class="grid grid-cols-7 auto-rows-fr border-secondary-100 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
+      class="grid grid-cols-7 auto-rows-fr border-secondary-500 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
     >
       <div
         v-for="(day, index) in calendarDays"
@@ -53,7 +53,7 @@ function isweekend(index: number) {
           isweekend(index) ? 'bg-background-500' : '',
           isDate(day, todayDate) ? 'bg-primary-100' : '',
         ]"
-        class="flex flex-col p-2 border-secondary-100 border-r border-b w-full h-full min-h-0 overflow-hidden text-secondary-900"
+        class="flex flex-col p-2 border-secondary-500 border-r border-b w-full h-full min-h-0 overflow-hidden text-secondary-900"
       >
         <div class="flex flex-row justify-between items-center w-full shrink-0">
           <button
@@ -97,10 +97,10 @@ function isweekend(index: number) {
                 </h3>
               </div>
               <button
-                class="justify-end cursor-pointer"
+                class="justify-end outline-none cursor-pointer"
                 @click="openDeleteCalendarModal(calendar.id)"
               >
-                <IconTrash class="size-5 text-red-500" />
+                <IconTrash class="size-5 text-failure" />
               </button>
             </div>
           </div>

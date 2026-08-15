@@ -50,7 +50,7 @@ export function useRecipeUtils() {
     return {
       id: -1,
       user_id: user.value?.id || -1,
-      preptime_id: 0,
+      preptime_id: 10000,
       plates: 1,
       image: "",
       name: "",
@@ -62,16 +62,13 @@ export function useRecipeUtils() {
 
   // image data
   const imageInput = ref<VNodeRef | null>(null);
-  const imagePreview = useState<string>(
-    "RecipeImage",
-    () => "/assets/default_food.png",
-  );
+  const imagePreview = useState<string>("RecipeImage", () => "");
   const imageFile = ref<File | undefined>(undefined);
 
   // reset form inputs
   function clearForm() {
     // reset image input and temporary url
-    imagePreview.value = "/assets/default_food.png";
+    imagePreview.value = "";
     imageFile.value = undefined;
     if (imageInput.value) {
       imageInput.value.value = "";
@@ -81,7 +78,7 @@ export function useRecipeUtils() {
     formFood.value = {
       id: -1,
       user_id: user.value?.id || -1,
-      preptime_id: 0,
+      preptime_id: 10000,
       plates: 1,
       image: "",
       name: "",

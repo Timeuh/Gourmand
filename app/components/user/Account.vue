@@ -25,7 +25,7 @@ const { user, loggedIn, clear } = useUserSession();
       <div class="flex flex-col items-center space-y-4 w-full text-center">
         <a
           href="/api/auth/google"
-          class="flex flex-row justify-center items-center space-x-2 bg-background-500 hover:bg-secondary-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 hover:text-background-900 transition duration-300 ease-in-out"
+          class="flex flex-row justify-center items-center space-x-2 bg-secondary-100 hover:bg-secondary-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 hover:text-background-900 transition duration-300 ease-in-out"
         >
           <IconSwitchAccount class="size-6" />
           <h4 class="text-lg">Changer de compte</h4>
@@ -56,7 +56,7 @@ const { user, loggedIn, clear } = useUserSession();
       </div>
       <a
         href="/api/auth/google"
-        class="flex flex-row justify-center items-center space-x-2 bg-background-500 hover:bg-background-500/50 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 transition duration-300 ease-in-out"
+        class="flex flex-row justify-center items-center space-x-2 bg-secondary-100 hover:bg-secondary-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 hover:text-secondary-100 transition duration-300 ease-in-out"
       >
         <NuxtImg
           src="/assets/google_icon.png"

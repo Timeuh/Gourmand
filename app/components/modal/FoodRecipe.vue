@@ -19,9 +19,6 @@ const {
 // get modal utils from composable
 const { showModal, closeModal } = useRecipeModal();
 
-// get utils from food details composable
-const { preptimeData } = useFoodDetails();
-
 // open the file picker on click
 function openFilePicker() {
   if (!imageInput.value) return;
@@ -51,7 +48,7 @@ function handleFile(event: Event) {
 
 // remove current chosen file and put base image instead
 function removeFile() {
-  imagePreview.value = "/assets/default_food.png";
+  imagePreview.value = "";
 }
 
 // verify form inputs
@@ -59,7 +56,7 @@ function verifyForm(): boolean {
   let isValid = true;
   formError.value = "Vous devez remplir les champs :";
 
-  if (imagePreview.value === "/assets/default_food.png") {
+  if (imagePreview.value === "") {
     isValid = false;
     formError.value += " image, ";
   }
@@ -131,6 +128,34 @@ function deleteRecipeForever() {
   deleteRecipe();
   showDeleteConfirmation.value = false;
 }
+
+/**
+ * Handle keyup event
+ *
+ * @param event {KeyboardEvent} the event triggered by keyup on keyboard
+ */
+function handleKeyup(event: KeyboardEvent) {
+  if (event.key !== "Escape") return;
+
+  // if delete confirmation is shown
+  if (showDeleteConfirmation.value) {
+    exitConfirmation();
+    return;
+  }
+
+  // leave modal is clicking on escape key
+  resetFormAndClose();
+}
+
+// register keyup event when component mounts
+onMounted(() => {
+  window.addEventListener("keyup", handleKeyup);
+});
+
+// remove keyup event when component unmounts
+onUnmounted(() => {
+  window.removeEventListener("keyup", handleKeyup);
+});
 </script>
 
 <template>
@@ -162,7 +187,7 @@ function deleteRecipeForever() {
           <button
             type="button"
             @click="deleteRecipeForever"
-            class="bg-primary-900 p-2 rounded-md text-background-900"
+            class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
           >
             Supprimer définitivement
           </button>
@@ -186,13 +211,15 @@ function deleteRecipeForever() {
             <button
               type="button"
               @click="removeFile"
-              v-if="imagePreview !== '/assets/default_food.png'"
+              v-if="imagePreview !== ''"
               class="cursor-pointer"
             >
               <IconCross class="size-5 text-secondary-900" />
             </button>
           </div>
-          <div class="relative p-2 w-full h-[20vh] xl:h-[35vh]">
+          <div
+            class="relative bg-secondary-900 p-2 rounded-lg w-full h-[20vh] xl:h-[35vh]"
+          >
             <input
               ref="imageInput"
               type="file"
@@ -202,6 +229,7 @@ function deleteRecipeForever() {
               @change="handleFile"
             />
             <NuxtImg
+              v-if="imagePreview != ''"
               :src="imagePreview"
               alt="Nourriture"
               class="absolute inset-0 shadow-[0_0_2px_0] shadow-secondary-900/50 rounded-lg w-full h-full object-cover"
@@ -209,16 +237,10 @@ function deleteRecipeForever() {
             <button
               type="button"
               @click="openFilePicker"
-              class="z-30 absolute inset-0 flex flex-col justify-center items-center space-y-1 w-full h-full text-background-900 cursor-pointer"
+              class="z-30 absolute inset-0 flex flex-col justify-center items-center space-y-1 w-full h-full text-secondary-100 cursor-pointer"
             >
-              <IconPhoto
-                v-if="imagePreview === '/assets/default_food.png'"
-                class="size-12"
-              />
-              <h3
-                v-if="imagePreview === '/assets/default_food.png'"
-                class="text-lg"
-              >
+              <IconPhoto v-if="imagePreview === ''" class="size-12" />
+              <h3 v-if="imagePreview === ''" class="text-lg">
                 Choisir une photo du plat
               </h3>
             </button>
@@ -231,7 +253,7 @@ function deleteRecipeForever() {
             type="text"
             id="name"
             placeholder="Lasagnes"
-            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-100"
+            class="bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-2 rounded-md focus-within:outline focus-within:outline-primary-900 w-full text-secondary-900 placeholder:text-secondary-500"
           />
         </section>
         <section id="form-preptime">
@@ -243,18 +265,18 @@ function deleteRecipeForever() {
         <section id="form-plates">
           <FormPlates ref-key="RecipeFood" prefix="recipe" />
         </section>
-        <h2 v-if="showError" class="text-red-700">{{ formError }}</h2>
+        <h2 v-if="showError" class="text-failure">{{ formError }}</h2>
         <div class="flex flex-row justify-between items-center">
           <button
             type="button"
             v-if="showDeleteButton"
             @click="clickDeleteRecipe"
-            class="bg-primary-900 p-2 rounded-md size-10"
+            class="outline-none cursor-pointer"
           >
-            <IconTrash class="size-6 text-background-900" />
+            <IconTrash class="size-8 text-failure" />
           </button>
           <div
-            class="flex flex-row justify-end space-x-2 w-full text-background-900"
+            class="flex flex-row justify-end space-x-2 w-full text-secondary-100"
           >
             <button
               type="button"
@@ -264,7 +286,7 @@ function deleteRecipeForever() {
               Annuler
             </button>
             <button
-              class="bg-primary-900 hover:bg-primary-500 p-2 rounded-md w-20 transition duration-300 ease-in-out cursor-pointer"
+              class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md w-20 text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
             >
               {{ buttonText }}
             </button>

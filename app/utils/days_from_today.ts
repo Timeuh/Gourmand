@@ -10,18 +10,25 @@ const daysFromToday = (date: Date | null): string => {
 
   // get today's date
   const today = new Date();
+
+  // set hours to 0 to ignore hour difference
+  today.setHours(0, 0, 0, 0);
+  date.setHours(0, 0, 0, 0);
+
   // calculate timestamps difference
   const difference = today.getTime() - date.getTime();
+
   // convert difference in a number of days by dividing with the duration of 1 day
   const dayDifference = Math.round(difference / (1000 * 3600 * 24));
 
-  // if the two dates aren't today or in the future, remove 1 day to get accurate difference
-  // e.g between 05/20 and 05/25, there's a 6 days difference but we say it's 5 days from now
-  const finalDefference =
-    dayDifference <= 0 ? dayDifference : dayDifference - 1;
+  // if today
+  if (dayDifference === 0) return "Aujourd'hui";
 
-  // return a string with the days difference
-  return `Il y a ${finalDefference} jours`;
+  // if yesterday
+  if (dayDifference === 1) return "Hier";
+
+  // return time difference
+  return `Il y a ${dayDifference} jours`;
 };
 
 export default daysFromToday;
