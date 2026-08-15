@@ -1,9 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
 
-console.log("=== IMAGE CONFIG ===");
-console.log("IMAGES_DIR:", process.env.IMAGES_DIR);
-console.log("UPLOADS_DIR:", process.env.UPLOADS_DIR);
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
@@ -17,6 +13,7 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
   },
   image: {
+    provider: "ipx",
     dir: process.env.IMAGES_DIR,
   },
   nitro: {
