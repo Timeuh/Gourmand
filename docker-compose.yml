@@ -1,0 +1,22 @@
+services:
+  app:
+    container_name: gourmand-app
+    build:
+      context: .
+      target: runner
+    env_file:
+      - .env
+    working_dir: /app
+    restart: unless-stopped
+
+  database:
+    image: postgres
+    container_name: gourmand-database
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  adminer:
+    image: adminer
+    container_name: gourmand-adminer
+    restart: unless-stopped
