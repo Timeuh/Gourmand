@@ -9,6 +9,9 @@ const { refreshCalendarDay, refreshCalendarMonth } = useCalendarUtils();
 // get the function to refresh home data
 const { refreshHome } = useEatFood();
 
+// get toast display composable
+const { displayToast } = useToast();
+
 // delete the calendar entry
 async function deleteCalendar() {
   await deleteCalendarFromDatabase();
@@ -16,6 +19,7 @@ async function deleteCalendar() {
   refreshCalendarMonth();
   refreshHome();
   closeModal();
+  displayToast("Entrée supprimée");
 }
 
 /**
