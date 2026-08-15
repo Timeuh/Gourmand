@@ -45,7 +45,7 @@ function isweekend(index: number) {
       </h2>
     </div>
     <div
-      class="grid grid-cols-7 auto-rows-fr border-secondary-100 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
+      class="grid grid-cols-7 auto-rows-fr border-secondary-500 border-t border-l rounded-md w-full h-[95%] overflow-hidden"
     >
       <div
         v-for="(day, index) in calendarDays"
@@ -53,7 +53,7 @@ function isweekend(index: number) {
           isweekend(index) ? 'bg-background-500' : '',
           isDate(day, todayDate) ? 'bg-primary-100' : '',
         ]"
-        class="flex flex-col p-2 border-secondary-100 border-r border-b w-full h-full min-h-0 overflow-hidden text-secondary-900"
+        class="flex flex-col p-2 border-secondary-500 border-r border-b w-full h-full min-h-0 overflow-hidden text-secondary-900"
       >
         <div class="flex flex-row justify-between items-center w-full shrink-0">
           <button
