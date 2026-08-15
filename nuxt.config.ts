@@ -16,6 +16,13 @@ export default defineNuxtConfig({
     provider: "ipx",
     dir: process.env.IMAGES_DIR,
   },
+  runtimeConfig: {
+    ipx: {
+      fs: {
+        dir: process.env.IMAGES_DIR,
+      },
+    },
+  },
   nitro: {
     storage: {
       uploads: {
