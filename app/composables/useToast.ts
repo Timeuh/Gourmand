@@ -19,9 +19,17 @@ export function useToast() {
     setTimeout(() => (showToast.value = false), 5000);
   }
 
+  /**
+   * Close the toast before it automatically closes
+   */
+  function closeToast() {
+    showToast.value = false;
+  }
+
   return {
     showToast,
     toastContent,
     displayToast,
+    closeToast,
   };
 }
