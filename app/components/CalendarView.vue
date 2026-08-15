@@ -29,7 +29,7 @@ function isweekend(index: number) {
 
 <template>
   <div
-    class="hidden xl:block bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full h-[85vh]"
+    class="hidden xl:flex flex-col flex-1 bg-background-900 shadow-[0_0_2px_0] shadow-secondary-900/50 p-4 rounded-xl w-full min-h-0"
   >
     <div class="grid grid-cols-7 w-full h-10">
       <h2
