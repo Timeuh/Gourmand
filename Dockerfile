@@ -28,7 +28,7 @@ RUN npm run build
 # -------------------
 # Step 3 : Runner
 # -------------------
-FROM node:22-slim AS runner
+FROM builder AS runner
 WORKDIR /app
 
 # Install runtime dependencies only
