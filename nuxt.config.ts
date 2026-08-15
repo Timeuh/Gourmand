@@ -12,4 +12,15 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
+  image: {
+    dir: process.env.IMAGES_DIR,
+  },
+  nitro: {
+    storage: {
+      uploads: {
+        driver: "fs",
+        base: process.env.UPLOADS_DIR,
+      },
+    },
+  },
 });
