@@ -45,10 +45,11 @@ RUN addgroup --system --gid 1001 nodejs \
 
 RUN chown -R nuxt:nodejs /app
 
-USER nuxt
+USER root
 
 EXPOSE 3000
 
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["node", ".output/server/index.mjs"]
 
 # -------------------
