@@ -104,7 +104,7 @@ export function useRecipeUtils() {
     try {
       // format image filename
       const filename = `${user.value?.id}_${imageFile.value?.name}`;
-      const verifyFilename = `/uploads/foods/${filename}`;
+      const verifyFilename = `/uploads/${filename}`;
 
       // if the image does not exist yet
       if (
@@ -123,7 +123,7 @@ export function useRecipeUtils() {
         });
 
         // update form food filename
-        formFood.value.image = `/uploads/foods/${filename}`;
+        formFood.value.image = `/uploads/${filename}`;
       }
 
       // if the food does not exist yet
