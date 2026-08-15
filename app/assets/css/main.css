@@ -35,6 +35,24 @@
   --secondary-100: #e9e2e9;
 }
 
+.Bleu {
+  --primary-900: #1e00b3;
+  --primary-500: #8e78ff;
+  --primary-100: #d7d3ed;
+  --secondary-900: #292445;
+  --secondary-500: #575270;
+  --secondary-100: #e2e1e8;
+}
+
+.Vert {
+  --primary-900: #00b30f;
+  --primary-500: #78ff83;
+  --primary-100: #d3edd5;
+  --secondary-900: #244527;
+  --secondary-500: #527054;
+  --secondary-100: #e1e8e2;
+}
+
 *::-webkit-scrollbar {
   width: 2px;
   height: 2px;
