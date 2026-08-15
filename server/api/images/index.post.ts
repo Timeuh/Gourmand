@@ -1,6 +1,3 @@
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
-
 // image upload endpoint
 export default defineEventHandler(async (event) => {
   try {
@@ -72,22 +69,14 @@ export default defineEventHandler(async (event) => {
       );
     }
 
-    // create the directory for storing uploaded images
-    const dir = join(process.cwd(), "public/uploads/foods");
+    // Get storage instance
+    const storage = useStorage("uploads");
 
-    // create directory if it doesn't exist
-    await mkdir(dir, {
-      recursive: true,
-    });
-
-    // create file path
-    const filepath = join(dir, filename);
-
-    // write file to disk
-    await writeFile(filepath, file.data);
+    // store file in the storage
+    await storage.setItemRaw(filename, file.data);
 
     // public url for the uploaded image
-    const url = `/uploads/foods/${filename}`;
+    const url = `/uploads/${filename}`;
 
     // return the public url of the uploaded image
     return sendJsonResponse<ImageUploadResponse>(
