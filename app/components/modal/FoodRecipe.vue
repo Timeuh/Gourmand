@@ -128,6 +128,34 @@ function deleteRecipeForever() {
   deleteRecipe();
   showDeleteConfirmation.value = false;
 }
+
+/**
+ * Handle keyup event
+ *
+ * @param event {KeyboardEvent} the event triggered by keyup on keyboard
+ */
+function handleKeyup(event: KeyboardEvent) {
+  if (event.key !== "Escape") return;
+
+  // if delete confirmation is shown
+  if (showDeleteConfirmation.value) {
+    exitConfirmation();
+    return;
+  }
+
+  // leave modal is clicking on escape key
+  resetFormAndClose();
+}
+
+// register keyup event when component mounts
+onMounted(() => {
+  window.addEventListener("keyup", handleKeyup);
+});
+
+// remove keyup event when component unmounts
+onUnmounted(() => {
+  window.removeEventListener("keyup", handleKeyup);
+});
 </script>
 
 <template>
@@ -243,7 +271,7 @@ function deleteRecipeForever() {
             type="button"
             v-if="showDeleteButton"
             @click="clickDeleteRecipe"
-            class="cursor-pointer"
+            class="outline-none cursor-pointer"
           >
             <IconTrash class="size-8 text-failure" />
           </button>

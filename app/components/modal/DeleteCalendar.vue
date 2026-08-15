@@ -17,6 +17,28 @@ async function deleteCalendar() {
   refreshHome();
   closeModal();
 }
+
+/**
+ * Handle keyup event
+ *
+ * @param event {KeyboardEvent} the event triggered by keyup on keyboard
+ */
+function handleKeyup(event: KeyboardEvent) {
+  if (event.key !== "Escape") return;
+
+  // leave modal is clicking on escape key
+  closeModal();
+}
+
+// register keyup event when component mounts
+onMounted(() => {
+  window.addEventListener("keyup", handleKeyup);
+});
+
+// remove keyup event when component unmounts
+onUnmounted(() => {
+  window.removeEventListener("keyup", handleKeyup);
+});
 </script>
 
 <template>
