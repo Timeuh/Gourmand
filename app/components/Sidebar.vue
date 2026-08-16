@@ -98,11 +98,11 @@ const { loggedIn, user } = useUserSession();
       />
       <div
         v-if="!user?.picture"
-        class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-12.5"
+        class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-12.5 shrink-0"
       >
         <IconUser class="size-6" />
       </div>
-      <h2>{{ user?.name || "Invité" }}</h2>
+      <h2>{{ user?.name || "Connectez-vous pour commencer" }}</h2>
     </div>
     <div class="bottom-2 absolute text-sm">
       <Footer />
