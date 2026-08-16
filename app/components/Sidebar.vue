@@ -91,8 +91,9 @@ const { loggedIn, user } = useUserSession();
         </div>
       </NuxtLink>
     </div>
-    <div
-      class="bottom-10 absolute flex flex-row items-center space-x-4 ps-10 w-full"
+    <NuxtLink
+      to="parameters"
+      class="bottom-10 absolute flex flex-row items-center space-x-4 ps-10 w-full cursor-pointer"
     >
       <NuxtImg
         v-if="user?.picture"
@@ -109,7 +110,7 @@ const { loggedIn, user } = useUserSession();
         <IconUser class="size-6" />
       </div>
       <h2>{{ user?.name || "Connectez-vous pour commencer" }}</h2>
-    </div>
+    </NuxtLink>
     <div class="bottom-2 absolute text-sm">
       <Footer />
     </div>

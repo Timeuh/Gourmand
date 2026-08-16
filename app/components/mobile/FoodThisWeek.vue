@@ -31,7 +31,7 @@ const props = defineProps<Props>();
         <CardPlaceHolder
           v-if="props.foods?.length == 0"
           class="size-44"
-          message="Loggez un plat pour le voir ici"
+          message="Ajoutez un plat pour le voir ici"
         />
       </div>
     </div>

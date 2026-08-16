@@ -43,8 +43,6 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nuxt
 
-RUN chown -R nuxt:nodejs /app
-
 USER root
 
 EXPOSE 3000

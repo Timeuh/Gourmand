@@ -71,7 +71,7 @@ const cardWidth = 208 + 20;
           <CardPlaceHolder
             v-if="props.foods?.length == 0"
             class="w-52 h-48"
-            message="Loggez un plat pour le voir ici"
+            message="Ajoutez un plat pour le voir ici"
           />
         </div>
       </div>
