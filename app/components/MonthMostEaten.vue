@@ -19,7 +19,7 @@ function calculatePercentage(count: number) {
   <div class="space-y-2 w-full xl:w-2/6 h-full">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">
-        📊 Les plus mangés ce mois
+        📊 Les plus dégustés ce mois
       </h2>
     </div>
     <div
