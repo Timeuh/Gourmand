@@ -9,7 +9,7 @@ services:
     working_dir: /app
     restart: unless-stopped
     volumes:
-      - gourmand_data:${IMAGES_DIR}
+      - gourmand_data:${NUXT_IPX_FS_DIR}
 
   database:
     image: postgres
