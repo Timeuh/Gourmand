@@ -29,6 +29,8 @@ export default defineEventHandler(async (event) => {
           name: user.name,
           picture: user.picture,
           month_objective: updatedUser.month_objective,
+          deletion_requested_at: updatedUser.deletion_requested_at,
+          deletion_scheduled_at: updatedUser.deletion_scheduled_at,
         },
       });
     }
