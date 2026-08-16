@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+useHead({
+  title: "Gourmand - Mentions légales",
+});
+</script>
+
 <template>
   <main
     id="legal-page"

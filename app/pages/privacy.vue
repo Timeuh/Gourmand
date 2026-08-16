@@ -1,10 +1,16 @@
+<script lang="ts" setup>
+useHead({
+  title: "Gourmand - Politique de confidentialité",
+});
+</script>
+
 <template>
   <main
     id="privacy-page"
-    class="space-y-6 bg-background-500 p-6 pb-[12vh] xl:pb-6 w-full xl:w-5/6 overflow-hidden text-secondary-900 select-none"
+    class="space-y-6 bg-background-500 p-6 pb-[12vh] xl:pb-6 w-full xl:w-5/6 xl:h-screen overflow-hidden text-secondary-900 select-none"
   >
     <article
-      class="space-y-3 bg-background-900 shadow-[0_2px_2px_0] shadow-secondary-900/50 p-3 rounded-lg xl:w-3/5"
+      class="space-y-3 bg-background-900 shadow-[0_2px_2px_0] shadow-secondary-900/50 p-3 rounded-lg xl:w-3/5 xl:max-h-full xl:overflow-auto"
     >
       <section class="space-y-1">
         <h1 class="font-bold text-xl">Politique de confidentialité</h1>
