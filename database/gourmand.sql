@@ -83,8 +83,8 @@ INSERT INTO "Theme_Color" ("theme_id", "color_id") VALUES
 (10003, 10000),
 (10003, 10001);
 
-INSERT INTO "User" ("id", "email", "theme_id") VALUES
-(10000,	'timeuh@mail.com',	10000);
+INSERT INTO "User" ("id", "email", "theme_id", "month_objective", "deletion_requested_at", "deletion_scheduled_at") VALUES
+(10000,	'timeuh@mail.com',	10000, 15, null, null);
 
 INSERT INTO "Food" ("id", "name", "image", "preptime_id", "user_id", "plates") VALUES
 (10000,	'Lasagnes',	'/uploads/10000_lasagnes.jpg',	10002,	10000, 4),
