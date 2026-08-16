@@ -11,5 +11,8 @@ const { currentThemeName } = useTheme();
     <Sidebar />
     <slot />
     <Toast />
+    <div class="xl:hidden pb-24 w-full">
+      <Footer />
+    </div>
   </main>
 </template>

@@ -104,5 +104,8 @@ const { loggedIn, user } = useUserSession();
       </div>
       <h2>{{ user?.name || "Invité" }}</h2>
     </div>
+    <div class="bottom-2 absolute text-sm">
+      <Footer />
+    </div>
   </nav>
 </template>

@@ -65,7 +65,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 pb-[12vh] xl:pb-0 w-full xl:w-5/6 min-h-screen overflow-hidden select-none"
+    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 xl:pb-0 w-full xl:w-5/6 min-h-screen overflow-hidden select-none"
   >
     <ModalFoodRecipe />
     <section id="first-row" class="flex flex-row justify-between w-full">
