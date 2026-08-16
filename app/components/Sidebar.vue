@@ -71,7 +71,13 @@ const { loggedIn, user } = useUserSession();
           <h3>Calendrier</h3>
         </div>
       </NuxtLink>
-      <NuxtLink to="/parameters" class="w-full h-12">
+      <NuxtLink
+        to="/parameters"
+        class="w-full h-12"
+        :class="{
+          'opacity-50 cursor-not-allowed': !loggedIn,
+        }"
+      >
         <div
           class="flex flex-row items-center space-x-3 p-2 rounded-xl h-full transition-all duration-500 ease-in-out"
           :class="
