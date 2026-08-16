@@ -11,6 +11,15 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    // format food image name for storage deletion
+    const filename = deletedFood.image.split("/uploads/")[1];
+
+    // Get storage instance
+    const storage = useStorage("uploads");
+
+    // store file in the storage
+    await storage.removeItem(filename || "");
+
     // return the deleted food
     return sendJsonResponse<Food>(deletedFood, HTTP_OK);
   } catch (error) {
