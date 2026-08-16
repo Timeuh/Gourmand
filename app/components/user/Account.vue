@@ -45,13 +45,15 @@ const { user, loggedIn, clear } = useUserSession();
     >
       <div class="flex flex-row items-center space-x-4 w-full">
         <div
-          class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-24"
+          class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-24 shrink-0"
         >
           <IconUser class="size-10" />
         </div>
-        <div>
-          <h3 class="font-bold">Invité</h3>
-          <h4 class="text-md text-secondary-500">john.doe@mail.com</h4>
+        <div class="xl:max-w-4/6">
+          <h3 class="font-bold">Vous n'êtes pas connecté</h3>
+          <h4 class="text-md text-secondary-500">
+            Connectez-vous pour commencer
+          </h4>
         </div>
       </div>
       <a
