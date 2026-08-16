@@ -5,7 +5,7 @@ useHead({
 });
 // prevent access to this page if the user is not logged in
 definePageMeta({
-  middleware: ["authenticated"],
+  middleware: ["authenticated", "account-not-deleted"],
 });
 
 // get the user session
