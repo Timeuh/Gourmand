@@ -12,10 +12,6 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
-  image: {
-    provider: "ipx",
-    dir: process.env.IMAGES_DIR,
-  },
   nitro: {
     storage: {
       uploads: {
