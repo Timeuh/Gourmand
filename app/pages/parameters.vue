@@ -2,6 +2,9 @@
 useHead({
   title: "Gourmand - Paramètres",
 });
+definePageMeta({
+  middleware: ["authenticated"],
+});
 </script>
 
 <template>
