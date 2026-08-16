@@ -71,7 +71,13 @@ const { loggedIn, user } = useUserSession();
           <h3>Calendrier</h3>
         </div>
       </NuxtLink>
-      <NuxtLink to="/parameters" class="w-full h-12">
+      <NuxtLink
+        to="/parameters"
+        class="w-full h-12"
+        :class="{
+          'opacity-50 cursor-not-allowed': !loggedIn,
+        }"
+      >
         <div
           class="flex flex-row items-center space-x-3 p-2 rounded-xl h-full transition-all duration-500 ease-in-out"
           :class="
@@ -98,11 +104,14 @@ const { loggedIn, user } = useUserSession();
       />
       <div
         v-if="!user?.picture"
-        class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-12.5"
+        class="flex flex-col justify-center items-center bg-background-500 shadow-[0_2px_4px_0] shadow-secondary-900/50 rounded-full size-12.5 shrink-0"
       >
         <IconUser class="size-6" />
       </div>
-      <h2>{{ user?.name || "Invité" }}</h2>
+      <h2>{{ user?.name || "Connectez-vous pour commencer" }}</h2>
+    </div>
+    <div class="bottom-2 absolute text-sm">
+      <Footer />
     </div>
   </nav>
 </template>

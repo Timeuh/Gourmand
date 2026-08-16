@@ -12,7 +12,7 @@ const props = defineProps<Props>();
   <div class="xl:hidden flex flex-col items-center space-y-4">
     <div class="flex flex-row justify-between items-center w-full">
       <h2 class="font-bold text-secondary-900 text-lg">
-        🕔 Les derniers plats
+        🕔 Mes derniers plats
       </h2>
       <NuxtLink
         to="/calendar"

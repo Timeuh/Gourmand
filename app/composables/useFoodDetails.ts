@@ -48,7 +48,10 @@ export function useFoodDetails() {
         return "🧂 ASSAISONNEMENT";
 
       case 10004:
-        return "🍟 ACCOMPAGNEMENT";
+        return "🥛 PRODUITS LAITIERS";
+
+      case 10005:
+        return "🍟 AUTRES";
 
       default:
         return "";
