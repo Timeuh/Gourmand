@@ -3,7 +3,7 @@ useHead({
   title: "Gourmand - Plats",
 });
 definePageMeta({
-  middleware: ["authenticated"],
+  middleware: ["authenticated", "account-not-deleted"],
 });
 
 // fetch all foods

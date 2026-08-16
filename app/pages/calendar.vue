@@ -3,7 +3,7 @@ useHead({
   title: "Gourmand - Calendrier",
 });
 definePageMeta({
-  middleware: ["authenticated"],
+  middleware: ["authenticated", "account-not-deleted"],
 });
 
 // get calendar utils from composable
