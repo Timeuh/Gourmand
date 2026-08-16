@@ -3,12 +3,12 @@
 const { data, currentTheme, updateTheme } = useTheme();
 
 // get user session utils
-const { loggedIn } = useUserSession();
+const { loggedIn, user } = useUserSession();
 </script>
 
 <template>
   <section
-    v-if="loggedIn"
+    v-if="loggedIn && user?.deletion_requested_at == null"
     class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 px-8 py-6 rounded-xl w-full xl:w-1/2 text-secondary-900"
   >
     <div class="text-center">
