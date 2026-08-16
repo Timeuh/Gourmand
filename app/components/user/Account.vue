@@ -1,5 +1,11 @@
 <script lang="ts" setup>
 const { user, loggedIn, clear } = useUserSession();
+
+// logout and refresh session
+function logout() {
+  clear();
+  navigateTo("login");
+}
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const { user, loggedIn, clear } = useUserSession();
           <h4 class="text-lg">Changer de compte</h4>
         </a>
         <button
-          @click="clear"
+          @click="logout"
           class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
         >
           <IconDisconnect class="size-6" />
