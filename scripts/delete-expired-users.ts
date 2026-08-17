@@ -21,6 +21,11 @@ async function main() {
 
   // delete all foods images relative to users to delete
   for (const food of foods) {
+    console.log("[account-deletion] Food image:", food.image);
+    console.log(
+      "[account-deletion] Food image deletion path:",
+      "../../.data" + food.image,
+    );
     if (!food.image) continue;
 
     try {
