@@ -45,9 +45,22 @@ COPY package.json package-lock.json* ./
 
 RUN npm ci --omit=dev
 
+# -------------------
+# Step 4 : Migration
+# -------------------
+FROM base AS migration
+
+WORKDIR /app
+
+COPY . .
+
+RUN npx prisma generate
+
+CMD ["npx", "prisma", "migrate", "deploy"]
+
 
 # -------------------
-# Step 4 : Runner
+# Step 5 : Runner
 # -------------------
 FROM node:22-slim AS runner
 
@@ -87,7 +100,7 @@ CMD ["node", ".output/server/index.mjs"]
 
 
 # -------------------
-# Step 5 : Development
+# Step 6 : Development
 # -------------------
 FROM node:22-slim AS dev
 
