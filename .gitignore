@@ -25,7 +25,6 @@ logs
 
 # Prisma
 /app/generated/prisma
-/prisma/migrations
 
 # user images
 /public/uploads
