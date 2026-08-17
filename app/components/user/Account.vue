@@ -5,10 +5,48 @@ const { user, loggedIn, clear } = useUserSession();
 // get account deletion utils from composable
 const { deleteAccount, retrieveAccount } = useAccountDeletion();
 
+// if the delete confirmation interface should show or not
+const showDeleteConfirmation = ref<boolean>(false);
+
+// if the delete confirmation interface should show or not
+const showRetrieveConfirmation = ref<boolean>(false);
+
 // logout and refresh session
 async function logout() {
   await navigateTo("login");
   clear();
+}
+
+// display deletion confirmation interface
+function displayDeleteConfirmation() {
+  showDeleteConfirmation.value = true;
+}
+
+// hide deletion confirmation interface
+function exitConfirmation() {
+  showDeleteConfirmation.value = false;
+}
+
+// display retrieve confirmation interface
+function displayRetrieveConfirmation() {
+  showRetrieveConfirmation.value = true;
+}
+
+// hide retrieve confirmation interface
+function exitRetrieveConfirmation() {
+  showRetrieveConfirmation.value = false;
+}
+
+// deactivate account and hide confirmation interface
+async function deactivateAccount() {
+  await deleteAccount();
+  exitConfirmation();
+}
+
+// reactivate account and hide confirmation interface
+async function reactivateAccount() {
+  await retrieveAccount();
+  exitRetrieveConfirmation();
 }
 </script>
 
@@ -16,6 +54,66 @@ async function logout() {
   <section
     class="flex flex-col items-center space-y-4 bg-background-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 px-8 py-6 rounded-xl w-full xl:w-1/2 xl:min-h-[24vh] text-secondary-900"
   >
+    <div
+      id="delete-confirmation"
+      :class="
+        showDeleteConfirmation ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      "
+      class="z-40 absolute inset-0 flex flex-col justify-center items-center bg-black/50 h-full transition duration-300 ease-in-out"
+    >
+      <div
+        class="relative flex flex-col items-center space-y-2 bg-background-900 p-2 rounded-md w-4/5 xl:w-1/3 text-secondary-900"
+      >
+        <div class="flex flex-row justify-end items-center w-full">
+          <button type="button" @click="exitConfirmation">
+            <IconCross class="size-5 text-primary-900" />
+          </button>
+        </div>
+        <h2 class="font-bold text-xl text-center">
+          Vous êtes sur le point de désactiver votre compte
+        </h2>
+        <p class="text-center">
+          Vous pourrez toujours le réactiver pendant les 30 prochains jours, il
+          sera ensuite définitivement supprimé !
+        </p>
+        <button
+          type="button"
+          @click="deactivateAccount"
+          class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+        >
+          Désactiver le compte
+        </button>
+      </div>
+    </div>
+    <div
+      id="retrieve-confirmation"
+      :class="
+        showRetrieveConfirmation
+          ? 'opacity-100'
+          : 'opacity-0 pointer-events-none'
+      "
+      class="z-40 absolute inset-0 flex flex-col justify-center items-center bg-black/50 h-full transition duration-300 ease-in-out"
+    >
+      <div
+        class="relative flex flex-col items-center space-y-2 bg-background-900 p-2 rounded-md w-4/5 xl:w-1/3 text-secondary-900"
+      >
+        <div class="flex flex-row justify-end items-center w-full">
+          <button type="button" @click="exitRetrieveConfirmation">
+            <IconCross class="size-5 text-primary-900" />
+          </button>
+        </div>
+        <h2 class="font-bold text-xl text-center">
+          Vous êtes sur le point de réactiver votre compte
+        </h2>
+        <button
+          type="button"
+          @click="reactivateAccount"
+          class="bg-primary-900 hover:bg-primary-100 p-2 rounded-md text-primary-100 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+        >
+          Réactiver le compte
+        </button>
+      </div>
+    </div>
     <h2 class="font-bold text-2xl">Compte</h2>
     <section
       v-if="loggedIn"
@@ -42,7 +140,7 @@ async function logout() {
         </button>
         <button
           v-if="user?.deletion_requested_at == null"
-          @click="deleteAccount"
+          @click="displayDeleteConfirmation"
           class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
         >
           <IconTrash class="size-6" />
@@ -50,7 +148,7 @@ async function logout() {
         </button>
         <button
           v-else
-          @click="retrieveAccount"
+          @click="displayRetrieveConfirmation"
           class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
         >
           <IconSwitchAccount class="size-6" />
