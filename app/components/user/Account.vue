@@ -41,6 +41,7 @@ function exitRetrieveConfirmation() {
 async function deactivateAccount() {
   await deleteAccount();
   exitConfirmation();
+  logout();
 }
 
 // reactivate account and hide confirmation interface
