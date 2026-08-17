@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+// get user session utils
 const { user, loggedIn, clear } = useUserSession();
 
+// get account deletion utils from composable
+const { deleteAccount, retrieveAccount } = useAccountDeletion();
+
 // logout and refresh session
-function logout() {
+async function logout() {
+  await navigateTo("login");
   clear();
-  navigateTo("login");
 }
 </script>
 
@@ -29,19 +33,28 @@ function logout() {
         </div>
       </div>
       <div class="flex flex-col items-center space-y-4 w-full text-center">
-        <a
-          href="/api/auth/google"
-          class="flex flex-row justify-center items-center space-x-2 bg-secondary-100 hover:bg-secondary-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 hover:text-background-900 transition duration-300 ease-in-out"
-        >
-          <IconSwitchAccount class="size-6" />
-          <h4 class="text-lg">Changer de compte</h4>
-        </a>
         <button
           @click="logout"
-          class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+          class="flex flex-row justify-center items-center space-x-2 bg-secondary-100 hover:bg-secondary-900 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 hover:text-background-900 transition duration-300 ease-in-out"
         >
           <IconDisconnect class="size-6" />
           <h4 class="text-lg">Se déconnecter</h4>
+        </button>
+        <button
+          v-if="user?.deletion_requested_at == null"
+          @click="deleteAccount"
+          class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+        >
+          <IconTrash class="size-6" />
+          <h4 class="text-lg">Supprimer le compte</h4>
+        </button>
+        <button
+          v-else
+          @click="retrieveAccount"
+          class="flex flex-row justify-center items-center space-x-2 bg-primary-900 hover:bg-primary-100 shadow-[0_1px_2px_0] shadow-secondary-900/50 rounded-xl w-full h-12 text-background-900 hover:text-primary-900 transition duration-300 ease-in-out cursor-pointer"
+        >
+          <IconSwitchAccount class="size-6" />
+          <h4 class="text-lg">Réactiver le compte</h4>
         </button>
       </div>
     </section>
