@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
     // if user session exists, set updated data into the session
     if (user) {
-      await setUserSession(event, {
+      await replaceUserSession(event, {
         user: {
           id: updatedUser.id,
           email: updatedUser.email,
