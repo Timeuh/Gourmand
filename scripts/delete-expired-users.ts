@@ -1,5 +1,5 @@
 import { unlink } from "node:fs/promises";
-import { prisma } from "../server/utils/db";
+import { prisma } from "./db.js";
 
 async function main() {
   // set today's date
