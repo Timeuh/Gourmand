@@ -19,6 +19,8 @@ export default defineOAuthGoogleEventHandler({
             name: user.given_name || user.name,
             picture: user.picture,
             month_objective: existingUser.month_objective,
+            deletion_requested_at: existingUser.deletion_requested_at,
+            deletion_scheduled_at: existingUser.deletion_scheduled_at,
           },
         });
 
@@ -30,7 +32,6 @@ export default defineOAuthGoogleEventHandler({
         data: {
           email: user.email,
           theme_id: 10000,
-          month_objective: 15,
         },
       });
 
@@ -43,6 +44,8 @@ export default defineOAuthGoogleEventHandler({
           name: user.given_name || user.name,
           picture: user.picture,
           month_objective: newUser.month_objective,
+          deletion_requested_at: newUser.deletion_requested_at,
+          deletion_scheduled_at: newUser.deletion_scheduled_at,
         },
       });
 

@@ -6,6 +6,8 @@ declare module "#auth-utils" {
     name: string;
     picture: string;
     month_objective: number;
+    deletion_requested_at: Date | null;
+    deletion_scheduled_at: Date | null;
   }
 }
 

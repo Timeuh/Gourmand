@@ -9,6 +9,16 @@ const USER_SCHEMA = vine.object({
   email: vine.string().email(),
   theme_id: vine.number(),
   month_objective: vine.number(),
+  deletion_requested_at: vine
+    .date({
+      formats: ["iso8601"],
+    })
+    .nullable(),
+  deletion_scheduled_at: vine
+    .date({
+      formats: ["iso8601"],
+    })
+    .nullable(),
 });
 
 const USER_CREATE_SCHEMA = vine.object({
@@ -20,6 +30,16 @@ const USER_UPDATE_SCHEMA = vine.object({
   email: vine.string().email(),
   theme_id: vine.number(),
   month_objective: vine.number(),
+  deletion_requested_at: vine
+    .date({
+      formats: ["iso8601"],
+    })
+    .nullable(),
+  deletion_scheduled_at: vine
+    .date({
+      formats: ["iso8601"],
+    })
+    .nullable(),
 });
 
 /* -------------------------------------------------------------------------- */

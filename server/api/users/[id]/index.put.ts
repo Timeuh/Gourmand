@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
     // if user session exists, set updated data into the session
     if (user) {
-      await setUserSession(event, {
+      await replaceUserSession(event, {
         user: {
           id: updatedUser.id,
           email: updatedUser.email,
@@ -29,6 +29,8 @@ export default defineEventHandler(async (event) => {
           name: user.name,
           picture: user.picture,
           month_objective: updatedUser.month_objective,
+          deletion_requested_at: updatedUser.deletion_requested_at,
+          deletion_scheduled_at: updatedUser.deletion_scheduled_at,
         },
       });
     }
