@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && npm run build:worker",
     "build:worker": "tsc -p tsconfig.worker.json",
     "delete-expired-users": "node .build/worker/delete-expired-users.js",
     "dev": "nuxt dev",

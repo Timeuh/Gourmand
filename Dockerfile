@@ -54,9 +54,7 @@ FROM node:22-slim AS runner
 WORKDIR /app
 
 RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
-    openssl \
-    su \
+  && apt-get install -y --no-install-recommends openssl \
   && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
