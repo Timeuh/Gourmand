@@ -24,7 +24,7 @@ async function main() {
     if (!food.image) continue;
 
     try {
-      await unlink(food.image);
+      await unlink("../../.data" + food.image);
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
         throw error;
