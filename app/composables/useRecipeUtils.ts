@@ -181,10 +181,18 @@ export function useRecipeUtils() {
       closeModal();
       setTimeout(() => clearForm(), 500);
     } catch (error) {
-      // display error to user
-      console.error(error);
       formError.value =
         "Erreur lors de la création ou modification, veuillez réessayer";
+
+      // cast error as api error
+      const apiError = (error as { data: ApiError }).data;
+
+      // If the error is a non-unique food name
+      if (apiError.error.message === "Duplicate error") {
+        formError.value =
+          "Vous avez déjà un plat de ce nom, modifiez le nom pour créer le plat";
+      }
+
       showError.value = true;
     }
   }
