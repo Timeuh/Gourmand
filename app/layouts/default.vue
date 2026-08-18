@@ -4,7 +4,7 @@ const { currentThemeName } = useTheme();
 
 <template>
   <main
-    class="xl:flex flex-row min-w-full min-h-screen"
+    class="xl:flex flex-row min-w-full xl:h-screen min-h-screen"
     :class="currentThemeName"
   >
     <Navbar />

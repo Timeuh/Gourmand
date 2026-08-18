@@ -65,7 +65,7 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
 
 <template>
   <div
-    class="space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 xl:pb-0 w-full xl:w-5/6 min-h-screen overflow-hidden select-none"
+    class="xl:flex flex-col space-y-6 bg-background-500 xl:p-12 px-6 py-8 xl:pt-4 xl:pb-4 w-full xl:w-5/6 min-h-screen overflow-hidden select-none"
   >
     <ModalFoodRecipe />
     <section id="first-row" class="flex flex-row justify-between w-full">
@@ -88,19 +88,19 @@ const foodsToDisplay: ComputedRef<FullFood[] | undefined> = computed(() => {
     </section>
     <section
       id="second-row"
-      class="xl:flex flex-row-reverse justify-between items-start space-y-3 xl:h-[88vh]"
+      class="xl:flex flex-row-reverse xl:flex-1 justify-between items-start xl:gap-x-4 space-y-3 min-h-0"
     >
       <div
-        class="relative flex flex-row xl:flex-col justify-between items-center xl:space-x-0 px-2 xl:px-0 xl:w-1/3 xl:h-full"
+        class="relative flex flex-row xl:flex-col items-center xl:space-x-0 xl:space-y-2 px-2 xl:px-0 xl:w-1/3 xl:h-full"
       >
         <SearchBar :ref-key="'FoodsSearch'" />
         <MobileFoodsFilter />
-        <div class="hidden xl:block h-[92%]">
+        <div class="hidden xl:block flex-1 min-h-0">
           <FoodsAdvancedFilters />
         </div>
       </div>
       <div
-        class="content-start gap-3 grid grid-cols-2 xl:grid-cols-4 px-2 pb-2 w-full xl:w-[65%] xl:h-full overflow-auto"
+        class="xl:flex-1 content-start gap-3 grid grid-cols-2 xl:grid-cols-4 xl:p-0 px-2 pb-2 w-full xl:h-full overflow-auto"
       >
         <CardFood
           v-for="food in foodsToDisplay"
