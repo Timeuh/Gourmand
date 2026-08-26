@@ -48,8 +48,8 @@ services:
     image: adminer
     container_name: gourmand-adminer
     restart: unless-stopped
-  networks:
-    - gourmand-network
+    networks:
+      - gourmand-network
 
 volumes:
   gourmand_data:
