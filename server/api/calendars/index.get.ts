@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
 
     // end of the month to check
-    const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+    const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 1);
 
     // get user from session
     const { user } = await getUserSession(event);
