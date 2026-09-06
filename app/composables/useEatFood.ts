@@ -27,8 +27,9 @@ export function useEatFood() {
    * Make current user register food in their calendar
    *
    * @param foodId {number | undefined} : the id of the food to it
+   * @param useToday {boolean} : whether to use today's date
    */
-  async function eatFood(foodId: number | undefined) {
+  async function eatFood(foodId: number | undefined, useToday: boolean) {
     // only continue if the user is logged and provides a food id
     if (!foodId || !loggedIn.value) return;
 
@@ -37,7 +38,9 @@ export function useEatFood() {
       await $fetch("/api/calendars", {
         method: "POST",
         body: {
-          date: modalDate.value.toISOString(),
+          date: useToday
+            ? new Date().toISOString()
+            : modalDate.value.toISOString(),
           food_id: foodId,
           user_id: user.value?.id,
         },
