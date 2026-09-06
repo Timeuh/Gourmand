@@ -3,6 +3,7 @@
 interface Props {
   cardFood: OldestFood;
   class: string;
+  useToday: boolean;
 }
 
 // register props
@@ -38,7 +39,7 @@ const lastEaten = computed(() => {
           </h4>
         </div>
         <button
-          @click="eatFood(props.cardFood.food?.id)"
+          @click="eatFood(props.cardFood.food?.id, props.useToday)"
           class="flex flex-col justify-center items-center bg-background-900 rounded-full size-7 cursor-pointer shrink-0"
         >
           <IconPlus class="size-6 text-primary-900" />

@@ -82,6 +82,7 @@ onUnmounted(() => {
           v-for="food in foodsToDisplay"
           :key="food.food?.id"
           :card-food="food"
+          :use-today="false"
           class="h-40"
         />
       </div>

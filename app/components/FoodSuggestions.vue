@@ -24,6 +24,7 @@ const props = defineProps<Props>();
         v-for="food in props.foods"
         :key="food.food?.id"
         :card-food="food"
+        :use-today="true"
         class="h-44"
       />
       <CardPlaceHolder

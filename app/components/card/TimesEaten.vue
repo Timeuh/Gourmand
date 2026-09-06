@@ -27,7 +27,7 @@ const { eatFood } = useEatFood();
           </h4>
         </div>
         <button
-          @click="eatFood(props.cardFood.food?.id)"
+          @click="eatFood(props.cardFood.food?.id, true)"
           class="flex flex-col justify-center items-center bg-primary-900 rounded-full size-7 cursor-pointer shrink-0"
         >
           <IconPlus class="size-6 text-background-900" />
