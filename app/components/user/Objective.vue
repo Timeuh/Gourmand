@@ -32,6 +32,8 @@ async function updateObjective() {
       email: user.value?.email,
       theme_id: user.value?.theme_id,
       month_objective: currentObjective.value,
+      deletion_requested_at: null,
+      deletion_scheduled_at: null,
     },
   });
 

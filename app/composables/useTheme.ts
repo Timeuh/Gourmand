@@ -38,6 +38,8 @@ export function useTheme() {
         email: user.value?.email,
         theme_id: currentTheme.value,
         month_objective: user.value?.month_objective,
+        deletion_requested_at: null,
+        deletion_scheduled_at: null,
       },
     });
 
