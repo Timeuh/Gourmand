@@ -6,6 +6,9 @@ export function useLogModal() {
   // if the log modal is displayed or not
   const modalDate = useState<Date>("LogModalDate", () => new Date());
 
+  // search input value
+  const search = useState<string>("ModalSearch", () => "");
+
   /**
    * Open the log modal with the given date
    *
@@ -21,10 +24,17 @@ export function useLogModal() {
     showModal.value = false;
   }
 
+  // clear the search string value
+  function clearSearch() {
+    search.value = "";
+  }
+
   return {
     showModal,
     modalDate,
     openModal,
     closeModal,
+    search,
+    clearSearch,
   };
 }

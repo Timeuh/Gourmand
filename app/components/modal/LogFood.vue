@@ -1,15 +1,12 @@
 <script setup lang="ts">
 // get modal utils from composable
-const { showModal, closeModal } = useLogModal();
+const { showModal, closeModal, search, clearSearch } = useLogModal();
 
 // fetch all foods
 const { data } = useFetch<ApiCollection<OldestFood>>(
   "/api/foods?lastEaten=true",
   { key: "LogModal" },
 );
-
-// search input value
-const search = useState<string>("ModalSearch", () => "");
 
 // foods filtered by search value
 const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
@@ -18,11 +15,6 @@ const foodsToDisplay: ComputedRef<OldestFood[] | undefined> = computed(() => {
     food.food?.name.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
-
-// clear the search string value
-function clearSearch() {
-  search.value = "";
-}
 
 // clear search and close modal
 function exitModal() {
