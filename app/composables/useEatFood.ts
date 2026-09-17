@@ -1,7 +1,7 @@
 // composable to add a food to foods eaten today
 export function useEatFood() {
   // get log modal utils
-  const { closeModal, modalDate } = useLogModal();
+  const { closeModal, modalDate, clearSearch } = useLogModal();
 
   // get toast display method
   const { displayToast } = useToast();
@@ -51,6 +51,7 @@ export function useEatFood() {
       refreshFoods();
       refreshCalendarDay();
       refreshCalendarMonth();
+      clearSearch();
       closeModal();
 
       // display a toast to tell user the food has been added
