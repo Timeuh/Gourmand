@@ -111,6 +111,14 @@ export function useRecipeUtils() {
         verifyFilename !== formFood.value.image &&
         imageFile.value !== undefined
       ) {
+        // remove the old image from storage if it exists
+        await $fetch("/api/images", {
+          method: "DELETE",
+          body: {
+            filename: formFood.value.image,
+          },
+        });
+
         // create form data for image api creation
         const imageForm = new FormData();
         imageForm.append("filename", filename);
