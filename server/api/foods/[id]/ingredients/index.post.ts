@@ -5,7 +5,6 @@ export default defineEventHandler(async (event) => {
     const foodId = Number(getRouterParam(event, "id"));
     // read the request body and validate its data
     const ingredientIds = await readBody<number[]>(event);
-    console.log(JSON.stringify(ingredientIds));
 
     // get existing ingredients
     const existingLinks = await prisma.food_Ingredient.findMany({

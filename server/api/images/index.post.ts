@@ -69,11 +69,14 @@ export default defineEventHandler(async (event) => {
       );
     }
 
+    // convert the image to webp format
+    const convertedImage = await convertToWepb(file.data);
+
     // Get storage instance
     const storage = useStorage("uploads");
 
     // store file in the storage
-    await storage.setItemRaw(filename, file.data);
+    await storage.setItemRaw(filename, convertedImage);
 
     // public url for the uploaded image
     const url = `/uploads/${filename}`;
