@@ -34,6 +34,9 @@ function calculatePercentage(count: number) {
         <NuxtImg
           :src="food.food?.image"
           :alt="food.food?.name"
+          sizes="sm:100vw md:50vw lg:33vw"
+          loading="lazy"
+          decoding="async"
           class="rounded-xl size-20 xl:size-14 object-cover"
         />
         <div class="space-y-2 min-w-[55%]">

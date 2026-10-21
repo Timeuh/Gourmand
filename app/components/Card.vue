@@ -31,6 +31,9 @@ const props = withDefaults(defineProps<Props>(), {
     <NuxtImg
       :src="props.cardFood.food?.image"
       :alt="props.cardFood.food?.name"
+      sizes="sm:100vw md:50vw lg:33vw"
+      loading="lazy"
+      decoding="async"
       class="w-full h-full object-cover"
     />
     <div

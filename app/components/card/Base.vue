@@ -23,6 +23,9 @@ const hasImage: boolean = props.food?.image != "";
       v-if="hasImage"
       :src="props.food?.image"
       :alt="props.food?.name"
+      sizes="sm:100vw md:50vw lg:33vw"
+      loading="lazy"
+      decoding="async"
       class="w-full h-full object-cover"
     />
     <slot name="overlay" />
