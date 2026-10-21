@@ -90,6 +90,9 @@ function isweekend(index: number) {
                 <NuxtImg
                   :src="calendar.food.image"
                   :alt="calendar.food.name"
+                  sizes="sm:100vw md:50vw lg:33vw"
+                  loading="lazy"
+                  decoding="async"
                   class="rounded-md size-10 object-cover"
                 />
                 <h3 class="font-bold text-secondary-900 text-xs">

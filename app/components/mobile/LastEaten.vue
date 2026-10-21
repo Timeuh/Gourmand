@@ -56,6 +56,9 @@ const props = defineProps<Props>();
               <NuxtImg
                 :src="weekFood.food.image"
                 :alt="weekFood.food.name"
+                sizes="sm:100vw md:50vw lg:33vw"
+                loading="lazy"
+                decoding="async"
                 class="rounded-full size-7 object-cover shrink-0"
               />
               <h4 class="text-nowrap shrink-0">{{ weekFood.food.name }}</h4>
